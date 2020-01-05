@@ -18,7 +18,7 @@ for i=1:1:length(message)
 end
 t3=bit_period/99:bit_period/99:bit_period*length(x);
 subplot(3,1,2);
-plot(t3,m);
+plot(t3,m); %psk한 후 개수 맞춰서 가우시안 잡음 생성하기
 xlabel('time(sec)');
 ylabel('amplitude(volt)');
 title('waveform for binary PSK modulation coresponding binary information');
