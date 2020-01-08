@@ -26,12 +26,15 @@ ylabel('amplitude(volt)');
 title('waveform for binary PSK modulation coresponding binary information');
 
 % (2) Gaussian_noise
-noise_0dB = 0 + sqrt(N_0dB)*randn(1,n);           % white_gaussian_noise(mean = 0, var = N_0dB)
-noise_20dB = 0 + sqrt(N_20dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_20dB)
-noise_40dB = 0 + sqrt(N_40dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_40dB)
+% noise_0dB = 0 + sqrt(N_0dB)*randn(1,n);           % white_gaussian_noise(mean = 0, var = N_0dB)
+% noise_20dB = 0 + sqrt(N_20dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_20dB)
+% noise_40dB = 0 + sqrt(N_40dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_40dB)
 
 % (3) A combination of noise and modulation
-PSK_noise = awgn(PSK,0);
+noise =0.2*rand(1,990);      % 잡음 생성
+PSK_noise = PSK + noise;     % PSK 변조에 잡음 추가
 subplot(3,1,2);
 plot(t2,PSK_noise);
 title('waveform for binary PSK modulation and noise');
+
+
