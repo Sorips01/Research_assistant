@@ -5,6 +5,8 @@ bit_period=.000001;
 A=5;                                          % Amplitude of carrier signal 
 bit_rate=1/bit_period;                        % bit rate
 f=bit_rate*2;                                 % carrier frequency(왜 x2?)                               
+t1=bit_period/99:bit_period/99:bit_period;    % 그래프를 그리기 위해 시간 간격 설정             
+ss=length(t1); 
 
 PSK=[];
 for i=1:1:length(message)
@@ -36,16 +38,14 @@ plot(t2,PSK_noise);
 title('waveform for binary PSK modulation and noise');
 
 % (4) Binary PSK demodulation
-t1=bit_period/99:bit_period/99:bit_period;    % 복조 그래프를 그리기 위해 시간 간격 설정             
-ss=length(t1); 
 PSK_demodulation=[];
-for n=ss:ss:length(message)
-  t=bit_period/99:bit_period/99:bit_period;
-  y=cos(2*pi*f*t);                                        % carrier siignal 
-  mm=y.*message((n-(ss-1)):n); %??
-  z=trapz(t,mm)                                              % intregation 
-  zz=round((2*z/bit_period))                                     
-  if(zz>0)                                        % logic level = (A+A)/2=0 
+for n=ss:ss:length(PSK_noise)
+  t3=bit_period/99:bit_period/99:bit_period;
+  y=cos(2*pi*f*t3);                                        % carrier signal 
+  section=y.*PSK_noise((n-(ss-1)):n); % n번째 구간 지정
+  integration = trapz(t3,section);                         % 사다리꼴 적분 
+  value=round((2*integration/bit_period));                                     
+  if(value>0)                                     % logic level = (A+A)/2=0 
                          %becouse A*cos(2*pi*f*t+pi) means -A*cos(2*pi*f*t)
     a=1;
   else
@@ -56,5 +56,15 @@ end
 disp(' Binary information at Reciver :');
 disp(PSK_demodulation);
 
+% (5) BER 측정
+count=0;
+for i=1:1:length(message)
+    if(message(1,i) ~= PSK_demodulation(1,i)) % 복조한 값이 다르면 에러 발생
+        count=count+1;
+    end
+end
+BER=count/length(message);
+disp(' BER :');
+disp(BER);
 
 
