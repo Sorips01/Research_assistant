@@ -4,9 +4,9 @@ message=randi([0,1],1,10);                    % 랜덤하게 10개 Binary 숫자 생성
 bit_period=.000001;
 A=5;                                          % Amplitude of carrier signal 
 bit_rate=1/bit_period;                        % bit rate
-f=bit_rate*2;                                 % carrier frequency(왜 x2?)
+f=bit_rate*2;                                 % carrier frequency(왜 x2?)                               
 t1=bit_period/99:bit_period/99:bit_period;    % 그래프를 그리기 위해 시간 간격 설정             
-ss=length(t1);                                % ??
+ss=length(t1); 
 
 PSK=[];
 for i=1:1:length(message)
@@ -20,7 +20,7 @@ end
 
 t2=bit_period/99:bit_period/99:bit_period*length(message);
 subplot(3,1,1);
-plot(t2,PSK); %psk한 후 개수 맞춰서 가우시안 잡음 생성하기
+plot(t2,PSK);
 xlabel('time(sec)');
 ylabel('amplitude(volt)');
 title('waveform for binary PSK modulation coresponding binary information');
@@ -36,5 +36,25 @@ PSK_noise = PSK + noise;     % PSK 변조에 잡음 추가
 subplot(3,1,2);
 plot(t2,PSK_noise);
 title('waveform for binary PSK modulation and noise');
+
+% (4) Binary PSK demodulation
+PSK_demodulation=[];
+for n=ss:ss:length(message)
+  t=bit_period/99:bit_period/99:bit_period;
+  y=cos(2*pi*f*t);                                        % carrier signal 
+  mm=y.*message((n-(ss-1)):n); %??
+  integration = trapz(t,mm);                              % 사다리꼴 적분 
+  value=round((2*integration/bit_period));                                     
+  if(value>0)                                        % logic level = (A+A)/2=0 
+                         %becouse A*cos(2*pi*f*t+pi) means -A*cos(2*pi*f*t)
+    a=1;
+  else
+    a=0;
+  end
+  PSK_demodulation=[PSK_demodulation a];
+end
+disp(' Binary information at Reciver :');
+disp(PSK_demodulation);
+
 
 
