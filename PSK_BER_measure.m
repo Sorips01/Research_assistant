@@ -1,3 +1,6 @@
+clc;
+clear all;
+close all;
 
 % (1) Binary-PSK modulation
 disp(' start');
@@ -29,13 +32,20 @@ xlabel('time(sec)');
 ylabel('amplitude(volt)');
 title('waveform for binary PSK modulation coresponding binary information');
 
+S=sum(PSK.^2)/length(PSK);
+N_0dB=S;
+N_10dB=S/10;
+N_20dB=S/100;
+N_30dB=S/1000;
+N_40dB=S/10000;
+
 % (2) Gaussian_noise
 % noise_0dB = 0 + sqrt(N_0dB)*randn(1,n);           % white_gaussian_noise(mean = 0, var = N_0dB)
 % noise_20dB = 0 + sqrt(N_20dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_20dB)
 % noise_40dB = 0 + sqrt(N_40dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_40dB)
 
 % (3) A combination of noise and modulation
-noise =0.2*rand(1,100000);      % 잡음 생성
+noise =sqrt(N_40dB)*randn(1,length(t2));      % 잡음 생성
 PSK_noise = PSK + noise;     % PSK 변조에 잡음 추가
 subplot(3,1,2);
 plot(t2,PSK_noise);
@@ -58,7 +68,7 @@ for n=ss:ss:length(PSK_noise)
   PSK_demodulation=[PSK_demodulation a];
 end
 disp(' Binary information at Reciver :');
-disp(PSK_demodulation);
+
 
 % (5) BER 측정
 count=0;
