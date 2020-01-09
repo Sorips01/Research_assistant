@@ -3,11 +3,7 @@ clear all;
 close all;
 
 % (1) Binary-PSK modulation
-disp(' start');
-message=randi([0,1],1,100);                    % 랜덤하게 10개 Binary 숫자 생성
-disp(' message : ');
-disp(message);
-
+message=randi([0,1],1,10000);                    % 랜덤하게 10개 Binary 숫자 생성
 bit_period=.000001;
 A=5;                                          % Amplitude of carrier signal 
 bit_rate=1/bit_period;                        % bit rate
@@ -45,7 +41,7 @@ N_40dB=S/10000;
 % noise_40dB = 0 + sqrt(N_40dB)*randn(1,n);         % white_gaussian_noise(mean = 0, var = N_40dB)
 
 % (3) A combination of noise and modulation
-noise =sqrt(N_40dB)*randn(1,length(t2));      % 잡음 생성
+noise =sqrt(N_0dB)*randn(1,length(t2));      % 잡음 생성
 PSK_noise = PSK + noise;     % PSK 변조에 잡음 추가
 subplot(3,1,2);
 plot(t2,PSK_noise);
@@ -67,7 +63,6 @@ for n=ss:ss:length(PSK_noise)
   end
   PSK_demodulation=[PSK_demodulation a];
 end
-disp(' Binary information at Reciver :');
 
 
 % (5) BER 측정
