@@ -22,15 +22,9 @@ for x_dB= 0:1:10
             else
                 simbol_demo(1,j)= -1;
             end
-        end
         
-        simbol_bit=simbol_demo;                   %복조한 심벌 비트로
+        simbol_bit=simbol_demo;
         for j=1:1:length(message)
-            if(simbol_demo(1,j)==-1)
-                simbol_bit(i,j)=0;
-            end
+            if(simbol_demo(
         end
-        
-        
-        
         
