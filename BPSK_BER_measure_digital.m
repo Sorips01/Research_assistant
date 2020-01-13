@@ -12,11 +12,10 @@ for i = 1:1:length(message)
         
     end  
 end
+epoch = 0; % trial È½¼ö
+error = 0;
 
 for x = 0:1:10
-   error = 0;
-   epoch = 0; % trial È½¼ö
-   
    while(error == 200)
       noise_xdB = sqrt(N/2)*randn(1,n);           % white_gaussian_noise(mean = 0, var = N_0dB)
       receive = symbol + noise_xdB; %¼ö½Å ½É¹ú 
