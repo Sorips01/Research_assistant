@@ -3,9 +3,9 @@ clear all;
 close all;
 
 
-message = randn([0,1],1,100000);  %전송하는 메시지
+message = randi([0,1],1,100000);  %전송하는 메시지
 for i = 1:1:length(message)
-    if messege[i] == 1
+    if message[i] == 1
         bit = 1;
     else
         bit = 0;
