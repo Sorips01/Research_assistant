@@ -4,13 +4,13 @@ close all;
 
 message = randi([0,1],1,100000);  %전송하는 메시지
 symbol = message;
-tic
+
 for i = 1:1:length(message)
     if message(i) == 0
         symbol(i) = message(i)-1;
     end  
 end
-toc
+
 BER = [];
 for x = 0:1:10
    disp(x);
