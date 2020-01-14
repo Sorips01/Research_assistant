@@ -2,6 +2,7 @@ clc;
 clear all;
 close all;
 
+
 message = randi([0,1],1,100000);  %전송하는 메시지
 
 for i = 1:1:length(message)
