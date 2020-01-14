@@ -28,6 +28,14 @@ for x = 0:1:10
       receive = symbol + noise; %수신 심벌
       receive_bit = receive; 
       
+      for i = 1:1:length(receive)
+        if(receive(i) <0 )
+            receive(i) = -1;
+        else
+            receive(i) = 1;
+        end
+      end
+      
       for i = 1:1:length(message) 
           if(receive(i) > 0)
              receive_bit(i) = 1;
@@ -40,8 +48,8 @@ for x = 0:1:10
        if(message(i) - receive_bit(i) ~=0)
            error = error +1;
        end
-         epoch  = epoch+1;
       end
+    epoch  = epoch+1;
     end
     BER = error/(epoch*length(message))  %BER = 최종결과
 end
