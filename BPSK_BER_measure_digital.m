@@ -15,7 +15,7 @@ for i = 1:1:length(message)
 end
 
 
-for x = 1:1:10
+for x = 0:1:10
    disp(x);
    error = 0;
    epoch = 0; % trial 횟수
@@ -35,15 +35,17 @@ for x = 1:1:10
              receive_bit(i) = 0;
           end
       end
+      
       for i = 1:1:length(message)
        if(message(i) - receive_bit(i) ~=0)
            error = error +1;
+       end
+         epoch  = epoch+1;
       end
-      epoch  = epoch+1;
-   end
-   
-   
-   end
-   BER = error/(epoch*length(message))  %BER = 최종결과
+    end
+    BER = error/(epoch*length(message))  %BER = 최종결과
 end
+  
+  
+   
 
