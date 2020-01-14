@@ -47,5 +47,8 @@ for x_dB= 0:1:10
     BER= [BER error_count/(epoch*length(message))];
 end
 
+x=0:1:10;         %그래프 그리기
+semilogy(x,BER);
+
 
         
