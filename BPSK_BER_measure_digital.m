@@ -1,13 +1,13 @@
 clc;
 clear all;
+close all;
 
 message=randi([0,1],1,1000000);
-count=0;
 BER=[];
 symbol=message;               %심볼화
 for i = 1:1:length(message)
     if(message(1,i)==0)
-        symbol(1,i)=-1;
+        symbol(1,i)=symbol(1,i)-1;
     end
 end
 
@@ -15,13 +15,13 @@ for x_dB= 0:1:10
     epoch=0;
     error=0;
     error_count=0;
+    S=1;                            %(sum(symbol.^2))/length(symbol)
+    N=S*10^(-0.1*x_dB);
     
     while error_count<=200
-        S=(sum(symbol.^2))/length(symbol);
-        N=S*10^(-0.1*x_dB);
         noise =sqrt(N/2)*randn(1,length(symbol));      % 잡음 생성
         symbol_noise=symbol+noise;
-        symbol_demo = symbol_noise;
+        symbol_demo = zeros(1,length(symbol_noise));
         
         for j=1:1:length(message)                   %수신 심벌 복조
             if(symbol_noise(1,j)>=0)
@@ -31,7 +31,7 @@ for x_dB= 0:1:10
             end
         end
         
-        symbol_bit=symbol_demo;                   %복조한 심벌 비트로
+        symbol_bit=zeros(1,length(symbol_noise));                   %복조한 심벌 비트로
         for j=1:1:length(message)
             if(symbol_demo(1,j)==-1)
                 symbol_bit(1,j)=0;
