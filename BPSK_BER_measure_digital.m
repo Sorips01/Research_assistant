@@ -16,6 +16,7 @@ end
 
 
 for x = 1:1:10
+   disp(x);
    error = 0;
    epoch = 0; % trial 횟수
    S = 1;
@@ -40,9 +41,9 @@ for x = 1:1:10
       end
       epoch  = epoch+1;
    end
-   BER = error/(epoch*length(message))  %BER = 최종결과
+   
    
    end
-   
+   BER = error/(epoch*length(message))  %BER = 최종결과
 end
 
