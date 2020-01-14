@@ -14,8 +14,8 @@ for i = 1:1:length(message)
     end  
 end
 
-
-for x = 0:1:10
+BER = [];
+for x = 0:1:100
    disp(x);
    error = 0;
    epoch = 0; % trial 횟수
@@ -50,10 +50,14 @@ for x = 0:1:10
        end
       end
     epoch  = epoch+1;
-    end
-    BER = error/(epoch*length(message))  %BER = 최종결과
+   end
+   disp(error);
+  
+   BER = [BER error/(epoch*length(message))];  %BER = 최종결과
+    
 end
-  
-  
-   
+x = 0:1:10;
+figure
+semilogy(x,BER)
+
 
