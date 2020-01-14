@@ -8,20 +8,18 @@ BER=[];
 symbol=message;               %½Éº¼È­
 
 for i = 1:2:(length(message)-2)
-    for k = 2:2:length(message)
-        if(message(i) == 1&& message(k) == 1)
-            symbol(i) = 1;
-            symbol(k) = 1*i;
-        elseif(message(i) == 0&& message(k) == 1)
-            symbol(i) = -1;
-            symbol(k) = 1*i;
-        elseif(message(i) == 1&& message(k) == 0)
-            symbol(i) = 1;
-            symbol(k) = -1*i;
-        else
-            symbol(i) = -1;
-            symbol(k) = -1*i;    
-        end
+    if(message(i) == 0 && message(i+1) == 0)
+        symbol(i) =-1;
+        symbol(i+1) = -1*j;
+    elseif(message(i) == 0 && message(i+1) == 1)
+        symbol(i) = -1;
+        symbol(i+1) = 1*j;
+    elseif(message(i) == 1 && message(i+1) == 0)
+        symbol(i) = 1;
+        symbol(i+1) = -1*j;
+    elseif(message(i) == 1 && message(i+1) == 1)
+        symbol(i) = 1;
+        symbol(i+1) = 1*j;
     end
 end
 

@@ -7,24 +7,8 @@ message=randi([0,1],1,1000000);
 BER=[];
 symbol=message;               %심볼화
 
-for i = 1:2:(length(message)-2)
-    for k = 2:2:length(message)
-        if(message(i) == 1&& message(k) == 1)
-            symbol(i) = 1;
-            symbol(k) = 1*i;
-        elseif(message(i) == 0&& message(k) == 1)
-            symbol(i) = -1;
-            symbol(k) = 1*i;
-        elseif(message(i) == 1&& message(k) == 0)
-            symbol(i) = 1;
-            symbol(k) = -1*i;
-        else
-            symbol(i) = -1;
-            symbol(k) = -1*i;    
-            
-            
-        end
-    end
+for i = 1:1:length(message)
+    
 end
 
 
@@ -44,27 +28,38 @@ for x_dB= 0:1:10
             for k = 2:2:length(message)
             if(symbol_noise(1,j) <0 && symbol_noise(1,k) <0)
                 symbol_demo(j) = -1;
-                symbol_demo(j) = -1*i;
-            elseif(symbol_noise(1,j)>0 && symbol_noise(1,k) <0)
-                symbol_demo(j) = 1
-                symbol_demo(j) = -1*i
-            elseif(symbol_noise(1,j)>0 && symbol_noise(1,k) <0)
+                symbol_demo(k) = -1*i;
+            elseif(symbol_noise(1,j)<0 && symbol_noise(1,k) >0)
+                symbol_demo(j) = -1;
+                symbol_demo(k) = 1*i;
+            elseif(symbol_noise(1,j)>0 && symbol_noise(1,k)<0)
                 symbol_demo(j) = 1;
-                symbol_demo(j) = -1*i
-            elseif(symbol_noise(1,j)>0 && symbol_noise(1,k) <0)
-                symbol_demo(j) = 1
-                symbol_demo(j) = -1*i
-                
-               
-     
+                symbol_demo(k) = -1*i;
+            elseif(symbol_noise(1,j)>0 && symbol_noise(1,k) >0)
+                symbol_demo(j) = 1;
+                symbol_demo(k) = 1*i;
+
             end
          
         end
+        end
         
         symbol_bit=zeros(1,length(symbol_noise));                   %복조한 심벌 비트로
-        for j=1:1:length(message)
-            if(symbol_demo(1,j)==-1)
-              
+        for j=1:2:(length(message)-2)
+            for k = 2:2:length(message)
+            if(symbol_demo(1,j)==-1 && symbol_noise(1,k) ==-1*i)
+                symbol_demo(j) = 0;
+                symbol_demo(k) = 0;
+            elseif(symbol_demo(1,j)==-1 && symbol_noise(1,k) ==1*i)
+                symbol_demo(j) = 0;
+                symbol_demo(k) = 1;
+            elseif(symbol_demo(1,j)==1 && symbol_noise(1,k) ==-1*i)
+                symbol_demo(j) = 1;
+                symbol_demo(k) = 0;
+            elseif(symbol_demo(1,j)==1 && symbol_noise(1,k) ==1*i)
+                symbol_demo(j) = 1;
+                symbol_demo(k) = 1;
+      
                 end
             end
         end
