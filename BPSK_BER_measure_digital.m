@@ -4,22 +4,19 @@ close all;
 
 message = randi([0,1],1,100000);  %전송하는 메시지
 symbol = message;
-
+tic
 for i = 1:1:length(message)
-    if message(i) == 1
-        symbol(i) = 1;
-    else
-        symbol(i) = -1;
-        
+    if message(i) == 0
+        symbol(i) = message(i)-1;
     end  
 end
-
+toc
 BER = [];
-for x = 0:1:100
+for x = 0:1:10
    disp(x);
    error = 0;
-   epoch = 0; % trial 횟수
-   S = 1;
+   epoch = 0;                                                  % trial 횟수
+   S = 1;                                                        %수식 첨부 
    N = S*10.^(-0.1*x);
    n = length(message);
    
