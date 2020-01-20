@@ -21,7 +21,7 @@ for j = 1:2:(length(message)-2)
     elseif(message(j) == 1 && message(j+1) == 0)
        symbol(k) = 1-1i;
        k = k+1;
-    elseif(message(j) == 1 && message(j+1) == 1)
+    else
       symbol(k) = 1+1i;
       k = k+1;
     end
@@ -34,7 +34,7 @@ end
 for x_dB= 0:1:10
    error=0;  
    epoch=0;  
-   error_count=0;
+   %error_count=0;
   
     while (error<200)
         S=1;                            %(sum(symbol.^2))/length(symbol)
@@ -55,7 +55,7 @@ for x_dB= 0:1:10
          elseif(symbol_noise(j)>0 &&imag(symbol_noise(j))<0)
                symbol_demo(k) = 1-1i;
                k = k+1;
-         elseif(symbol_noise(j)>0 &&imag(symbol_noise(j))>0)
+         else
                symbol_demo(k) = 1+1i;
                k = k+1;
          end
@@ -70,17 +70,17 @@ for x_dB= 0:1:10
                symbol_bit = [symbol_bit 0 1];
            elseif(symbol_demo(j) == 1-1i)
                symbol_bit = [symbol_bit 1 0];
-           elseif(symbol_demo(j) == 1+1i)
+           else
                symbol_bit = [symbol_bit 1 1];
            end
     end
          error_bit=message-symbol_bit;
          error=nnz(error_bit);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
-         error_count = error_count+error
+         %error_count = error_count+error
          epoch = epoch+1;
         
     end
-     BER = [BER error_count/(epoch*length(message))]
+     BER = [BER error/(epoch*length(message))]
 end
     
 
