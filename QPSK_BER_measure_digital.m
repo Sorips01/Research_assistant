@@ -4,7 +4,7 @@ close all;
 
 message=randi([0,1],1,1000000);  %OK
 
-BER=[];
+QPSK_BER=[];
 
 symbol=zeros(1,length(message)/2);      
 
@@ -88,12 +88,11 @@ for x_dB= 0:1:10
          epoch = epoch+1;
         
     end
-     BER = [BER error_count/(epoch*length(message))]
+     QPSK_BER = [QPSK_BER error_count/(epoch*length(message))];
 end
-    
 
 x=0:1:10;         %그래프 그리기
-semilogy(x,BER);
+semilogy(x,QPSK_BER);
 
 
         
