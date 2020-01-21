@@ -3,7 +3,7 @@ clear all;
 close all;
 
 message=randi([0,1],1,1000000);
-BSPK_BER=[];
+BPSK_BER=[];
 symbol=message;               %심볼화
 for i = 1:1:length(message)
     if(message(1,i)==0)
@@ -46,11 +46,11 @@ for x_dB= 0:1:10
         epoch = epoch+1;
     end
     
-    BSPK_BER= [BSPK_BER error_count/(epoch*length(message))];
+    BPSK_BER= [BPSK_BER error_count/(epoch*length(message))];
 end
 
 x=0:1:10;         %그래프 그리기
-semilogy(x,BSPK_BER);
-
+semilogy(x,BPSK_BER);
+save BPSK_BER_measure_digital.mat BPSK_BER -v7.3
 
         
