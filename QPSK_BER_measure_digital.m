@@ -34,9 +34,9 @@ end
 for x_dB= 0:1:10
    error=0;  
    epoch=0;  
-   %error_count=0;
+   error_count=0;
   
-    while (error<200)
+    while (error_count<=20)
         S=1;                            %(sum(symbol.^2))/length(symbol)
         N=S*10^(-0.1*x_dB);
         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % 잡음 생성
@@ -76,11 +76,11 @@ for x_dB= 0:1:10
     end
          error_bit=message-symbol_bit;
          error=nnz(error_bit);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
-         %error_count = error_count+error
+         error_count = error_count+error;
          epoch = epoch+1;
         
     end
-     BER = [BER error/(epoch*length(message))]
+     BER = [BER error_count/(epoch*length(message))]
 end
     
 
