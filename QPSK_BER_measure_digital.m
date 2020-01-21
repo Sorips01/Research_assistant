@@ -91,8 +91,11 @@ for x_dB= 0:1:10
      QPSK_BER = [QPSK_BER error_count/(epoch*length(message))];
 end
 
+load ('BPSK_BER_measure_digital.mat','BPSK_BER');
 x=0:1:10;         %그래프 그리기
 semilogy(x,QPSK_BER);
+hold on;
+semilogy(x,BPSK_BER);
 
 
         
