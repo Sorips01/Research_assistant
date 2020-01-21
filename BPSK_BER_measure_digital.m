@@ -35,6 +35,8 @@ for x_dB= 0:1:10
         for j=1:1:length(message)
             if(symbol_demo(1,j)==-1)
                 symbol_bit(1,j)=0;
+            else
+                symbol_bit(1,j)=1;
             end
         end
         
