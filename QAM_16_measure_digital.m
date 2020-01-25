@@ -21,7 +21,8 @@ for i=1:1:length(message)
         k = k + 1;
     end
 end
-
+% 루트 10을 나누어야 신호 전력 S가 1이 됨.
+QAM_16_symbol = QAM_16_symbol ./ sqrt(10);
 
 
 % ====demodulation====  
@@ -31,7 +32,7 @@ for x_dB= 0:1:10
    error_count=0;
   
     while (error_count<=200)
-        S=(sum);                            %(sum(symbol.^2))/16
+        S=(sum(QAM_16_symbol.^2)/16);
         N=S*10^(-0.1*x_dB);
         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % 잡음 생성
 

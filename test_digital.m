@@ -1,4 +1,4 @@
-clc;
+
 clear all;
 close all;
 
@@ -20,7 +20,8 @@ for i=1:1:length(message)
         k = k + 1;
     end
 end
-
+QAM_16_symbol = QAM_16_symbol ./ sqrt(10);
+S = sum(abs(QAM_16_symbol.^2))/16;                           %(sum(symbol.^2))/16
 
 
 % % ====demodulation====  
