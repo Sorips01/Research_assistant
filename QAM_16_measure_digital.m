@@ -52,9 +52,8 @@ semilogy(x, QAM_16);
 
 % matlab에서 함수는 제일 밑에 써야 함(문법)
 
-
-function comp_number = binary_to_complex_number(binary)
 % 성상도에 따른 symbolization
+function comp_number = binary_to_complex_number(binary)
 comp = ones(1, 4);
 if binary(1) == 0
     comp(1) = binary(1) - 1;
@@ -75,5 +74,20 @@ if binary(4) == 0
 end
 
 comp_number = (comp(1) * comp(2)) + (comp(3) * comp(4) * 1i);
+end
 
+% 거리 구하기
+function distance = distance_measure(symbol)
+point = [-3+3i -3+1i -3-1i -3-3i -1+3i -1+1i -1-1i -1-3i 1+3i 1+1i 1-1i 1-3i 3+3i 3+1i 3-1i 3-3i];
+
+symbol_real = real(symbol);
+symbol_imag = imag(symbol);
+
+point_to_point = zeros(1, length(point));
+
+for i=1:1:length(point)
+    point_to_point(1, i) = sqrt((symbol_real - real(point(1, i)))^2 + (symbol_imag - imag(point(1, i)))^2);
+end
+
+distance = min(point_to_point);
 end
