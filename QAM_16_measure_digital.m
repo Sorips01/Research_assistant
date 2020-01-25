@@ -77,7 +77,7 @@ comp_number = (comp(1) * comp(2)) + (comp(3) * comp(4) * 1i);
 end
 
 % 거리 구하기
-function distance = distance_measure(symbol)
+function symbol_demo = distance_measure(symbol)
 point = [-3+3i -3+1i -3-1i -3-3i -1+3i -1+1i -1-1i -1-3i 1+3i 1+1i 1-1i 1-3i 3+3i 3+1i 3-1i 3-3i];
 
 symbol_real = real(symbol);
@@ -90,4 +90,6 @@ for i=1:1:length(point)
 end
 
 distance = min(point_to_point);
+[x, y] = find(point_to_point == distance);
+symbol_demo = point(1, y);
 end
