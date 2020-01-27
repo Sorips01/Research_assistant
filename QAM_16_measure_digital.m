@@ -34,8 +34,9 @@ for x_dB= 0:1:10
     while (error_count<=200)
         S=(sum(QAM_16_symbol.^2)/16);
         N=S*10^(-0.1*x_dB);
-        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % 잡음 생성
-
+        noise =sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % 잡음 생성
+        QAM_16_symbol_noise = QAM_16_symbol + noise;        %noise 추가
+        
         % error count, nnz, epoch plus 1
         error_bit=message-bit_demo;
         error=nnz(error_bit);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
