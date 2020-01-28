@@ -97,5 +97,7 @@ semilogy(x,QPSK_BER);
 hold on;
 semilogy(x,BPSK_BER);
 
+save QPSK_BER_measure_digital.mat QPSK_BER -v7.3
+
 
         
