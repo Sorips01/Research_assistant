@@ -2,7 +2,7 @@ clc;
 clear all;
 close all;
 
-message=randi([0,1],1,1000000);  %OK
+message=randi([0,1],1,100);  %OK
 
 QAM_16 = [];
 
@@ -26,7 +26,7 @@ for i=1:1:length(message)
     end
 end
 % 루트 10을 나누어야 신호 전력 S가 1이 됨.
-QAM_16_symbol = QAM_16_symbol ./ sqrt(10);
+QAM_16_symbol = QAM_16_symbol / sqrt(10);
 
 
 % ====demodulation====  
@@ -36,7 +36,7 @@ for x_dB= 0:1:10
    error_count=0;
   
   
-    while (error_count<=200)
+    while (error_count<=2)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
         N=S*10^(-0.1*x_dB);
@@ -64,31 +64,31 @@ for x_dB= 0:1:10
      QAM_16 = [QAM_16 error_count/(epoch*length(message))];
 end
 
-% ====Graph====
-% 1) BER-SNR 그래프
-load ('BPSK_BER_measure_digital.mat','BPSK_BER');
-x=0:1:10;
-subplot(2,2,1);
-semilogy(x,BPSK_BER);
-load ('QPSK_BER_measure_digital.mat','QPSK_BER');
-hold on;
-semilogy(x,QPSK_BER);
-hold on;
+% % ====Graph====
+% % 1) BER-SNR 그래프
+% load ('BPSK_BER_measure_digital.mat','BPSK_BER');
+x=0:1:20;
+% subplot(2,2,1);
+% semilogy(x,BPSK_BER);
+% load ('QPSK_BER_measure_digital.mat','QPSK_BER');
+% hold on;
+% semilogy(x,QPSK_BER);
+% hold on;
 semilogy(x, QAM_16);
 
-legend('BPSK','QPSK','QAM 16');
-
-% 2) SER-SNR 그래프
-load('QPSK_SER_measure_digital.mat','BPSK_SER');
-x=0:1:10;
-subplot(2,2,2);
-semilogy(x,BPSK_SER);
-load ('QPSK_SER_measure_digital.mat','QPSK_SER');
-hold on;
-semilogy(x,QPSK_SER);
-hold on;
-semilogy(x, QAM_16);
-legend('QPSK','BPSK','QAM 16');
+% legend('BPSK','QPSK','QAM 16');
+% 
+% % 2) SER-SNR 그래프
+% load('QPSK_SER_measure_digital.mat','BPSK_SER');
+% x=0:1:10;
+% subplot(2,2,2);
+% semilogy(x,BPSK_SER);
+% load ('QPSK_SER_measure_digital.mat','QPSK_SER');
+% hold on;
+% semilogy(x,QPSK_SER);
+% hold on;
+% semilogy(x, QAM_16);
+% legend('QPSK','BPSK','QAM 16');
 
 
 % tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
@@ -133,7 +133,7 @@ end
 % 거리 구하기, 심벌 복조용
 function symbol_demo = distance_measure(symbol)
 point = [-3+3i -3+1i -3-1i -3-3i -1+3i -1+1i -1-1i -1-3i 1+3i 1+1i 1-1i 1-3i 3+3i 3+1i 3-1i 3-3i];
-point = point ./ sqrt(10);
+point = point / sqrt(10);
 
 symbol_real = real(symbol);
 symbol_imag = imag(symbol);
