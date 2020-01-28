@@ -47,9 +47,30 @@ for x_dB= 0:1:10
      QAM_16 = [QAM_16 error_count/(epoch*length(message))];
 end
 
-x=0:1:10;         %그래프 그리기
+% ====Graph====
+% 1) BER-SNR 그래프
+load ('BPSK_BER_measure_digital.mat','BPSK_BER');
+x=0:1:10;
+subplot(2,2,1);
+semilogy(x,BPSK_BER);
+load ('QPSK_BER_measure_digital.mat','QPSK_BER');
+hold on;
+semilogy(x,QPSK_BER);
+hold on;
 semilogy(x, QAM_16);
+legend('BPSK','QPSK','QAM 16');
 
+% 2) SER-SNR 그래프
+load('QPSK_SER_measure_digital.mat','BPSK_SER');
+x=0:1:10;
+subplot(2,2,2);
+semilogy(x,BPSK_SER);
+load ('QPSK_SER_measure_digital.mat','QPSK_SER');
+hold on;
+semilogy(x,QPSK_SER);
+hold on;
+semilogy(x, QAM_16);
+legend('QPSK','BPSK','QAM 16');
 
 % matlab에서 함수는 제일 밑에 써야 함(문법)
 
