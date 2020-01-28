@@ -5,6 +5,7 @@ close all;
 message=randi([0,1],1,1000000);  %OK
 
 QPSK_BER=[];
+QPSK_SER=[];
 
 symbol=zeros(1,length(message)/2);      
 
@@ -32,11 +33,12 @@ end
          
 %====demodulation====  
 for x_dB= 0:1:10
-   error=0;  
+   error_BER=0;  
    epoch=0;  
-   error_count=0;
+   error_count_BER=0;
+   error_count_SER=0;
   
-    while (error_count<=200)
+    while (error_count_BER<=200)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         N=S*10^(-0.1*x_dB);
         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % 잡음 생성
@@ -57,6 +59,11 @@ for x_dB= 0:1:10
          end
      end    
     
+     error_symbol=symbol-symbol_demo;
+     error_SER=nnz(error_symbol);
+     error_count_SER = error_count_SER+error_SER;
+         
+         
     bit_demo=zeros(1,length(message)); %복조한 심벌 비트로
     k = 1;
     for j=1:1:(length(symbol_demo))
@@ -83,12 +90,13 @@ for x_dB= 0:1:10
        end
     end
          error_bit=message-bit_demo;
-         error=nnz(error_bit);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
-         error_count = error_count+error;
+         error_BER=nnz(error_bit);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
+         error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
     end
-     QPSK_BER = [QPSK_BER error_count/(epoch*length(message))];
+     QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
+     QPSK_SER = [QPSK_SER error_count_SER/(epoch*length(message))];
 end
 
 load ('BPSK_BER_measure_digital.mat','BPSK_BER');
@@ -96,6 +104,9 @@ x=0:1:10;         %그래프 그리기
 semilogy(x,QPSK_BER);
 hold on;
 semilogy(x,BPSK_BER);
+
+save QPSK_BER_measure_digital.mat QPSK_BER -v7.3
+save QPSK_SER_measure_digital.mat QPSK_SER -v7.3
 
 
         

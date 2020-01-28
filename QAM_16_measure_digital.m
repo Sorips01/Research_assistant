@@ -11,6 +11,10 @@ temp = zeros(1, 4);
 % symbol constellation(심벌 성상도)는 Notion에 올려놓았음 참고 바람(gray code 활용한 constellation임) % ====symbolization====
 k = 1;
 
+E_bN_0=-5:10;   %E_bN_0범위 지정
+SNR = E_bN_0 + 10*log10(k); %Conversion into SNR
+
+
 % ====symbolization====  
 for i=1:1:length(message)
     temp(1, k) = message(1, i);
@@ -30,6 +34,7 @@ for x_dB= 0:1:10
    error=0;  
    epoch=0;  
    error_count=0;
+  
   
     while (error_count<=200)
         %S = (sum(QAM_16_symbol.^2)/16);
@@ -54,12 +59,24 @@ for x_dB= 0:1:10
         error_count = error_count + error;
         epoch = epoch + 1;
         
+        
     end
      QAM_16 = [QAM_16 error_count/(epoch*length(message))];
 end
 
 x=0:1:10;         %그래프 그리기
 semilogy(x, QAM_16);
+
+tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
+semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
+hold on
+semilogy(E_bN_0,errrate,'b-','linewidth',2)  %Plot BER of Simulated Data
+axis([-6 11 10^-5 1])
+legend ('Theoratical BER','Simulation BER');
+xlabel('E_b/N_0 (dB)')
+ylabel('Bit Error Rate')
+title('BPSK Modulation in AWGN')
+grid on
 
 
 % matlab에서 함수는 제일 밑에 써야 함(문법)
