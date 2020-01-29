@@ -4,7 +4,8 @@ close all;
 
 message=randi([0,1],1,1000000);  %OK
 
-QAM_16 = [];
+QAM_16_BER = [];
+QAM_16_SER = [];
 
 QAM_16_symbol = zeros(1,length(message)/4);
 temp = zeros(1, 4);
@@ -31,12 +32,13 @@ QAM_16_symbol = QAM_16_symbol / sqrt(10);
 
 % ====demodulation====  
 for x_dB= 0:1:10
-   error=0;  
+   error_BER=0;  
    epoch=0;  
-   error_count=0;
+   error_count_BER=0;
+   error_count_SER=0;
   
   
-    while (error_count<=20)
+    while (error_count_BER<=20)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
         N=S*10^(-0.1*x_dB);
@@ -50,45 +52,53 @@ for x_dB= 0:1:10
             QAM_16_symbol_demo(1, i) = distance_measure(QAM_16_symbol_noise(1, i));
         end
         
+        % SER 측정
+        error_bit_SER = QAM_16_symbol - QAM_16_symbol_demo;
+        error_SER = nnz(error_bit_SER);       
+        error_count_SER = error_count_SER + error_SER;
+        
         % Demodulation Symbol to bit
         QAM_16_bit_demo = demo_symbol_to_bit(QAM_16_symbol_demo);
         
-        % error count, nnz, epoch plus 1
-        error_bit = message - QAM_16_bit_demo;
-        error = nnz(error_bit);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
-        error_count = error_count + error;
+        % BER 측정 : error count, nnz, epoch plus 1
+        error_bit_BER = message - QAM_16_bit_demo;
+        error_BER = nnz(error_bit_BER);       %error_bit 행렬에서 0이 아닌 원소의 개수를 센다 
+        error_count_BER = error_count_BER + error_BER;
         epoch = epoch + 1;
         
         
     end
-     QAM_16 = [QAM_16 error_count/(epoch*length(message))];
+     QAM_16_BER = [QAM_16_BER error_count_BER/(epoch*length(message))];
+     QAM_16_SER = [QAM_16_SER error_count_SER/(epoch*length(message))];
 end
 
 % ====Graph====
 % 1) BER-SNR 그래프
 load ('BPSK_BER_measure_digital.mat','BPSK_BER');
 x=0:1:10;
-subplot(2,2,1);
+graph1 = subplot(2,2,1);
+ylabel(graph1,'BER');
 semilogy(x,BPSK_BER);
 load ('QPSK_BER_measure_digital.mat','QPSK_BER');
 hold on;
 semilogy(x,QPSK_BER);
 hold on;
-semilogy(x, QAM_16);
+semilogy(x, QAM_16_BER);
 
 legend('BPSK','QPSK','QAM 16');
 
 % 2) SER-SNR 그래프
-load('QPSK_SER_measure_digital.mat','BPSK_SER');
+load('BPSK_SER_measure_digital.mat','BPSK_SER');
 x=0:1:10;
-subplot(2,2,2);
+graph2 = subplot(2,2,2);
+ylabel(graph2,'SER');
 semilogy(x,BPSK_SER);
 load ('QPSK_SER_measure_digital.mat','QPSK_SER');
 hold on;
 semilogy(x,QPSK_SER);
 hold on;
-semilogy(x, QAM_16);
-legend('QPSK','BPSK','QAM 16');
+semilogy(x, QAM_16_SER);
+legend('BPSK','QPSK','QAM 16');
 
 % wirte by 지연
 % tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
