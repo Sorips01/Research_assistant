@@ -2,7 +2,7 @@ clc;
 clear all;
 close all;
 
-message=randi([0,1],1,100);  %OK
+message=randi([0,1],1,1000000);  %OK
 
 QAM_16 = [];
 
@@ -36,11 +36,11 @@ for x_dB= 0:1:10
    error_count=0;
   
   
-    while (error_count<=2)
+    while (error_count<=20)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
         N=S*10^(-0.1*x_dB);
-        noise =sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % 잡음 생성
+        noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % 잡음 생성
         QAM_16_symbol_noise = QAM_16_symbol + noise;        %noise 추가
         
         QAM_16_symbol_demo = zeros(1, length(QAM_16_symbol_noise));
@@ -64,33 +64,33 @@ for x_dB= 0:1:10
      QAM_16 = [QAM_16 error_count/(epoch*length(message))];
 end
 
-% % ====Graph====
-% % 1) BER-SNR 그래프
-% load ('BPSK_BER_measure_digital.mat','BPSK_BER');
-x=0:1:20;
-% subplot(2,2,1);
-% semilogy(x,BPSK_BER);
-% load ('QPSK_BER_measure_digital.mat','QPSK_BER');
-% hold on;
-% semilogy(x,QPSK_BER);
-% hold on;
+% ====Graph====
+% 1) BER-SNR 그래프
+load ('BPSK_BER_measure_digital.mat','BPSK_BER');
+x=0:1:10;
+subplot(2,2,1);
+semilogy(x,BPSK_BER);
+load ('QPSK_BER_measure_digital.mat','QPSK_BER');
+hold on;
+semilogy(x,QPSK_BER);
+hold on;
 semilogy(x, QAM_16);
 
-% legend('BPSK','QPSK','QAM 16');
-% 
-% % 2) SER-SNR 그래프
-% load('QPSK_SER_measure_digital.mat','BPSK_SER');
-% x=0:1:10;
-% subplot(2,2,2);
-% semilogy(x,BPSK_SER);
-% load ('QPSK_SER_measure_digital.mat','QPSK_SER');
-% hold on;
-% semilogy(x,QPSK_SER);
-% hold on;
-% semilogy(x, QAM_16);
-% legend('QPSK','BPSK','QAM 16');
+legend('BPSK','QPSK','QAM 16');
 
+% 2) SER-SNR 그래프
+load('QPSK_SER_measure_digital.mat','BPSK_SER');
+x=0:1:10;
+subplot(2,2,2);
+semilogy(x,BPSK_SER);
+load ('QPSK_SER_measure_digital.mat','QPSK_SER');
+hold on;
+semilogy(x,QPSK_SER);
+hold on;
+semilogy(x, QAM_16);
+legend('QPSK','BPSK','QAM 16');
 
+% wirte by 지연
 % tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
 % semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
 % hold on
@@ -156,14 +156,14 @@ symbol_imag = imag(symbol);
 
 bit_demo = zeros(1, length(symbol)*4);
 k = 1;
-for i=1:4:length(symbol)
+for i=1:4:(length(symbol)*4)
     if symbol_real(1, k) < 0
         bit_demo(1, i) = 0;
     else
         bit_demo(1, i) = 1;
     end
 
-    if abs(symbol_real(1, k)) > 2
+    if abs(symbol_real(1, k)) > (2/sqrt(10))
         bit_demo(1, i + 1) = 0;
     else
         bit_demo(1, i + 1) = 1;
@@ -175,7 +175,7 @@ for i=1:4:length(symbol)
         bit_demo(1, i + 2) = 1;
     end
 
-    if abs(symbol_imag(1, k)) > 2
+    if abs(symbol_imag(1, k)) > (2/sqrt(10))
         bit_demo(1, i + 3) = 0;
     else
         bit_demo(1, i + 3) = 1;
