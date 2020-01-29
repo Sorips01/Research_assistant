@@ -77,27 +77,31 @@ end
 load ('BPSK_BER_measure_digital.mat','BPSK_BER');
 x=0:1:10;
 graph1 = subplot(2,2,1);
-ylabel(graph1,'BER');
+
 semilogy(x,BPSK_BER);
 load ('QPSK_BER_measure_digital.mat','QPSK_BER');
 hold on;
 semilogy(x,QPSK_BER);
 hold on;
 semilogy(x, QAM_16_BER);
-
+title('BER-SNR Graph ---->');
+ylabel(graph1,'BER ---->');
+xlabel(graph1, 'SNR ---->');
 legend('BPSK','QPSK','QAM 16');
 
 % 2) SER-SNR 그래프
 load('BPSK_SER_measure_digital.mat','BPSK_SER');
 x=0:1:10;
 graph2 = subplot(2,2,2);
-ylabel(graph2,'SER');
 semilogy(x,BPSK_SER);
 load ('QPSK_SER_measure_digital.mat','QPSK_SER');
 hold on;
 semilogy(x,QPSK_SER);
 hold on;
 semilogy(x, QAM_16_SER);
+title('SER-SNR Graph ---->');
+ylabel(graph2,'SER ---->');
+xlabel(graph2, 'SNR ---->');
 legend('BPSK','QPSK','QAM 16');
 
 % wirte by 지연
