@@ -11,17 +11,19 @@ temp = zeros(1, 4);
 % symbol constellation(심벌 성상도)는 Notion에 올려놓았음 참고 바람(gray code 활용한 constellation임) % ====symbolization====
 k = 1;
 
-for i=1:1:length(message)
-    temp(1, k) = message(1, i);
-    if k == 4
-        k = 1;
-        QAM_16_symbol(1, i/4) = binary_to_complex_number(temp);
-    else
-        k = k + 1;
-    end
-end
-QAM_16_symbol = QAM_16_symbol ./ sqrt(10);
-S = sum(abs(QAM_16_symbol.^2))/16;                           %(sum(symbol.^2))/16
+% for i=1:1:length(message)
+%     temp(1, k) = message(1, i);
+%     if k == 4
+%         k = 1;
+%         QAM_16_symbol(1, i/4) = binary_to_complex_number(temp);
+%     else
+%         k = k + 1;
+%     end
+% end
+% QAM_16_symbol = QAM_16_symbol ./ sqrt(10);
+point = [-3+3i -3+1i -3-1i -3-3i -1+3i -1+1i -1-1i -1-3i 1+3i 1+1i 1-1i 1-3i 3+3i 3+1i 3-1i 3-3i];
+point = point / sqrt(10);
+S = sum(abs(point.^2))/16;                           %(sum(symbol.^2))/16
 
 
 % % ====demodulation====  
