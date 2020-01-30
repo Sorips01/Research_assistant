@@ -59,7 +59,7 @@ semilogy(x, QAM_16);
 tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
 semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
 hold on
-semilogy(E_bN_0,errrate,'b-','linewidth',2)  %Plot BER of Simulated Data
+semilogy(E_bN_0,error_count,'b-','linewidth',2)  %Plot BER of Simulated Data
 axis([-6 11 10^-5 1])
 legend ('Theoratical BER','Simulation BER');
 xlabel('E_b/N_0 (dB)')
