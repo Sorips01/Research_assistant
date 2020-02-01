@@ -12,10 +12,6 @@ temp = zeros(1, 4);
 % symbol constellation(ï¿½É¹ï¿½ ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ Notionï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶ï¿½(gray code È°ï¿½ï¿½ï¿½ï¿½ constellationï¿½ï¿½) % ====symbolization====
 k = 1;
 
-E_bN_0=-5:10;   %E_bN_0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-SNR = E_bN_0 + 10*log10(k); %Conversion into SNR
-
-
 % ====symbolization====  
 for i=1:1:length(message)
     temp(1, k) = message(1, i);
@@ -26,7 +22,7 @@ for i=1:1:length(message)
         k = k + 1;
     end
 end
-% ï¿½ï¿½Æ® 10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ Sï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½.
+% ï¿½ï¿½Æ® 10ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ Sï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½.
 QAM_16_symbol = QAM_16_symbol / sqrt(10);
 
 
@@ -37,6 +33,10 @@ for x_dB= 0:1:10
    error_count_BER=0;
    error_count_SER=0;
   
+   E_bN_0dB=0;   %E_bN_0 = 0dB
+   E_bN_0 = 10^(E_bN_0dB/10); %dB°ªÀ¸·Î E_bN_0°è»ê
+   SNR = E_bN_0*2; %Rb/b = 2(°¡Á¤)
+
   
     while (error_count_BER<=20)
         %S = (sum(QAM_16_symbol.^2)/16);
@@ -45,6 +45,7 @@ for x_dB= 0:1:10
         noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         QAM_16_symbol_noise = QAM_16_symbol + noise;        %noise ï¿½ß°ï¿½
         
+        EbNo_noise(k) = awgn(QAM_16_symbol,SNR);
         QAM_16_symbol_demo = zeros(1, length(QAM_16_symbol_noise));
         
         % Deomodulation Symbol
@@ -62,7 +63,7 @@ for x_dB= 0:1:10
         
         % BER ï¿½ï¿½ï¿½ï¿½ : error count, nnz, epoch plus 1
         error_bit_BER = message - QAM_16_bit_demo;
-        error_BER = nnz(error_bit_BER);       %error_bit ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+        error_BER = nnz(error_bit_BER);       %error_bit ï¿½ï¿½Ä¿ï¿½ï¿½ï¿? 0ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
         error_count_BER = error_count_BER + error_BER;
         epoch = epoch + 1;
         
@@ -104,6 +105,9 @@ ylabel(graph2,'SER ---->');
 xlabel(graph2, 'SNR ---->');
 legend('BPSK','QPSK','QAM 16');
 
+%EbN0 graph
+subplot(2,2,1);
+plot(EbNo_noise(k),'r.');
 % wirte by ï¿½ï¿½ï¿½ï¿½
 % tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
 % semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
@@ -117,7 +121,7 @@ legend('BPSK','QPSK','QAM 16');
 % grid on
 
 
-% matlabï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+% matlabï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿? ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 
 % ï¿½ï¿½ï¿½óµµ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ symbolization
 function comp_number = binary_to_complex_number(binary)
