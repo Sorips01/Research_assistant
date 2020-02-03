@@ -33,11 +33,6 @@ for x_dB= 0:1:10
    error_count_BER=0;
    error_count_SER=0;
   
-   E_bN_0dB=0;   %E_bN_0 = 0dB
-   E_bN_0 = 10^(E_bN_0dB/10); %dB°ªÀ¸·Î E_bN_0°è»ê
-   SNR = E_bN_0*2; %Rb/b = 2(°¡Á¤)
-
-  
     while (error_count_BER<=20)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
@@ -45,7 +40,6 @@ for x_dB= 0:1:10
         noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         QAM_16_symbol_noise = QAM_16_symbol + noise;        %noise ï¿½ß°ï¿½
         
-        EbNo_noise(k) = awgn(QAM_16_symbol,SNR);
         QAM_16_symbol_demo = zeros(1, length(QAM_16_symbol_noise));
         
         % Deomodulation Symbol
@@ -72,6 +66,10 @@ for x_dB= 0:1:10
      QAM_16_BER = [QAM_16_BER error_count_BER/(epoch*length(message))];
      QAM_16_SER = [QAM_16_SER error_count_SER/(epoch*length(message))];
 end
+% 
+%   E_bN_0dB=0:1:10;   %E_bN_0 = 0dB
+%   E_bN_0 = 10^(E_bN_0dB/10); %dB°ªÀ¸·Î E_bN_0°è»ê
+%   SNR = E_bN_0*2; %Rb/b = 2(°¡Á¤)
 
 % ====Graph====
 % 1) BER-SNR ï¿½×·ï¿½ï¿½ï¿½
@@ -106,8 +104,8 @@ xlabel(graph2, 'SNR ---->');
 legend('BPSK','QPSK','QAM 16');
 
 %EbN0 graph
-subplot(2,2,1);
-plot(EbNo_noise(k),'r.');
+% subplot(2,2,1);
+% plot(EbNo_noise(k),'r.');
 % wirte by ï¿½ï¿½ï¿½ï¿½
 % tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
 % semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
