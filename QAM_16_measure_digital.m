@@ -27,12 +27,12 @@ QAM_16_symbol = QAM_16_symbol / sqrt(10);
 
 
 % ====demodulation====  
-for x_dB= 0:1:10
+for x_dB= -3:1:20
    error_BER=0;  
    epoch=0;  
    error_count_BER=0;
    error_count_SER=0;
-  
+
     while (error_count_BER<=20)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
@@ -71,52 +71,53 @@ end
 %   E_bN_0 = 10^(E_bN_0dB/10); %dB°ªÀ¸·Î E_bN_0°è»ê
 %   SNR = E_bN_0*2; %Rb/b = 2(°¡Á¤)
 
-% ====Graph====
-% 1) BER-SNR ï¿½×·ï¿½ï¿½ï¿½
-load ('BPSK_BER_measure_digital.mat','BPSK_BER');
-x=0:1:10;
-graph1 = subplot(2,2,1);
-
-semilogy(x,BPSK_BER);
-load ('QPSK_BER_measure_digital.mat','QPSK_BER');
-hold on;
-semilogy(x,QPSK_BER);
-hold on;
-semilogy(x, QAM_16_BER);
-title('BER-SNR Graph ---->');
-ylabel(graph1,'BER ---->');
-xlabel(graph1, 'SNR ---->');
-legend('BPSK','QPSK','QAM 16');
-
-% 2) SER-SNR ï¿½×·ï¿½ï¿½ï¿½
-load('BPSK_SER_measure_digital.mat','BPSK_SER');
-x=0:1:10;
-graph2 = subplot(2,2,2);
-semilogy(x,BPSK_SER);
-load ('QPSK_SER_measure_digital.mat','QPSK_SER');
-hold on;
-semilogy(x,QPSK_SER);
-hold on;
-semilogy(x, QAM_16_SER);
-title('SER-SNR Graph ---->');
-ylabel(graph2,'SER ---->');
-xlabel(graph2, 'SNR ---->');
-legend('BPSK','QPSK','QAM 16');
-
-%EbN0 graph
+disp("finish")
+% % ====Graph====
+% % 1) BER-SNR ï¿½×·ï¿½ï¿½ï¿½
+% load ('BPSK_BER_measure_digital.mat','BPSK_BER');
+% x=-3:1:20;
+% graph1 = subplot(2,2,1);
+% 
+% semilogy(x,BPSK_BER);
+% load ('QPSK_BER_measure_digital.mat','QPSK_BER');
+% hold on;
+% semilogy(x,QPSK_BER);
+% hold on;
+% semilogy(x, QAM_16_BER);
+% title('BER-SNR Graph ---->');
+% ylabel(graph1,'BER ---->');
+% xlabel(graph1, 'SNR ---->');
+% legend('BPSK','QPSK','QAM 16');
+% 
+% % 2) SER-SNR ï¿½×·ï¿½ï¿½ï¿½
+% load('BPSK_SER_measure_digital.mat','BPSK_SER');
+% x=0:1:10;
+% graph2 = subplot(2,2,2);
+% semilogy(x,BPSK_SER);
+% load ('QPSK_SER_measure_digital.mat','QPSK_SER');
+% hold on;
+% semilogy(x,QPSK_SER);
+% hold on;
+% semilogy(x, QAM_16_SER);
+% title('SER-SNR Graph ---->');
+% ylabel(graph2,'SER ---->');
+% xlabel(graph2, 'SNR ---->');
+% legend('BPSK','QPSK','QAM 16');
+% 
+% %EbN0 graph
 % subplot(2,2,1);
 % plot(EbNo_noise(k),'r.');
-% wirte by ï¿½ï¿½ï¿½ï¿½
-% tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
-% semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
-% hold on
-% semilogy(E_bN_0,errrate,'b-','linewidth',2)  %Plot BER of Simulated Data
-% axis([-6 11 10^-5 1])
-% legend ('Theoratical BER','Simulation BER');
-% xlabel('E_b/N_0 (dB)')
-% ylabel('Bit Error Rate')
-% title('BPSK Modulation in AWGN')
-% grid on
+% % wirte by ï¿½ï¿½ï¿½ï¿½
+% % tber = berawgn(E_bN_0,'psk',2,'nondiff');   % Theoretical BER of BPSK in AWGN Channel 
+% % semilogy(E_bN_0,tber,'mx-','linewidth',2) %Plot Theoretical BER in AWGN
+% % hold on
+% % semilogy(E_bN_0,errrate,'b-','linewidth',2)  %Plot BER of Simulated Data
+% % axis([-6 11 10^-5 1])
+% % legend ('Theoratical BER','Simulation BER');
+% % xlabel('E_b/N_0 (dB)')
+% % ylabel('Bit Error Rate')
+% % title('BPSK Modulation in AWGN')
+% % grid on
 
 
 % matlabï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿? ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
