@@ -31,7 +31,7 @@ end
 
 
 %====demodulation====  
-for x_dB= -3:1:12;
+for x_dB= -3:1:12
 
    error_BER=0;  
    epoch=0;  
@@ -92,7 +92,7 @@ for x_dB= -3:1:12;
        end
     end
          error_bit=message-bit_demo;
-         error_BER=nnz(error_bit);       %error_bit ��Ŀ��� 0�� �ƴ� ������ ������ ���� 
+         error_BER=nnz(error_bit);       %error_bit ��Ŀ���? 0�� �ƴ� ������ ������ ���� 
          error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
