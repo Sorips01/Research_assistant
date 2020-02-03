@@ -33,7 +33,7 @@ for x_dB= -3:1:15
    error_count_BER=0;
    error_count_SER=0;
 
-    while (error_count_BER<=20)
+    while (error_count_BER<=200)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
         M = 4; % symbol ´ç bit ¼ö 
