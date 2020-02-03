@@ -27,7 +27,7 @@ QAM_16_symbol = QAM_16_symbol / sqrt(10);
 
 
 % ====demodulation====  
-for x_dB= -3:1:20
+for x_dB= -3:1:15
    error_BER=0;  
    epoch=0;  
    error_count_BER=0;
@@ -36,7 +36,8 @@ for x_dB= -3:1:20
     while (error_count_BER<=20)
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
-        N=S*10^(-0.1*x_dB);
+        M = 4; % symbol ´ç bit ¼ö 
+        N=S*10^(-0.1*x_dB) * (1/M);
         noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         QAM_16_symbol_noise = QAM_16_symbol + noise;        %noise ï¿½ß°ï¿½
         
