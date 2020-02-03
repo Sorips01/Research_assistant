@@ -63,7 +63,4 @@ semilogy(x,BPSK_BER);
 subplot(2,1,2);
 semilogy(x,BPSK_SER);
 
-save BPSK_BER_measure_digital.mat BPSK_BER -v7.3
-save BPSK_SER_measure_digital.mat BPSK_SER -v7.3
-
         
