@@ -41,7 +41,7 @@ for x_dB= -3:1:12
     while (error_count_BER<=200)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
-        N=S*10^(-0.1*x_dB);
+        N=S*10^(-0.1*x_dB)*(1/M);
 
         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      %ÀâÀ½ »ý¼º
         h = sqrt(0.5) * [randn(1,length(symbol)) + 1i*randn(1,length(symbol))];       % Rayleigh channel
