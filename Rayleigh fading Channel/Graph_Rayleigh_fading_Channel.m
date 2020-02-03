@@ -8,9 +8,9 @@ axis([-4 15 0 (10^-5)]);
 LineWidth = 3;
 
 % 1) SNR - BER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\BPSK_Rayleigh_SNR_BER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QPSK_Rayleigh_SNR_BER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QAM_16_Rayleigh_SNR_BER.mat')
+load(fullfile(pwd, '\mat_Rayleigh\BPSK_Rayleigh_SNR_BER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_SNR_BER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_SNR_BER.mat'));
 
 Rayleigh_BPSK_SNR_BER = Rayleigh_BPSK_SNR_BER;
 Rayleigh_QPSK_SNR_BER = QPSK_Rayleigh_SNR_BER;
@@ -30,9 +30,9 @@ legend('BPSK','QPSK','QAM 16');
 
 
 % 2) SNR - SER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\BPSK_Rayleigh_SNR_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QPSK_Rayleigh_SNR_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QAM_16_Rayleigh_SNR_SER.mat')
+load(fullfile(pwd,'\mat_Rayleigh\BPSK_Rayleigh_SNR_SER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_SNR_SER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_SNR_SER.mat'));
 
 Rayleigh_BPSK_SNR_BER = Rayleigh_BPSK_SNR_BER;
 Rayleigh_QPSK_SNR_SER = QPSK_Rayleigh_SNR_SER;
@@ -52,9 +52,9 @@ xlabel(graph2, 'SNR ---->');
 legend('BPSK','QPSK','QAM 16');
 
 % 3) Eb/N0 - BER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\BPSK_Rayleigh_EbN0_BER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QPSK_Rayleigh_EbN0_BER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QAM_16_Rayleigh_EbN0_BER.mat')
+load(fullfile(pwd,'\mat_Rayleigh\BPSK_Rayleigh_EbN0_BER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_EbN0_BER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_EbN0_BER.mat'));
 
 Rayleigh_BPSK_EbN0_BER = Rayleigh_BPSK_EbN0_BER;
 Rayleigh_QPSK_EbN0_BER = QPSK_Rayleigh_EbN0_BER;
@@ -77,9 +77,9 @@ legend('BPSK','QPSK','QAM 16');
 
 
 % 4) Eb/N0 - SER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\BPSK_Rayleigh_EbN0_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QPSK_Rayleigh_EbN0_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_Rayleigh\QAM_16_Rayleigh_EbN0_SER.mat')
+load(fullfile(pwd,'\mat_Rayleigh\BPSK_Rayleigh_EbN0_SER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_EbN0_SER.mat'));
+load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_EbN0_SER.mat'));
 
 Rayleigh_BPSK_EbN0_SER = Rayleigh_BPSK_EbN0_SER;
 Rayleigh_QPSK_EbN0_SER = QPSK_Rayleigh_EbN0_SER;
