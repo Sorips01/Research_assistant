@@ -8,9 +8,9 @@ axis([-4 15 0 (10^-5)]);
 LineWidth = 3;
 
 % 1) SNR - BER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_SNR\BPSK_SNR_BER.mat');
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_SNR\QPSK_SNR_BER.mat');
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_SNR\QAM_16_SNR_BER.mat');
+load(fullfile(pwd,'\mat_SNR\BPSK_SNR_BER.mat'));
+load(fullfile(pwd,'\mat_SNR\QPSK_SNR_BER.mat'));
+load(fullfile(pwd,'\mat_SNR\QAM_16_SNR_BER.mat'));
 
 BPSK_SNR_BER = BPSK_BER;
 QPSK_SNR_BER = QPSK_BER;
@@ -30,9 +30,9 @@ legend('BPSK','QPSK','QAM 16');
 
 
 % 2) SNR - SER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_SNR\BPSK_SNR_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_SNR\QPSK_SNR_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_SNR\QAM_16_SNR_SER.mat')
+load(fullfile(pwd,'\mat_SNR\BPSK_SNR_SER.mat'));
+load(fullfile(pwd,'\mat_SNR\QPSK_SNR_SER.mat'));
+load(fullfile(pwd,'\mat_SNR\QAM_16_SNR_SER.mat'));
 
 BPSK_SNR_SER = BPSK_SER;
 QPSK_SNR_SER = QPSK_SER;
@@ -52,9 +52,9 @@ xlabel(graph2, 'SNR ---->');
 legend('BPSK','QPSK','QAM 16');
 
 % 3) Eb/N0 - BER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_EbN0\BPSK_EbN0_BER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_EbN0\QPSK_EbN0_BER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_EbN0\QAM_16_EbN0_BER.mat')
+load(fullfile(pwd,'\mat_EbN0\BPSK_EbN0_BER.mat'));
+load(fullfile(pwd,'\mat_EbN0\QPSK_EbN0_BER.mat'));
+load(fullfile(pwd,'\mat_EbN0\QAM_16_EbN0_BER.mat'));
 
 BPSK_EbN0_BER = BPSK_EbN0_BER;
 QPSK_EbN0_BER = QPSK_EbN0_BER;
@@ -77,9 +77,9 @@ legend('BPSK','QPSK','QAM 16');
 
 
 % 4) Eb/N0 - SER
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_EbN0\BPSK_EbN0_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_EbN0\QAM_16_EbN0_SER.mat')
-load('C:\Users\Assistant_2\paeng\Research_assistant\mat_EbN0\QPSK_EbN0_SER.mat')
+load(fullfile(pwd,'\mat_EbN0\BPSK_EbN0_SER.mat'));
+load(fullfile(pwd,'\mat_EbN0\QAM_16_EbN0_SER.mat'));
+load(fullfile(pwd,'\mat_EbN0\QPSK_EbN0_SER.mat'));
 
 BPSK_EbN0_SER = BPSK_EbN0_SER;
 QPSK_EbN0_SER = QPSK_EbN0_SER;
