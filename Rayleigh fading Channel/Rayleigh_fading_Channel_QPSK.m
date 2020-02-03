@@ -41,12 +41,17 @@ for x_dB= -3:1:12
     while (error_count_BER<=200)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
-        N=S*10^(-0.1*x_dB) * (1/M);
+        N=S*10^(-0.1*x_dB);
 
-        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        symbol_noise=symbol+noise;
+        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      %ÀâÀ½ »ý¼º
+        h = sqrt(0.5) * [randn(1,length(symbol)) + 1i*randn(1,length(symbol))];       % Rayleigh channel
+        h_c = conj(h);      % h ÄÓ·¹º¹¼Ò¼ö »ý¼º
+        symbol_h = symbol.*h;
+        symbol_noise=symbol_h+noise;
         symbol_demo = zeros(1,length(symbol_noise));
-     
+        
+        symbol_noise = symbol_noise .* h_c;
+        symbol_noise = symbol_noise ./ (h .* h_c);
     
      for j=1:1:length(symbol_noise) 
                         
@@ -102,18 +107,13 @@ for x_dB= -3:1:12
 end
 
 
-% load ('BPSK_BER_measure_digital.mat','BPSK_BER');
-% x=0:1:10;         %ï¿½×·ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½
-% semilogy(x,QPSK_BER);
-% hold on;
-% semilogy(x,BPSK_BER);
-% 
-% EbNo = -3:1:20;
-% semilogy(EbNo, QPSK_BER_EbNo);
-% hold on;
-% 
-% save QPSK_BER_measure_digital.mat QPSK_BER -v7.3
-% save QPSK_SER_measure_digital.mat QPSK_SER -v7.3
+x=-3:1:12;         %±×·¡ÇÁ ±×¸®±â
+axis([-3 12 0 10^-5]);
+subplot(2,1,1);
+semilogy(x,QPSK_BER);
+subplot(2,1,2);
+semilogy(x,QPSK_SER);
+
 
 
         
