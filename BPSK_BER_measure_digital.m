@@ -13,7 +13,7 @@ for i = 1:1:length(message)
     end
 end
 
-for x_dB= 0:1:10
+for x_dB= -3:1:12
     epoch=0;
     error=0;
     error_count_BER=0;
