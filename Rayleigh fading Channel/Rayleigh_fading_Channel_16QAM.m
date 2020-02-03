@@ -38,10 +38,15 @@ for x_dB= -3:1:12
         S=1;
         M = 4; % symbol ´ç bit ¼ö 
         N=S*10^(-0.1*x_dB);
-        noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        QAM_16_symbol_noise = QAM_16_symbol + noise;        %noise ï¿½ß°ï¿½
-        
+        noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % ÀâÀ½ »ý¼º
+        h = sqrt(0.5) * [randn(1,length(QAM_16_symbol)) + 1i*randn(1,length(QAM_16_symbol))];       % Rayleigh channel
+        h_c = conj(h);      % h ÄÓ·¹º¹¼Ò¼ö »ý¼º
+        QAM_16_symbol_h = QAM_16_symbol .* h;
+        QAM_16_symbol_noise = QAM_16_symbol_h + noise;        %noise Ãß°¡
         QAM_16_symbol_demo = zeros(1, length(QAM_16_symbol_noise));
+        
+        QAM_16_symbol_noise = QAM_16_symbol_noise .* h_c;
+        QAM_16_symbol_noise = QAM_16_symbol_noise ./ (h .* h_c);
         
         % Deomodulation Symbol
         for i=1:1:length(QAM_16_symbol_noise)
@@ -67,6 +72,13 @@ for x_dB= -3:1:12
      QAM_16_BER = [QAM_16_BER error_count_BER/(epoch*length(message))];
      QAM_16_SER = [QAM_16_SER error_count_SER/(epoch*length(message))];
 end
+
+x=-3:1:12;         %±×·¡ÇÁ ±×¸®±â
+axis([-3 12 0 10^-5]);
+subplot(2,1,1);
+semilogy(x,QAM_16_BER);
+subplot(2,1,2);
+semilogy(x,QAM_16_SER);
 % 
 %   E_bN_0dB=0:1:10;   %E_bN_0 = 0dB
 %   E_bN_0 = 10^(E_bN_0dB/10); %dB°ªÀ¸·Î E_bN_0°è»ê
