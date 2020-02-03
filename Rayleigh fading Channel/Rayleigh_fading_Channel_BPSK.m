@@ -13,7 +13,7 @@ for i = 1:1:length(message)
     end
 end
 
-for x_dB= 0:1:20
+for x_dB= -3:1:12
     epoch=0;
     error=0;
     error_count_BER=0;
@@ -61,7 +61,7 @@ for x_dB= 0:1:20
     BPSK_SER = [BPSK_SER error_count_SER/(epoch*length(message))];
 end
 
-x=0:1:20;         %그래프 그리기
+x=-3:1:12;         %그래프 그리기
 subplot(2,1,1);
 semilogy(x,BPSK_BER);
 subplot(2,1,2);
