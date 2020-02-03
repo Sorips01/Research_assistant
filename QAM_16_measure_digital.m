@@ -66,6 +66,10 @@ for x_dB= -3:1:20
      QAM_16_BER = [QAM_16_BER error_count_BER/(epoch*length(message))];
      QAM_16_SER = [QAM_16_SER error_count_SER/(epoch*length(message))];
 end
+% 
+%   E_bN_0dB=0:1:10;   %E_bN_0 = 0dB
+%   E_bN_0 = 10^(E_bN_0dB/10); %dB값으로 E_bN_0계산
+%   SNR = E_bN_0*2; %Rb/b = 2(가정)
 
 disp("finish")
 % % ====Graph====
