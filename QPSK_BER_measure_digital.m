@@ -29,8 +29,10 @@ for j = 1:2:(length(message)-1)
     
 end
 
+
 %====demodulation====  
-for x_dB= -3:1:12
+for x_dB= -3:1:12;
+
    error_BER=0;  
    epoch=0;  
    error_count_BER=0;
@@ -38,9 +40,10 @@ for x_dB= -3:1:12
   
     while (error_count_BER<=200)
         S=2;                            %(sum(symbol.^2))/length(symbol)
-        M=2;                            % symbol´ç ºñÆ® ¼ö
+        M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
         N=S*10^(-0.1*x_dB) * (1/M);
-        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % ÀâÀ½ »ý¼º
+
+        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         symbol_noise=symbol+noise;
         symbol_demo = zeros(1,length(symbol_noise));
      
@@ -63,7 +66,7 @@ for x_dB= -3:1:12
      error_count_SER = error_count_SER+error_SER;
          
          
-    bit_demo=zeros(1,length(message)); %º¹Á¶ÇÑ ½É¹ú ºñÆ®·Î
+    bit_demo=zeros(1,length(message)); %ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¹ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
     k = 1;
     for j=1:1:(length(symbol_demo))
        if(symbol_demo(j) == -1-1i)
@@ -89,7 +92,7 @@ for x_dB= -3:1:12
        end
     end
          error_bit=message-bit_demo;
-         error_BER=nnz(error_bit);       %error_bit Çà·Ä¿¡¼­ 0ÀÌ ¾Æ´Ñ ¿ø¼ÒÀÇ °³¼ö¸¦ ¼¾´Ù 
+         error_BER=nnz(error_bit);       %error_bit ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
          error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
@@ -100,7 +103,7 @@ end
 
 
 % load ('BPSK_BER_measure_digital.mat','BPSK_BER');
-% x=0:1:10;         %±×·¡ÇÁ ±×¸®±â
+% x=0:1:10;         %ï¿½×·ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½
 % semilogy(x,QPSK_BER);
 % hold on;
 % semilogy(x,BPSK_BER);
