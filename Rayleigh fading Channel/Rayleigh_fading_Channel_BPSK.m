@@ -13,7 +13,7 @@ for i = 1:1:length(message)
     end
 end
 
-for x_dB= -3:1:12
+for x_dB= 0:1:20
     epoch=0;
     error=0;
     error_count_BER=0;
@@ -23,8 +23,12 @@ for x_dB= -3:1:12
     
     while error_count_BER<=200
         noise =sqrt(N/2)*randn(1,length(symbol));      % 잡음 생성
-        symbol_noise=symbol+noise;
+%         noise = 0;
+        h = sqrt(0.5) * randn(1,length(symbol));       % Rayleigh channel
+        symbol_h = symbol.*h;
+        symbol_noise=symbol_h+noise;
         symbol_demo = zeros(1,length(symbol_noise));
+        symbol_noise = symbol_noise ./ h;
         
         for j=1:1:length(message)                   %수신 심벌 복조
             if(symbol_noise(1,j)>=0)
@@ -57,7 +61,7 @@ for x_dB= -3:1:12
     BPSK_SER = [BPSK_SER error_count_SER/(epoch*length(message))];
 end
 
-x=0:1:10;         %그래프 그리기
+x=0:1:20;         %그래프 그리기
 subplot(2,1,1);
 semilogy(x,BPSK_BER);
 subplot(2,1,2);
