@@ -29,166 +29,91 @@ for j = 1:2:(length(message)-1)
     
 end
 
- EbNo_dB = -3:1:20;
- EbNo = 10.^(EbNo_dB/10);
- 
-         
-% %====demodulation====  
-% for x_dB= 0:1:10
-%    error_BER=0;  
-%    epoch=0;  
-%    error_count_BER=0;
-%    error_count_SER=0;
-%   
-%     while (error_count_BER<=200)
-%         S=2;                            %(sum(symbol.^2))/length(symbol)
-%         N=S*10^(-0.1*x_dB);
-%         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % ÀâÀ½ »ý¼º
-%         symbol_noise=symbol+noise;
-%         symbol_demo = zeros(1,length(symbol_noise));
-%      
-%     
-%      for j=1:1:length(symbol_noise) 
-%                         
-%         if(symbol_noise(j)<0 && imag(symbol_noise(j))<0)
-%                symbol_demo(j) = -1-1i;
-%          elseif(symbol_noise(j)<0 &&imag(symbol_noise(j))>0)
-%                symbol_demo(j) = -1+1i;
-%          elseif(symbol_noise(j)>0 &&imag(symbol_noise(j))<0)
-%                symbol_demo(j) = 1-1i;
-%          else
-%                symbol_demo(j) = 1+1i;
-%          end
-%      end    
-%     
-%      error_symbol=symbol-symbol_demo;
-%      error_SER=nnz(error_symbol);
-%      error_count_SER = error_count_SER+error_SER;
-%          
-%          
-%     bit_demo=zeros(1,length(message)); %º¹Á¶ÇÑ ½É¹ú ºñÆ®·Î
-%     k = 1;
-%     for j=1:1:(length(symbol_demo))
-%        if(symbol_demo(j) == -1-1i)
-%            bit_demo(1,k) = 0;
-%            k = k + 1;
-%            bit_demo(1,k) = 0;
-%            k = k + 1;
-%        elseif(symbol_demo(j) == -1+1i)
-%            bit_demo(1,k) = 0;
-%            k = k + 1;
-%            bit_demo(1,k) = 1;
-%            k = k + 1;
-%        elseif(symbol_demo(j) == 1-1i)
-%            bit_demo(1,k) = 1;
-%            k = k + 1;
-%            bit_demo(1,k) = 0;
-%            k = k + 1;   
-%        else
-%            bit_demo(1,k) = 1;
-%            k = k + 1;
-%            bit_demo(1,k) = 1;
-%            k = k + 1;
-%        end
-%     end
-%          error_bit=message-bit_demo;
-%          error_BER=nnz(error_bit);       %error_bit Çà·Ä¿¡¼­ 0ÀÌ ¾Æ´Ñ ¿ø¼ÒÀÇ °³¼ö¸¦ ¼¾´Ù 
-%          error_count_BER = error_count_BER+error_BER;
-%          epoch = epoch+1;
-%         
-%     end
-%      QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
-%      QPSK_SER = [QPSK_SER error_count_SER/(epoch*length(message))];
-% end
-% 
-   
 
-QPSK_BER_EbNo=[];
-QPSK_SER_EbNo=[];
+%====demodulation====  
+for x_dB= -3:1:12
 
-for n = 1:length(EbNo_dB)
+   error_BER=0;  
+   epoch=0;  
+   error_count_BER=0;
+   error_count_SER=0;
+  
+    while (error_count_BER<=200)
+        S=2;                            %(sum(symbol.^2))/length(symbol)
+        M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
+        N=S*10^(-0.1*x_dB) * (1/M);
 
-   error_BER_EbNo=0;  
-   epoch_EbNo=0;  
-   error_count_BER_EbNo=0;
-   error_count_SER_EbNo=0;
-   
-    while (error_count_BER_EbNo<=200)
-        S=2;  
-        M = 2;                              %(sum(symbol.^2))/length(symbol)
-        N=(1/M).*S.*10.^(-0.1.*EbNo_dB);
-        noise =(1/sqrt(2.*EbNo(n))).*(randn(1,length(symbol)) + 1i.*(sqrt(N/2).*randn(1,length(symbol))));      % ÀâÀ½ »ý¼º
-        symbol_noise_EbNo=symbol+noise;
-        symbol_demo_EbNo = zeros(1,length(symbol_noise_EbNo));
+        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      % ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        symbol_noise=symbol+noise;
+        symbol_demo = zeros(1,length(symbol_noise));
      
     
-     for j=1:1:length(symbol_noise_EbNo) 
+     for j=1:1:length(symbol_noise) 
                         
-        if(symbol_noise_EbNo(j)<0 && imag(symbol_noise_EbNo(j))<0)
-               symbol_demo_EbNo(j) = -1-1i;
-         elseif(symbol_noise_EbNo(j)<0 &&imag(symbol_noise_EbNo(j))>0)
-               symbol_demo_EbNo(j) = -1+1i;
-         elseif(symbol_noise_EbNo(j)>0 &&imag(symbol_noise_EbNo(j))<0)
-               symbol_demo_EbNo(j) = 1-1i;
+        if(symbol_noise(j)<0 && imag(symbol_noise(j))<0)
+               symbol_demo(j) = -1-1i;
+         elseif(symbol_noise(j)<0 &&imag(symbol_noise(j))>0)
+               symbol_demo(j) = -1+1i;
+         elseif(symbol_noise(j)>0 &&imag(symbol_noise(j))<0)
+               symbol_demo(j) = 1-1i;
          else
-               symbol_demo_EbNo(j) = 1+1i;
+               symbol_demo(j) = 1+1i;
          end
      end    
     
-     error_symbol_EbNo=symbol-symbol_demo_EbNo;
-     error_SER_EbNo=nnz(error_symbol);
-     error_count_SER_EbNo = error_count_SER_EbNo+error_SER_EbNo;
+     error_symbol=symbol-symbol_demo;
+     error_SER=nnz(error_symbol);
+     error_count_SER = error_count_SER+error_SER;
          
          
-    bit_demo_EbNo=zeros(1,length(message)); %º¹Á¶ÇÑ ½É¹ú ºñÆ®·Î
+    bit_demo=zeros(1,length(message)); %ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¹ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
     k = 1;
-    for j=1:1:(length(symbol_demo_EbNo))
-       if(symbol_demo_EbNo(j) == -1-1i)
-           bit_demo_EbNo(1,k) = 0;
+    for j=1:1:(length(symbol_demo))
+       if(symbol_demo(j) == -1-1i)
+           bit_demo(1,k) = 0;
            k = k + 1;
-           bit_demo_EbNo(1,k) = 0;
+           bit_demo(1,k) = 0;
            k = k + 1;
-       elseif(symbol_demo_EbNo(j) == -1+1i)
-           bit_demo_EbNo(1,k) = 0;
+       elseif(symbol_demo(j) == -1+1i)
+           bit_demo(1,k) = 0;
            k = k + 1;
-           bit_demo_EbNo(1,k) = 1;
+           bit_demo(1,k) = 1;
            k = k + 1;
-       elseif(symbol_demo_EbNo(j) == 1-1i)
-           bit_demo_EbNo(1,k) = 1;
+       elseif(symbol_demo(j) == 1-1i)
+           bit_demo(1,k) = 1;
            k = k + 1;
-           bit_demo_EbNo(1,k) = 0;
+           bit_demo(1,k) = 0;
            k = k + 1;   
        else
-           bit_demo_EbNo(1,k) = 1;
+           bit_demo(1,k) = 1;
            k = k + 1;
-           bit_demo_EbNo(1,k) = 1;
+           bit_demo(1,k) = 1;
            k = k + 1;
        end
     end
-         error_bit_EbNo=message-bit_demo_EbNo;
-         error_BER_EbNo=nnz(error_bit_EbNo);       %error_bit Çà·Ä¿¡¼­ 0ÀÌ ¾Æ´Ñ ¿ø¼ÒÀÇ °³¼ö¸¦ ¼¾´Ù 
-         error_count_BER_EbNo = error_count_BER_EbNo+error_BER_EbNo;
+         error_bit=message-bit_demo;
+         error_BER=nnz(error_bit);       %error_bit ï¿½ï¿½Ä¿ï¿½ï¿½ï¿? 0ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+         error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
     end
-
-     QPSK_BER_EbNo = [QPSK_BER_EbNo error_count_BER_EbNo/(epoch_EbNo*length(message))];
-     QPSK_SER_EbNo = [QPSK_SER_EbNo error_count_SER_EbNo/(epoch_EbNo*length(message))];
+     QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
+     QPSK_SER = [QPSK_SER error_count_SER/(epoch*length(message))];
 end
 
 
-load ('BPSK_BER_measure_digital.mat','BPSK_BER');
-x=0:1:10;         %±×·¡ÇÁ ±×¸®±â
-semilogy(x,QPSK_BER);
-hold on;
-semilogy(x,BPSK_BER);
-
-EbNo = -3:1:20;
-semilogy(EbNo, QPSK_BER_EbNo);
-hold on;
-
-save QPSK_BER_measure_digital.mat QPSK_BER -v7.3
-save QPSK_SER_measure_digital.mat QPSK_SER -v7.3
+% load ('BPSK_BER_measure_digital.mat','BPSK_BER');
+% x=0:1:10;         %ï¿½×·ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½
+% semilogy(x,QPSK_BER);
+% hold on;
+% semilogy(x,BPSK_BER);
+% 
+% EbNo = -3:1:20;
+% semilogy(EbNo, QPSK_BER_EbNo);
+% hold on;
+% 
+% save QPSK_BER_measure_digital.mat QPSK_BER -v7.3
+% save QPSK_SER_measure_digital.mat QPSK_SER -v7.3
 
 
         
