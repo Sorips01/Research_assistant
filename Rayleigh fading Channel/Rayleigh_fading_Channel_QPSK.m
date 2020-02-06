@@ -1,6 +1,7 @@
-clc;
+%clc;
 clear all;
 close all;
+tic
 
 message=randi([0,1],1,1000000);  %OK
 
@@ -31,17 +32,17 @@ end
 
 
 %====demodulation====  
-for x_dB= -3:1:12
+for x_dB= 0:5:40
 
    error_BER=0;  
    epoch=0;  
    error_count_BER=0;
    error_count_SER=0;
   
-    while (error_count_BER<=200)
+    while (error_count_BER<=1000)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
-        N=S*10^(-0.1*x_dB)*(1/M);
+        N=S*10^(-0.1*x_dB) * (1/M);
 
         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      %ÀâÀ½ »ý¼º
         h = sqrt(0.5) * [randn(1,length(symbol)) + 1i*randn(1,length(symbol))];       % Rayleigh channel
@@ -107,13 +108,14 @@ for x_dB= -3:1:12
 end
 
 
-x=-3:1:12;         %±×·¡ÇÁ ±×¸®±â
-axis([-3 12 0 10^-5]);
+x=0:5:40;         %±×·¡ÇÁ ±×¸®±â
+axis([0 40 0 10^-5]);
 subplot(2,1,1);
 semilogy(x,QPSK_BER);
 subplot(2,1,2);
 semilogy(x,QPSK_SER);
 
+toc
 
 
         

@@ -1,6 +1,7 @@
-clc;
+%clc;
 clear all;
 close all;
+tic
 
 message=randi([0,1],1,1000000);
 BPSK_BER=[];
@@ -13,7 +14,7 @@ for i = 1:1:length(message)
     end
 end
 
-for x_dB= -3:1:12
+for x_dB= 0:5:40
     epoch=0;
     error=0;
     error_count_BER=0;
@@ -21,7 +22,7 @@ for x_dB= -3:1:12
     S=1;                            %(sum(symbol.^2))/length(symbol)
     N=S*10^(-0.1*x_dB);
     
-    while error_count_BER<=200
+    while error_count_BER<=1000
         noise =sqrt(N/2)*randn(1,length(symbol));      % 잡음 생성
 %         noise = 0;
         h = sqrt(0.5) * randn(1,length(symbol));       % Rayleigh channel
@@ -61,10 +62,11 @@ for x_dB= -3:1:12
     BPSK_SER = [BPSK_SER error_count_SER/(epoch*length(message))];
 end
 
-x=-3:1:12;         %그래프 그리기
+x=0:5:40;         %그래프 그리기
 subplot(2,1,1);
 semilogy(x,BPSK_BER);
 subplot(2,1,2);
 semilogy(x,BPSK_SER);
 
+toc
         
