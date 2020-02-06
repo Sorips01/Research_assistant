@@ -121,7 +121,7 @@ QPSK_SER_EbN0 = QPSK_SER;
 % 상위 폴더(Research_assistant)로 이동 -> mat_Rayleigh 폴더 이동 -> 저장
 cd ..
 cd mat_Rayleigh
-save('QAM_16_Rayleigh_EbN0.mat', 'QPSK_BER_EbN0', 'QPSK_SER_EbN0', '-append');
+save('QPSK_Rayleigh_EbN0.mat', 'QPSK_BER_EbN0', 'QPSK_SER_EbN0', '-append');
 
 % 상위 폴더(Research_assistant)로 이동 -> 'Rayleigh fading Channel' 폴더 이동
 cd ..

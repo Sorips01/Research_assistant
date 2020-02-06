@@ -83,7 +83,7 @@ semilogy(x,QAM_16_SER);
 % 상위 폴더(Research_assistant)로 이동 -> mat_Rayleigh 폴더 이동 -> 저장
 cd ..
 cd mat_Rayleigh
-save('QAM_16_Rayleigh_EbN0.mat', 'QAM_16_BER', 'QAM_16_SER', '-append');
+save('QAM_16_Rayleigh_SNR.mat', 'QAM_16_BER', 'QAM_16_SER', '-append');
 
 % 상위 폴더(Research_assistant)로 이동 -> 'Rayleigh fading Channel' 폴더 이동
 cd ..
