@@ -68,7 +68,7 @@ hold on;
 semilogy(x, Rayleigh_QAM_16_EbN0_BER, 'LineWidth', LineWidth);
 title('Eb/N0 - BER Graph ---->');
 ylabel(graph3,'SER ---->');
-xlabel(graph3, 'SNR ---->');
+xlabel(graph3, 'EbN0 ---->');
 legend('BPSK','QPSK','QAM 16');
 
 
@@ -89,5 +89,5 @@ hold on;
 semilogy(x, Rayleigh_QAM_16_EbN0_SER, 'LineWidth', LineWidth);
 title('Eb/N0 - SER Graph ---->');
 ylabel(graph4,'SER ---->');
-xlabel(graph4, 'SNR ---->');
+xlabel(graph4, 'EbN0 ---->');
 legend('BPSK','QPSK','QAM 16');
