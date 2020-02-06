@@ -1,4 +1,4 @@
-clc;
+% clc;
 clear all;
 close all;
 
@@ -14,6 +14,7 @@ load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_SNR.mat'));
 load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_EbN0.mat'));
 load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_EbN0.mat'));
 cd 'Rayleigh fading Channel'
+
 % 1) SNR - BER
 
 

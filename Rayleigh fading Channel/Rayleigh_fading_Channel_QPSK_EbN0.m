@@ -108,12 +108,12 @@ for x_dB= 0:5:40
 end
 
 
-x=0:5:40;         %그래프 그리기
-axis([0 40 0 10^-5]);
-subplot(2,1,1);
-semilogy(x,QPSK_BER);
-subplot(2,1,2);
-semilogy(x,QPSK_SER);
+% x=0:5:40;         %그래프 그리기
+% axis([0 40 0 10^-5]);
+% subplot(2,1,1);
+% semilogy(x,QPSK_BER);
+% subplot(2,1,2);
+% semilogy(x,QPSK_SER);
 
 QPSK_BER_EbN0 = QPSK_BER;
 QPSK_SER_EbN0 = QPSK_SER;
@@ -126,6 +126,8 @@ save('QAM_16_Rayleigh_EbN0.mat', 'QPSK_BER_EbN0', 'QPSK_SER_EbN0', '-append');
 % 상위 폴더(Research_assistant)로 이동 -> 'Rayleigh fading Channel' 폴더 이동
 cd ..
 cd 'Rayleigh fading Channel'
+
+disp(mfilename('Class'))
 
 toc
 

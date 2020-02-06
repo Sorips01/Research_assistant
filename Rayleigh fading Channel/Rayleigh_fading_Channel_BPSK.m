@@ -62,13 +62,13 @@ for x_dB= 0:5:40
     BPSK_SER = [BPSK_SER error_count_SER/(epoch*length(message))];
 end
 
-x=0:5:40;         %그래프 그리기
-subplot(2,1,1);
-semilogy(x,BPSK_BER);
-subplot(2,1,2);
-semilogy(x,BPSK_SER);
+% x=0:5:40;         %그래프 그리기
+% subplot(2,1,1);
+% semilogy(x,BPSK_BER);
+% subplot(2,1,2);
+% semilogy(x,BPSK_SER);
 
-toc
+
 
 % 상위 폴더(Research_assistant)로 이동 -> mat_Rayleigh 폴더 이동 -> 저장
 cd ..
@@ -79,3 +79,6 @@ save('BPSK_Rayleigh.mat', 'BPSK_BER', 'BPSK_SER', '-append');
 cd ..
 cd 'Rayleigh fading Channel'
 
+disp(mfilename('Class'))
+
+toc

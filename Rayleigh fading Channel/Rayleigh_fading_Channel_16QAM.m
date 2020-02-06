@@ -80,8 +80,6 @@ semilogy(x,QAM_16_BER);
 subplot(2,1,2);
 semilogy(x,QAM_16_SER);
 
-toc
-
 % »óÀ§ Æú´õ(Research_assistant)·Î ÀÌµ¿ -> mat_Rayleigh Æú´õ ÀÌµ¿ -> ÀúÀå
 cd ..
 cd mat_Rayleigh
@@ -91,8 +89,9 @@ save('QAM_16_Rayleigh_EbN0.mat', 'QAM_16_BER', 'QAM_16_SER', '-append');
 cd ..
 cd 'Rayleigh fading Channel'
 
-disp("finish")
+disp(mfilename('Class'))
 
+toc
 
 % matlabï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿? ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 

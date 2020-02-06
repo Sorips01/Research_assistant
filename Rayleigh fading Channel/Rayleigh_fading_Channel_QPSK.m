@@ -124,6 +124,8 @@ save('QAM_16_Rayleigh_EbN0.mat', 'QPSK_BER', 'QPSK_SER', '-append');
 cd ..
 cd 'Rayleigh fading Channel'
 
+disp(mfilename('Class'))
+
 toc
 
 
