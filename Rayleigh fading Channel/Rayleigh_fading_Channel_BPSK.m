@@ -23,13 +23,16 @@ for x_dB= 0:5:40
     N=S*10^(-0.1*x_dB);
     
     while error_count_BER<=1000
-        noise =sqrt(N/2)*randn(1,length(symbol));      % 잡음 생성
-%         noise = 0;
-        h = sqrt(0.5) * randn(1,length(symbol));       % Rayleigh channel
+        noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      %잡음 생성
+        %noise = 0;
+        h = sqrt(0.5) * [randn(1,length(symbol)) + 1i*randn(1,length(symbol))];       % Rayleigh channel
+        h_c = conj(h);      % h 켤레복소수 생성
         symbol_h = symbol.*h;
         symbol_noise=symbol_h+noise;
         symbol_demo = zeros(1,length(symbol_noise));
-        symbol_noise = symbol_noise ./ h;
+        
+        symbol_noise = symbol_noise .* h_c;
+        symbol_noise = symbol_noise ./ (h .* h_c);
         
         for j=1:1:length(message)                   %수신 심벌 복조
             if(symbol_noise(1,j)>=0)
