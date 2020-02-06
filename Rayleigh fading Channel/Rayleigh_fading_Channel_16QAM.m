@@ -37,7 +37,7 @@ for x_dB= 0:5:40
         %S = (sum(QAM_16_symbol.^2)/16);
         S=1;
         M = 4; % symbol 당 bit 수 
-        N=S*10^(-0.1*x_dB)*(1/M);
+        N=S*10^(-0.1*x_dB);
         noise = sqrt(N/2)*randn(1,length(QAM_16_symbol)) + 1i*(sqrt(N/2)*randn(1,length(QAM_16_symbol)));      % 잡음 생성
         h = sqrt(0.5) * [randn(1,length(QAM_16_symbol)) + 1i*randn(1,length(QAM_16_symbol))];       % Rayleigh channel
         h_c = conj(h);      % h 켤레복소수 생성
@@ -81,6 +81,15 @@ subplot(2,1,2);
 semilogy(x,QAM_16_SER);
 
 toc
+
+% 상위 폴더(Research_assistant)로 이동 -> mat_Rayleigh 폴더 이동 -> 저장
+cd ..
+cd mat_Rayleigh
+save('QAM_16_Rayleigh_EbN0.mat', 'QAM_16_BER', 'QAM_16_SER', '-append');
+
+% 상위 폴더(Research_assistant)로 이동 -> 'Rayleigh fading Channel' 폴더 이동
+cd ..
+cd 'Rayleigh fading Channel'
 
 disp("finish")
 

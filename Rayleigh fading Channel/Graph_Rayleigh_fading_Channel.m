@@ -7,12 +7,13 @@ graph1 = subplot(2,2,1);
 axis([-4 15 0 (10^-5)]);
 LineWidth = 3;
 
+cd ..
 load(fullfile(pwd, '\mat_Rayleigh\BPSK_Rayleigh.mat'));
 load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_SNR.mat'));
 load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_SNR.mat'));
 load(fullfile(pwd,'\mat_Rayleigh\QPSK_Rayleigh_EbN0.mat'));
 load(fullfile(pwd,'\mat_Rayleigh\QAM_16_Rayleigh_EbN0.mat'));
-
+cd 'Rayleigh fading Channel'
 % 1) SNR - BER
 
 
@@ -91,3 +92,5 @@ title('Eb/N0 - SER Graph ---->');
 ylabel(graph4,'SER ---->');
 xlabel(graph4, 'EbN0 ---->');
 legend('BPSK','QPSK','QAM 16');
+
+

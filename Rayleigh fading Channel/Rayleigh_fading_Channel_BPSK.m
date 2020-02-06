@@ -69,4 +69,13 @@ subplot(2,1,2);
 semilogy(x,BPSK_SER);
 
 toc
-        
+
+% 상위 폴더(Research_assistant)로 이동 -> mat_Rayleigh 폴더 이동 -> 저장
+cd ..
+cd mat_Rayleigh
+save('BPSK_Rayleigh.mat', 'BPSK_BER', 'BPSK_SER', '-append');
+
+% 상위 폴더(Research_assistant)로 이동 -> 'Rayleigh fading Channel' 폴더 이동
+cd ..
+cd 'Rayleigh fading Channel'
+

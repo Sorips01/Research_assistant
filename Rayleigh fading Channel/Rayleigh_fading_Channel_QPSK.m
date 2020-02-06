@@ -42,7 +42,7 @@ for x_dB= 0:5:40
     while (error_count_BER<=1000)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
-        N=S*10^(-0.1*x_dB) * (1/M);
+        N=S*10^(-0.1*x_dB);
 
         noise =sqrt(N/2)*randn(1,length(symbol)) + 1i*(sqrt(N/2)*randn(1,length(symbol)));      %ÀâÀ½ »ý¼º
         h = sqrt(0.5) * [randn(1,length(symbol)) + 1i*randn(1,length(symbol))];       % Rayleigh channel
@@ -114,6 +114,15 @@ subplot(2,1,1);
 semilogy(x,QPSK_BER);
 subplot(2,1,2);
 semilogy(x,QPSK_SER);
+
+% »óÀ§ Æú´õ(Research_assistant)·Î ÀÌµ¿ -> mat_Rayleigh Æú´õ ÀÌµ¿ -> ÀúÀå
+cd ..
+cd mat_Rayleigh
+save('QAM_16_Rayleigh_EbN0.mat', 'QPSK_BER', 'QPSK_SER', '-append');
+
+% »óÀ§ Æú´õ(Research_assistant)·Î ÀÌµ¿ -> 'Rayleigh fading Channel' Æú´õ ÀÌµ¿
+cd ..
+cd 'Rayleigh fading Channel'
 
 toc
 
