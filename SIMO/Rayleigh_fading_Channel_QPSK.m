@@ -56,6 +56,8 @@ toc
 function result = Noise_maker_MRC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %잡음 생성
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
+symbol = transpose(symbol);
+
 h_c = conj(h);      % h 켤레복소수 생성
 symbol_h = symbol.*h;
 symbol_noise=symbol_h+noise;
@@ -68,6 +70,8 @@ end
 function result = Noise_maker_EGC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %잡음 생성
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
+symbol = transpose(symbol);
+
 h_c = conj(h);      % h 켤레복소수 생성
 symbol_h = symbol.*h;
 symbol_noise=symbol_h+noise;
@@ -80,6 +84,8 @@ end
 function result = Noise_maker_SC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %잡음 생성
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
+symbol = transpose(symbol);
+
 h_c = conj(h);      % h 켤레복소수 생성
 symbol_h = symbol.*h;
 symbol_noise=symbol_h+noise;
