@@ -79,7 +79,7 @@ symbol_noise=symbol_h+noise;
 
 symbol_noise = symbol_noise .* h_c;
 symbol_noise = sum(symbol_noise);
-symbol_noise = symbol_noise ./ sum(symbol_noise.^2);
+symbol_noise = symbol_noise ./ sum(h.*h_c);
 
 result = symbol_noise;
 end
@@ -149,6 +149,7 @@ for x_dB= 0:5:40
         
         
         symbol_demo = zeros(1,length(symbol_noise));
+        
      for j=1:1:length(symbol_noise) 
                         
         if(symbol_noise(j)<0 && imag(symbol_noise(j))<0)
