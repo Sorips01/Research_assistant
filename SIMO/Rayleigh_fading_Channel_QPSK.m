@@ -2,7 +2,7 @@
 clearvars;
 close all;
 tic
-
+format shortE;
 message=randi([0,1],1,1000000);  %OK
 
 QPSK_BER_MRC=[];
@@ -53,7 +53,7 @@ QPSK_BER_EGC = [QPSK_BER_EGC; Demodulation(message, symbol, RX_count, 2)];
 QPSK_BER_SC = [QPSK_BER_SC; Demodulation(message, symbol, RX_count, 3)];
 
 
-
+toc
 
 
 cd mat_Rayleigh_fading_SIMO
@@ -64,7 +64,7 @@ cd ..
 
 disp(mfilename('Class'))
 
-toc
+
 
 function result = Noise_maker_MRC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
@@ -134,7 +134,7 @@ end
 function QPSK_BER = Demodulation(message, symbol,RX_count,type)
 QPSK_BER = [];
 %QPSK_SER = [];
-for x_dB= 0:5:25
+for x_dB= 0:5:60
 
    error_BER=0;  
    epoch=0;  
@@ -214,11 +214,11 @@ for x_dB= 0:5:25
     end
     
     if (type == 1)
-        disp("Rx °³¼ö : ", RX_count, " / MRC", x_dB,  error_count_BER/(epoch*length(message)));
+        fprintf("Rx °³¼ö : %d / MRC / dB : %d / BER : %f \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
     elseif (type == 2)
-        disp("Rx °³¼ö : ", RX_count, " / EGC", x_dB,  error_count_BER/(epoch*length(message)));
+        fprintf("Rx °³¼ö : %d / EGC / dB : %d / BER : %f \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
     elseif (type == 3)
-        disp("Rx °³¼ö : ", RX_count, " / SC", x_dB,  error_count_BER/(epoch*length(message)));
+        fprintf("Rx °³¼ö : %d / SC / dB : %d / BER : %f \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
     end
     
     QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
