@@ -5,7 +5,10 @@ tic
 
 message=randi([0,1],1,1000000);  %OK
 
-QPSK_BER=[];
+QPSK_BER_MRC=[];
+QPSK_BER_EGC=[];
+QPSK_BER_SC=[];
+
 QPSK_SER=[];
 
 symbol=zeros(1,length(message)/2);      
@@ -33,11 +36,22 @@ end
 
 %====demodulation====
 RX_count = 2;
-QPSK_BER = Demodulation(message, symbol, RX_count);
+
+QPSK_BER_MRC = [QPSK_BER_MRC; Demodulation(message, symbol, RX_count, 1)];
+QPSK_BER_EGC = [QPSK_BER_EGC; Demodulation(message, symbol, RX_count, 2)];
+QPSK_BER_SC = [QPSK_BER_SC; Demodulation(message, symbol, RX_count, 3)];
+
 RX_count = 3;
-QPSK_BER = Demodulation(message, symbol, RX_count);
+QPSK_BER_MRC = [QPSK_BER_MRC; Demodulation(message, symbol, RX_count, 1)];
+QPSK_BER_EGC = [QPSK_BER_EGC; Demodulation(message, symbol, RX_count, 2)];
+QPSK_BER_SC = [QPSK_BER_SC; Demodulation(message, symbol, RX_count, 3)];
+
+
 RX_count = 4;
-QPSK_BER = Demodulation(message, symbol, RX_count);
+QPSK_BER_MRC = [QPSK_BER_MRC; Demodulation(message, symbol, RX_count, 1)];
+QPSK_BER_EGC = [QPSK_BER_EGC; Demodulation(message, symbol, RX_count, 2)];
+QPSK_BER_SC = [QPSK_BER_SC; Demodulation(message, symbol, RX_count, 3)];
+
 
 
 % % »óÀ§ Æú´õ(Research_assistant)·Î ÀÌµ¿ -> mat_Rayleigh Æú´õ ÀÌµ¿ -> ÀúÀå
@@ -56,7 +70,7 @@ toc
 function result = Noise_maker_MRC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %ÀâÀ½ »ý¼º
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-symbol = transpose(symbol);
+
 
 h_c = conj(h);      % h ÄÓ·¹º¹¼Ò¼ö »ý¼º
 symbol_h = symbol.*h;
@@ -70,15 +84,19 @@ end
 function result = Noise_maker_EGC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %ÀâÀ½ »ý¼º
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-symbol = transpose(symbol);
+symbol_RX = zeros(RX_count, length(symbol));
+symbol_RX = [symbol; symbol];
 
 h_c = conj(h);      % h ÄÓ·¹º¹¼Ò¼ö »ý¼º
-symbol_h = symbol.*h;           
-symbol_noise=symbol_h+noise;  
+
+symbol_h = symbol_RX.*h;
+symbol_noise=symbol_h+noise;
 
 
 symbol_noise = symbol_noise .* h_c;
-symbol_noise = symbol_noise ./ (h .* h_c);
+
+symbol_noise = symbol_noise ./ abs(h);
+result = symbol_noise;
 end
 
 function result = Noise_maker_SC(N, RX_count, symbol)
@@ -98,7 +116,7 @@ result = symbol_noise;
 end
 
 
-function QPSK_BER = Demodulation(message, symbol,RX_count)
+function QPSK_BER = Demodulation(message, symbol,RX_count,type)
 QPSK_BER = [];
 %QPSK_SER = [];
 for x_dB= 0:5:40
@@ -113,7 +131,13 @@ for x_dB= 0:5:40
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
         N=S*10^(-0.1*x_dB);
         
-        symbol_noise = Noise_maker_SC(N, RX_count, symbol);
+        if(type == 1)
+            symbol_noise = Noise_maker_MRC(N, RX_count, symbol);
+        elseif(type == 2)
+            symbol_noise = Noise_maker_EGC(N, RX_count, symbol);
+        elseif(type == 3)
+            symbol_noise = Noise_maker_SC(N, RX_count, symbol);
+        end
         
         
         symbol_demo = zeros(1,length(symbol_noise));
