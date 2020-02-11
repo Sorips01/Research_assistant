@@ -54,7 +54,7 @@ QPSK_BER_SC = [QPSK_BER_SC; Demodulation(message, symbol, RX_count, 3)];
 
 
 
-% % ���� ����(Research_assistant)�� �̵� -> mat_Rayleigh ���� �̵� -> ����
+
 % cd ..
 % cd mat_Rayleigh
 % save('QPSK_Rayleigh_SNR.mat', 'QPSK_BER', 'QPSK_SER', '-append');
@@ -88,9 +88,12 @@ h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbo
 symbol_RX = zeros(RX_count, length(symbol));
 symbol_RX = [symbol; symbol];
 
+
 h_c = conj(h);      % h �ӷ����Ҽ� ����
+
 symbol_h = symbol_RX.*h;
 symbol_noise=symbol_h+noise;
+
 
 symbol_noise = symbol_noise .* h_c;
 
@@ -99,33 +102,22 @@ symbol_noise = symbol_noise ./ abs(h);
 result = symbol_noise;
 end
 
-% function result = Noise_maker_EGC(N, RX_count, symbol)
-% noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %���� ����
-% h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-% symbol = transpose(symbol);
-% 
-% h_c = conj(h);      % h �ӷ����Ҽ� ����
-% symbol_h = symbol.*h;
-% symbol_noise=symbol_h+noise;
-% 
-% 
-% symbol_noise = symbol_noise .* h_c;
-% symbol_noise = symbol_noise ./ (h .* h_c);
-% end
 
-% function result = Noise_maker_SC(N, RX_count, symbol)
-% noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %���� ����
-% h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-% symbol = transpose(symbol);
-% 
-% h_c = conj(h);      % h �ӷ����Ҽ� ����
-% symbol_h = symbol.*h;
-% symbol_noise=symbol_h+noise;
-% 
-% 
-% symbol_noise = symbol_noise .* h_c;
-% symbol_noise = symbol_noise ./ (h .* h_c);
-% end
+function result = Noise_maker_SC(N, RX_count, symbol)
+noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %���� ����
+h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
+h_rms = rms(h,2);
+h_rms_max = max(h_rms);
+
+h_c = conj(h_rms_max);      % h_rms_max�� �ӷ����Ҽ� ����
+symbol_h = symbol.*h_rms_max;   % hx
+symbol_noise=symbol_h+noise;    % hx + n
+
+
+symbol_noise = symbol_noise .* h_c;
+symbol_noise = symbol_noise ./ (h_rms_max .* h_c);
+result = symbol_noise;
+end
 
 
 function QPSK_BER = Demodulation(message, symbol,RX_count,type)
