@@ -107,12 +107,19 @@ end
 function result = Noise_maker_SC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %���� ����
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-h_rms = rms(h,2);
-h_rms_max = max(h_rms);     
 
-index = find(h_rms == h_rms_max);   
-h_SC = h(index,:);                  % select h
-noise_SC = noise(index,:);          % select noise
+[value index] = max(abs(h));
+h_SC = zeros(1,length(h));
+for i = 1:1:length(symbol)
+    h_SC(1,i) = h(index(1,i),i);              % select h
+end
+
+[value index] = max(abs(noise));
+noise_SC = zeros(1,length(noise));
+for i = 1:1:length(symbol)
+    noise_SC(1,i) = noise(index(1,i),i);        % select noise
+end
+
 h_c = conj(h_SC);      % h_rms_max�� �ӷ����Ҽ� ����
 symbol_h = symbol.*h_SC;   % hx
 symbol_noise = symbol_h + noise_SC;    % hx + n
@@ -134,7 +141,7 @@ for x_dB= 0:5:25
    error_count_BER=0;
    error_count_SER=0;
   
-    while (error_count_BER<=200)
+    while (error_count_BER<=1000)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbol�� ��Ʈ ��
         N=S*10^(-0.1*x_dB);
