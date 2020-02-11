@@ -79,7 +79,9 @@ symbol_noise=symbol_h+noise;
 
 symbol_noise = symbol_noise .* h_c;
 symbol_noise = sum(symbol_noise);
-symbol_noise = symbol_noise ./ sum(h.*h_c);
+h_square = zeros(1,length(h));
+h_square = h.*h_c;
+symbol_noise = symbol_noise ./ sum(h_square.^2);
 
 result = symbol_noise;
 end
