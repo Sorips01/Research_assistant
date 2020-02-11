@@ -138,7 +138,7 @@ for x_dB= 0:5:40
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbol�� ��Ʈ ��
         N=S*10^(-0.1*x_dB);
-        
+        Error_Limit = 1e-6;
 
         if(type == 1)
             symbol_noise = Noise_maker_MRC(N, RX_count, symbol);
@@ -198,6 +198,10 @@ for x_dB= 0:5:40
          error_bit=message-bit_demo;
          error_BER=nnz(error_bit);       %error_bit ��Ŀ���?? 0�� �ƴ� ������ ������ ���� 
          error_count_BER = error_count_BER+error_BER;
+         if  Error_Limit > error_count_BER/(epoch*length(message))
+             break;
+         end
+         
          epoch = epoch+1;
         
     end
