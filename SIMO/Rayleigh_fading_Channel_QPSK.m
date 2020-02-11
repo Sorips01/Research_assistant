@@ -205,8 +205,17 @@ for x_dB= 0:5:25
          epoch = epoch+1;
         
     end
-     QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
-     %QPSK_SER = [QPSK_SER error_count_SER/(epoch*length(message))];
+    
+    if (type == 1)
+        disp("Rx 개수 : ", RX_count, " / MRC", x_dB,  error_count_BER/(epoch*length(message)));
+    elseif (type == 2)
+        disp("Rx 개수 : ", RX_count, " / EGC", x_dB,  error_count_BER/(epoch*length(message)));
+    elseif (type == 3)
+        disp("Rx 개수 : ", RX_count, " / SC", x_dB,  error_count_BER/(epoch*length(message)));
+    end
+    
+    QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
+    %QPSK_SER = [QPSK_SER error_count_SER/(epoch*length(message))];
 end
 end
 
