@@ -1,5 +1,5 @@
 %clc;
-clear all;
+clearvars;
 close all;
 tic
 
@@ -80,8 +80,8 @@ symbol_noise=symbol_h+noise;
 symbol_noise = symbol_noise .* h_c;
 symbol_noise = sum(symbol_noise);
 h_square = zeros(1,length(h));
-h_square = h.*h_c;
-symbol_noise = symbol_noise ./ sum(h_square.^2);
+%h_square = h.*h_c;
+symbol_noise = symbol_noise ./ sum(times(h, h_c));
 
 result = symbol_noise;
 end
@@ -97,7 +97,7 @@ symbol_noise=symbol_h+noise;
 
 
 symbol_noise = symbol_noise .* h_c;
-
+symbol_noise = sum(symbol_noise);
 symbol_noise = symbol_noise ./ sum(abs(h));
 
 result = symbol_noise;
@@ -127,7 +127,7 @@ end
 function QPSK_BER = Demodulation(message, symbol,RX_count,type)
 QPSK_BER = [];
 %QPSK_SER = [];
-for x_dB= 0:5:40
+for x_dB= 0:5:25
 
    error_BER=0;  
    epoch=0;  
