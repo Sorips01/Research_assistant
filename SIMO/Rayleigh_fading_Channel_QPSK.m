@@ -33,11 +33,11 @@ end
 
 %====demodulation====
 RX_count = 2;
-QPSK_BER = Demodulation(message, symbol);
+QPSK_BER = Demodulation(message, symbol, RX_count);
 RX_count = 3;
-QPSK_BER = Demodulation(message, symbol);
+QPSK_BER = Demodulation(message, symbol, RX_count);
 RX_count = 4;
-QPSK_BER = Demodulation(message, symbol);
+QPSK_BER = Demodulation(message, symbol, RX_count);
 
 
 % % »óÀ§ Æú´õ(Research_assistant)·Î ÀÌµ¿ -> mat_Rayleigh Æú´õ ÀÌµ¿ -> ÀúÀå
@@ -73,8 +73,8 @@ h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbo
 symbol = transpose(symbol);
 
 h_c = conj(h);      % h ÄÓ·¹º¹¼Ò¼ö »ý¼º
-symbol_h = symbol.*h;
-symbol_noise=symbol_h+noise;
+symbol_h = symbol.*h;           
+symbol_noise=symbol_h+noise;  
 
 
 symbol_noise = symbol_noise .* h_c;
@@ -84,15 +84,17 @@ end
 function result = Noise_maker_SC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %ÀâÀ½ »ý¼º
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-symbol = transpose(symbol);
+h_rms = rms(h,2);
+h_rms_max = max(h_rms);
 
-h_c = conj(h);      % h ÄÓ·¹º¹¼Ò¼ö »ý¼º
-symbol_h = symbol.*h;
-symbol_noise=symbol_h+noise;
+h_c = conj(h_rms_max);      % h_rms_maxÀÇ ÄÓ·¹º¹¼Ò¼ö »ý¼º
+symbol_h = symbol.*h_rms_max;   % hx
+symbol_noise=symbol_h+noise;    % hx + n
 
 
 symbol_noise = symbol_noise .* h_c;
-symbol_noise = symbol_noise ./ (h .* h_c);
+symbol_noise = symbol_noise ./ (h_rms_max .* h_c);
+result = symbol_noise;
 end
 
 
@@ -111,7 +113,7 @@ for x_dB= 0:5:40
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
         N=S*10^(-0.1*x_dB);
         
-        symbol_noise = Noise_maker(N, RX_count, symbol);
+        symbol_noise = Noise_maker_SC(N, RX_count, symbol);
         
         
         symbol_demo = zeros(1,length(symbol_noise));
