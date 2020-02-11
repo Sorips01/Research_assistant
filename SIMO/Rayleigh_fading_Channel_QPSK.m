@@ -80,8 +80,9 @@ symbol_noise=symbol_h+noise;
 symbol_noise = symbol_noise .* h_c;
 symbol_noise = sum(symbol_noise);
 h_square = zeros(1,length(h));
-%h_square = h.*h_c;
-symbol_noise = symbol_noise ./ sum(times(h, h_c));
+
+h_square = h.*h_c;
+symbol_noise = symbol_noise ./ sum(h_square);
 
 result = symbol_noise;
 end
@@ -134,7 +135,7 @@ for x_dB= 0:5:25
    error_count_BER=0;
    error_count_SER=0;
   
-    while (error_count_BER<=1000)
+    while (error_count_BER<=200)
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbol�� ��Ʈ ��
         N=S*10^(-0.1*x_dB);
@@ -196,7 +197,7 @@ for x_dB= 0:5:25
        end
     end
          error_bit=message-bit_demo;
-         error_BER=nnz(error_bit);       %error_bit ��Ŀ���?? 0�� �ƴ� ������ ������ ���� 
+         error_BER=nnz(error_bit);       %error_bit ��Ŀ���?? 0�� �ƴ� ������ ������ ���� 
          error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
