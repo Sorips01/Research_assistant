@@ -55,15 +55,14 @@ QPSK_BER_SC = [QPSK_BER_SC; Demodulation(message, symbol, RX_count, 3)];
 
 
 
-% cd ..
-% cd mat_Rayleigh
-% save('QPSK_Rayleigh_SNR.mat', 'QPSK_BER', 'QPSK_SER', '-append');
-% 
-% % ���� ����(Research_assistant)�� �̵� -> 'Rayleigh fading Channel' ���� �̵�
-% cd ..
-% cd 'Rayleigh fading Channel'
-% 
-% disp(mfilename('Class'))
+
+cd mat_Rayleigh_fading_SIMO
+save('QPSK_Rayleigh_SIMO.mat', 'QPSK_BER_MRC', 'QPSK_BER_EGC', 'QPSK_BER_SC', '-append');
+
+cd ..
+
+
+disp(mfilename('Class'))
 
 toc
 
@@ -197,7 +196,7 @@ for x_dB= 0:5:25
        end
     end
          error_bit=message-bit_demo;
-         error_BER=nnz(error_bit);       %error_bit ��Ŀ���?? 0�� �ƴ� ������ ������ ���� 
+         error_BER=nnz(error_bit);       %error_bit ��Ŀ���??? 0�� �ƴ� ������ ������ ���� 
          error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
