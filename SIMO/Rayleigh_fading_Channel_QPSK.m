@@ -78,8 +78,10 @@ symbol_noise=symbol_h+noise;
 %symbol_noise = zeros(1,length(symbol));
 
 symbol_noise = symbol_noise .* h_c;
+symbol_noise = sum(symbol_noise);
+symbol_noise = symbol_noise ./ sum(symbol_noise.^2);
 
-symbol_noise = symbol_noise ./ (h .* h_c);
+result = symbol_noise;
 end
 
 function result = Noise_maker_EGC(N, RX_count, symbol)
@@ -191,7 +193,7 @@ for x_dB= 0:5:40
        end
     end
          error_bit=message-bit_demo;
-         error_BER=nnz(error_bit);       %error_bit ��Ŀ���? 0�� �ƴ� ������ ������ ���� 
+         error_BER=nnz(error_bit);       %error_bit ��Ŀ���?? 0�� �ƴ� ������ ������ ���� 
          error_count_BER = error_count_BER+error_BER;
          epoch = epoch+1;
         
