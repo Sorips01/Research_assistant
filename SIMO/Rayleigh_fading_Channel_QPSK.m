@@ -96,7 +96,7 @@ symbol_noise=symbol_h+noise;
 
 symbol_noise = symbol_noise .* h_c;
 
-symbol_noise = symbol_noise ./ abs(h);
+symbol_noise = symbol_noise ./ sum(abs(h));
 
 result = symbol_noise;
 end
