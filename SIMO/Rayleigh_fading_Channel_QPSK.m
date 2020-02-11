@@ -87,13 +87,10 @@ end
 function result = Noise_maker_EGC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %���� ����
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
-symbol_RX = zeros(RX_count, length(symbol));
-symbol_RX = [symbol; symbol];
-
 
 h_c = conj(h);      % h �ӷ����Ҽ� ����
 
-symbol_h = symbol_RX.*h;
+symbol_h = symbol.*h;
 symbol_noise=symbol_h+noise;
 
 
