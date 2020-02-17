@@ -3,9 +3,9 @@ clearvars;
 close all;
 
 for a = 2:1:4  
-    run(sprintf('RX_%d_MRC_Rayleigh_fading_Channel_QPSK.m',a));
-    run(sprintf('RX_%d_EGC_Rayleigh_fading_Channel_QPSK.m',a));
-    run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
+    %run(sprintf('RX_%d_MRC_Rayleigh_fading_Channel_QPSK.m',a));
+    %run(sprintf('RX_%d_EGC_Rayleigh_fading_Channel_QPSK.m',a));
+    %run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
 end
 clearvars;
 
@@ -21,8 +21,8 @@ load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_MRC_QPSK_Rayleigh_SIMO.mat'))
 load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_EGC_QPSK_Rayleigh_SIMO.mat'));
 load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_SC_QPSK_Rayleigh_SIMO.mat'));
 
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_SC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_SC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_MRC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_EGC_QPSK_Rayleigh_SIMO.mat'));
 load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_SC_QPSK_Rayleigh_SIMO.mat'));
 
 
