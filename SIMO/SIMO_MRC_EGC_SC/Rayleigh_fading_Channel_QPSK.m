@@ -217,11 +217,11 @@ for x_dB= 0:5:60
     end
     
     if (type == 1)
-        fprintf("Rx 개수 : %d / MRC / dB : %d / BER : %f \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
+        fprintf("Rx 개수 : %d / MRC / dB : %d / BER : %g \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
     elseif (type == 2)
-        fprintf("Rx 개수 : %d / EGC / dB : %d / BER : %f \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
+        fprintf("Rx 개수 : %d / EGC / dB : %d / BER : %g \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
     elseif (type == 3)
-        fprintf("Rx 개수 : %d / SC / dB : %d / BER : %f \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
+        fprintf("Rx 개수 : %d / SC / dB : %d / BER : %g \n", RX_count, x_dB,  error_count_BER/(epoch*length(message)));
     end
     
     QPSK_BER = [QPSK_BER error_count_BER/(epoch*length(message))];
