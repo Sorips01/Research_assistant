@@ -70,18 +70,19 @@ function result = Noise_maker_MRC(N, RX_count, symbol)
 noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,length(symbol)));      %���� ����
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
 
-h_c = conj(h);      % h �ӷ����Ҽ� ����
-symbol_h = symbol.*h;
+h_c = conj(h); 
+symbol_h = symbol.*h; % h �ӷ����Ҽ� ����
 symbol_noise=symbol_h+noise;
+
 
 %symbol_noise = zeros(1,length(symbol));
 
-symbol_noise = symbol_noise .* h_c;
+symbol_noise = symbol_noise .*h_c;
 symbol_noise = sum(symbol_noise);
-h_square = zeros(1,length(h));
+%h_square = zeros(1,length(h));
 
 h_square = h.*h_c;
-symbol_noise = symbol_noise ./ sum(h_square);
+symbol_noise = symbol_noise ./ sum(abs(h_square));
 
 result = symbol_noise;
 end
@@ -97,8 +98,9 @@ symbol_noise=symbol_h+noise;
 
 
 symbol_noise = symbol_noise .* h_c;
+symbol_noise = symbol_noise ./ abs(h_c);
 symbol_noise = sum(symbol_noise);
-symbol_noise = symbol_noise ./ sum(abs(h));
+%symbol_noise = symbol_noise ./ sum(abs(h));
 
 result = symbol_noise;
 end
@@ -143,7 +145,7 @@ for x_dB= 0:5:60
   
     while (error_count_BER<=1000)
         S=2;                            %(sum(symbol.^2))/length(symbol)
-        M=2;                            % symbol�� ��Ʈ ��
+        %M=2;                            % symbol�� ��Ʈ ��
         N=S*10^(-0.1*x_dB);
         Error_Limit = 1e-6;
 
