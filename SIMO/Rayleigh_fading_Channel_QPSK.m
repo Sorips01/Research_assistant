@@ -71,6 +71,7 @@ noise =sqrt(N/2)*randn(RX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(RX_count,l
 h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
 
 h_c = conj(h); 
+
 symbol_h = symbol.*h; % h �ӷ����Ҽ� ����
 symbol_noise=symbol_h+noise;
 
