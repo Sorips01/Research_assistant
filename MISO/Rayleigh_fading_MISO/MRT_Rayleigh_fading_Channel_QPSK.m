@@ -38,10 +38,10 @@ end
 % MRT
 TX_count = 2;
 QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
-% TX_count = 3;
-% QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
-% TX_count = 4;
-% QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+TX_count = 3;
+QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+TX_count = 4;
+QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
 
 cd ..
 cd mat_Rayleigh_fading_MISO

@@ -37,16 +37,16 @@ RX_count = 1;
 Alamouti_QPSK_BER = [Alamouti_BER; Vector_Demodulation(Tx_count, RX_count)];
 
 
-% cd ..
-% cd mat_Rayleigh_fading_SIMO
-% 
-% if (exist('RX_2_EGC_QPSK_Rayleigh_SIMO.mat', 'file') > 0)
-%     save('RX_2_EGC_QPSK_Rayleigh_SIMO.mat', 'QPSK_BER_EGC_RX_2', '-append');
-% else
-%     save('RX_2_EGC_QPSK_Rayleigh_SIMO.mat', 'QPSK_BER_EGC_RX_2');
-% end
-% cd ..
-% cd SIMO_MRC_EGC_SC
+cd ..
+cd mat_Rayleigh_fading_MISO
+
+if (exist('QPSK_Rayleigh_MISO.mat', 'file') > 0)
+    save('QPSK_Rayleigh_MISO.mat', 'Alamouti_QPSK_BER', '-append');
+else
+    save('QPSK_Rayleigh_MISO.mat', 'Alamouti_QPSK_BER');
+end
+cd ..
+cd Rayleigh_fading_MISO
 
 toc
     
