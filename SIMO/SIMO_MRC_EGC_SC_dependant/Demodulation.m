@@ -28,11 +28,11 @@ for x_dB= 0:5:60
         
      for j=1:1:length(symbol_noise) 
                         
-        if(symbol_noise(j)<0 && imag(symbol_noise(j))<0)
+        if(real(symbol_noise(j))<0 && imag(symbol_noise(j))<0)
                symbol_demo(j) = -1-1i;
-         elseif(symbol_noise(j)<0 &&imag(symbol_noise(j))>0)
+         elseif(real(symbol_noise(j))<0 && imag(symbol_noise(j))>0)
                symbol_demo(j) = -1+1i;
-         elseif(symbol_noise(j)>0 &&imag(symbol_noise(j))<0)
+         elseif(real(symbol_noise(j))>0 && imag(symbol_noise(j))<0)
                symbol_demo(j) = 1-1i;
          else
                symbol_demo(j) = 1+1i;
