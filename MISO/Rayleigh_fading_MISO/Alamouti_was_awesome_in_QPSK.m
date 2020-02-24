@@ -5,8 +5,8 @@ tic
 
 %message=randi([0,1],1,1000000);  %OK
 
-Alamouti_BER = [];
-Alamouti_SER = [];
+Alamouti_QPSK_BER = [];
+Alamouti_QPSK_SER = [];
 
 % symbol=zeros(1,length(message)/2);      
 
@@ -34,7 +34,7 @@ Alamouti_SER = [];
 %====demodulation====
 Tx_count = 2;
 Rx_count = 1;
-Alamouti_QPSK_BER = [Alamouti_BER; Vector_Demodulation(Tx_count, Rx_count)];
+Alamouti_QPSK_BER = [Alamouti_QPSK_BER; Vector_Demodulation(Tx_count, Rx_count)];
 
 
 cd ..

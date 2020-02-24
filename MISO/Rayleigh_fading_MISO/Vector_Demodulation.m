@@ -6,7 +6,7 @@ for x_dB= 0:5:60
    error_count_BER=0;
 %    error_count_SER=0;
   
-    while (1)
+    while (error_count_BER <= 1000)
         symbol_length = 2;      % 1개 심벌의 비트 개수
         message = randi([0,1],1,symbol_length * 2);  % 메시지 / 알라무티에선 심벌 2개가 필요하므로 곱하기 2 함
         S=2;                            %(sum(symbol.^2))/length(symbol)
@@ -14,8 +14,8 @@ for x_dB= 0:5:60
         N=S*10^(-0.1*x_dB)*2;
         Error_Limit = 1e-6;
         
-        k = 1:2:length(message);
-        symbol = (2*message(k)-1 + 1i*(2*message(k)-1));
+        symbol(1,1) = (2*message(1)-1 + 1i*(2*message(2)-1));
+        symbol(1,2) = (2*message(3)-1 + 1i*(2*message(4)-1));
         
         symbol_noise = Channel_maker_Alamouti(N,Tx_count, Rx_count, symbol);
         
@@ -81,14 +81,22 @@ for x_dB= 0:5:60
          error_bit=message-bit_demo;
          error_BER=nnz(error_bit);       
          error_count_BER = error_count_BER+error_BER;
-         if  Error_Limit > error_count_BER/(epoch*length(message))
+         epoch = epoch+1;
+         if (error_count_BER == 0)
+             continue;
+         elseif Error_Limit > error_count_BER/((epoch-1)*length(message)) && error_count_BER/((epoch-1)*length(message)) > 0
              break;
          end
-         fprintf("Tx 개수 : %d / Rx 개수 : %d / Alamouti / epoch : %d / BER : %e \n",Tx_count, Rx_count, epoch,  error_count_BER/(epoch*length(message)));
-         epoch = epoch+1;
+         %fprintf("Tx 개수 : %d / Rx 개수 : %d / Alamouti / epoch : %d / BER : %e \n",Tx_count, Rx_count, epoch,  error_count_BER/(epoch*length(message)));
+         
         
     end
-    
+    if (error_count_BER == 0)
+         continue;
+    elseif Error_Limit > error_count_BER/((epoch-1)*length(message)) && error_count_BER/((epoch-1)*length(message)) > 0
+         break;
+    end
+     
     fprintf("Tx 개수 : %d / Rx 개수 : %d / Alamouti / dB : %d / BER : %e \n",Tx_count, Rx_count, x_dB,  error_count_BER/(epoch*length(message)));
 %     if (type == 1)
 %         fprintf("Tx 개수 : %d / Rx 개수 : %d / MRC / dB : %d / BER : %e \n",Tx_count, RX_count, x_dB,  error_count_BER/(epoch*length(message)));
