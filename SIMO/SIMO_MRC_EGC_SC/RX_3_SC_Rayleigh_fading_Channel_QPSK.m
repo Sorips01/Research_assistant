@@ -1,5 +1,5 @@
 %clc;
-%clearvars;
+clear all;
 close all;
 tic
 format shortE;
