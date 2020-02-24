@@ -5,9 +5,8 @@ tic
 format shortE;
 message=randi([0,1],1,1000000);  %OK
 
-QPSK_BER_MRC=[];
-QPSK_BER_EGC_RX_2=[];
-QPSK_BER_SC=[];
+QPSK_BER_MRT=[];
+QPSK_BER_Selection=[];
 
 QPSK_SER=[];
 
@@ -35,22 +34,26 @@ end
 
 
 %====demodulation====
-RX_count = 2;
 
-QPSK_BER_EGC_RX_2 = [QPSK_BER_EGC_RX_2; Demodulation(message, symbol, RX_count, 2)];
-
-toc
+% MRT
+TX_count = 2;
+QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+TX_count = 3;
+QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+TX_count = 4;
+QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
 
 cd ..
-cd mat_Rayleigh_fading_SIMO
+cd mat_Rayleigh_fading_MISO
 
-if (exist('RX_2_EGC_QPSK_Rayleigh_SIMO.mat', 'file') > 0)
-    save('RX_2_EGC_QPSK_Rayleigh_SIMO.mat', 'QPSK_BER_EGC_RX_2', '-append');
+if (exist('MRT_QPSK_Rayleigh_MISO.mat', 'file') > 0)
+    save('MRT_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_MRT', '-append');
 else
-    save('RX_2_EGC_QPSK_Rayleigh_SIMO.mat', 'QPSK_BER_EGC_RX_2');
+    save('MRT_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_MRT');
 end
+
 cd ..
-cd SIMO_MRC_EGC_SC
+cd MISO
 
 disp(mfilename('Class'))
     
