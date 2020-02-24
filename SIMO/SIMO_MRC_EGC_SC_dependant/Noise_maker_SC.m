@@ -8,13 +8,13 @@ for mrc = 1:1:RX_count-1
     h = [h;temp];
 end
 
-[value index] = max(abs(h));
+[~, index] = max(abs(h));
 h_SC = zeros(1,length(h));
 for i = 1:1:length(symbol)
     h_SC(1,i) = h(index(1,i),i);              % select h
 end
 
-[value index] = max(abs(noise));
+[~, index] = max(abs(noise));
 noise_SC = zeros(1,length(noise));
 for i = 1:1:length(symbol)
     noise_SC(1,i) = noise(index(1,i),i);        % select noise
