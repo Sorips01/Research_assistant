@@ -8,6 +8,12 @@ for mrc = 1:1:RX_count-1
     h = [h;temp];
 end
 
+% temp_2 = symbol;
+% for mrc = 1:1:RX_count-1
+%     symbol = [symbol;temp_2];
+% end
+
+
 h_c = conj(h);      % h �ӷ����Ҽ� ����
 symbol_h = symbol.*h;
 symbol_noise=symbol_h+noise;

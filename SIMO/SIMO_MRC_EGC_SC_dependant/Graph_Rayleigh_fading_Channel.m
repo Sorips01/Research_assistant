@@ -4,8 +4,8 @@ close all;
 
 for a = 2:1:4  
     run(sprintf('RX_%d_MRC_Rayleigh_fading_Channel_QPSK.m',a));
-    run(sprintf('RX_%d_EGC_Rayleigh_fading_Channel_QPSK.m',a));
-    run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
+%     run(sprintf('RX_%d_EGC_Rayleigh_fading_Channel_QPSK.m',a));
+%     run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
 end
 clearvars;
 
