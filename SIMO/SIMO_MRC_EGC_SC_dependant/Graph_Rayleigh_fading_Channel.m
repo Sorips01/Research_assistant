@@ -12,14 +12,14 @@ close all;
 %     run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
 %     disp(a)
 % end
-% run('RX_2_MRC_Rayleigh_fading_Channel_QPSK.m');
-% run('RX_2_EGC_Rayleigh_fading_Channel_QPSK.m');
+run('RX_2_MRC_Rayleigh_fading_Channel_QPSK.m');
+run('RX_2_EGC_Rayleigh_fading_Channel_QPSK.m');
 run('RX_2_SC_Rayleigh_fading_Channel_QPSK.m');
-% run('RX_3_MRC_Rayleigh_fading_Channel_QPSK.m');
-% run('RX_3_EGC_Rayleigh_fading_Channel_QPSK.m');
+run('RX_3_MRC_Rayleigh_fading_Channel_QPSK.m');
+run('RX_3_EGC_Rayleigh_fading_Channel_QPSK.m');
 run('RX_3_SC_Rayleigh_fading_Channel_QPSK.m');
-% run('RX_4_MRC_Rayleigh_fading_Channel_QPSK.m');
-% run('RX_4_EGC_Rayleigh_fading_Channel_QPSK.m');
+run('RX_4_MRC_Rayleigh_fading_Channel_QPSK.m');
+run('RX_4_EGC_Rayleigh_fading_Channel_QPSK.m');
 run('RX_4_SC_Rayleigh_fading_Channel_QPSK.m');
 
 
@@ -46,8 +46,8 @@ lim_y = 1E-6;
 
 % 1) SNR - BER (RX is 2)
 graph1 = subplot(3,1,1);
-% semilogy(x,QPSK_BER_MRC_RX_2, 'LineWidth', LineWidth);
-% hold on;
+semilogy(x,QPSK_BER_MRC_RX_2, 'LineWidth', LineWidth);
+hold on;
 semilogy(x,QPSK_BER_EGC_RX_2, 'LineWidth', LineWidth);
 hold on;
 semilogy(x,QPSK_BER_SC_RX_2, 'LineWidth', LineWidth);
@@ -57,8 +57,8 @@ ylim([lim_y 1]);
 title('RX is 2 & MRC / EGC / SC ---->');
 ylabel(graph1,'BER ---->');
 xlabel(graph1, 'SNR ---->');
-% legend('MRC','EGC','SC');
-legend('EGC','SC');
+legend('MRC','EGC','SC');
+% legend('EGC','SC');
 
 % 2) SNR - BER (RX is 3)
 graph2 = subplot(3,1,2);
