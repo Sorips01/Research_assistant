@@ -35,25 +35,25 @@ end
 
 %====demodulation====
 
-% MRT
+% Selection
 TX_count = 2;
-QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+QPSK_BER_Selection = [QPSK_BER_Selection; Demodulation(message, symbol, TX_count, 2)];
 TX_count = 3;
-QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+QPSK_BER_Selection = [QPSK_BER_Selection; Demodulation(message, symbol, TX_count, 2)];
 TX_count = 4;
-QPSK_BER_MRT = [QPSK_BER_MRT; Demodulation(message, symbol, TX_count, 1)];
+QPSK_BER_Selection = [QPSK_BER_Selection; Demodulation(message, symbol, TX_count, 2)];
+toc
 
 cd ..
 cd mat_Rayleigh_fading_MISO
 
-if (exist('MRT_QPSK_Rayleigh_MISO.mat', 'file') > 0)
-    save('MRT_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_MRT', '-append');
+if (exist('Selection_QPSK_Rayleigh_MISO.mat', 'file') > 0)
+    save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection', '-append');
 else
-    save('MRT_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_MRT');
+    save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Secection');
 end
-
 cd ..
-cd MISO
+cd Rayleigh_fading_MISO
 
 disp(mfilename('Class'))
     
