@@ -47,10 +47,10 @@ toc
 cd ..
 cd mat_Rayleigh_fading_MISO
 
-if (exist('Selection_QPSK_Rayleigh_MISO.mat', 'file') > 0)
-    save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection', '-append');
+if (exist('QPSK_Rayleigh_MISO.mat', 'file') > 0)
+    save('QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection', '-append');
 else
-    save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection');
+    save('QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection');
 end
 cd ..
 cd Rayleigh_fading_MISO
