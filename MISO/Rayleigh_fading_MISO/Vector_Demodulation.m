@@ -6,12 +6,12 @@ for x_dB= 0:5:60
    error_count_BER=0;
 %    error_count_SER=0;
   
-    while (error_count_BER<=1000)
+    while (1)
         symbol_length = 2;      % 1°³ ½É¹úÀÇ ºñÆ® °³¼ö
         message = randi([0,1],1,symbol_length * 2);  % ¸Þ½ÃÁö / ¾Ë¶ó¹«Æ¼¿¡¼± ½É¹ú 2°³°¡ ÇÊ¿äÇÏ¹Ç·Î °öÇÏ±â 2 ÇÔ
         S=2;                            %(sum(symbol.^2))/length(symbol)
         M=2;                            % symbolï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½
-        N=S*10^(-0.1*x_dB);
+        N=S*10^(-0.1*x_dB)*2;
         Error_Limit = 1e-6;
         
         k = 1:2:length(message);
@@ -84,12 +84,12 @@ for x_dB= 0:5:60
          if  Error_Limit > error_count_BER/(epoch*length(message))
              break;
          end
-         
+         fprintf("Tx °³¼ö : %d / Rx °³¼ö : %d / Alamouti / epoch : %d / BER : %e \n",Tx_count, Rx_count, epoch,  error_count_BER/(epoch*length(message)));
          epoch = epoch+1;
         
     end
     
-    fprintf("Tx °³¼ö : %d / Rx °³¼ö : %d / Alamouti / dB : %d / BER : %e \n",Tx_count, RX_count, x_dB,  error_count_BER/(epoch*length(message)));
+    fprintf("Tx °³¼ö : %d / Rx °³¼ö : %d / Alamouti / dB : %d / BER : %e \n",Tx_count, Rx_count, x_dB,  error_count_BER/(epoch*length(message)));
 %     if (type == 1)
 %         fprintf("Tx °³¼ö : %d / Rx °³¼ö : %d / MRC / dB : %d / BER : %e \n",Tx_count, RX_count, x_dB,  error_count_BER/(epoch*length(message)));
 %     elseif (type == 2)

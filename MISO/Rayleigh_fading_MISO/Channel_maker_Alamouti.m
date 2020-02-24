@@ -5,7 +5,7 @@ h = sqrt(0.5) * (randn(Tx_count,Rx_count) + 1i*randn(Tx_count,Rx_count));       
 symbol = [symbol; -conj(symbol(2)) conj(symbol(1))];
 
 y = symbol*h + noise;
-y = [y(1) conj(y(2))];
+y = [y(1); conj(y(2))];
 h_demo = [conj(h(1)) h(2); conj(h(2)) -h(1)];
 symbol_noise = h_demo*y;
 result = symbol_noise / sum(abs(h).^2);

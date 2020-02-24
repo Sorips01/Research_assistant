@@ -8,7 +8,7 @@ tic
 Alamouti_BER = [];
 Alamouti_SER = [];
 
-symbol=zeros(1,length(message)/2);      
+% symbol=zeros(1,length(message)/2);      
 
 %====symbolization====    OK
 % k = 1;
@@ -32,9 +32,9 @@ symbol=zeros(1,length(message)/2);
 
 
 %====demodulation====
-TX_count = 2;
-RX_count = 1;
-Alamouti_QPSK_BER = [Alamouti_BER; Vector_Demodulation(Tx_count, RX_count)];
+Tx_count = 2;
+Rx_count = 1;
+Alamouti_QPSK_BER = [Alamouti_BER; Vector_Demodulation(Tx_count, Rx_count)];
 
 
 cd ..
