@@ -5,7 +5,7 @@ tic
 format shortE;
 message=randi([0,1],1,1000000);  %OK
 
-QPSK_BER_MRT=[];
+% QPSK_BER_MRT=[];
 QPSK_BER_Selection=[];
 
 QPSK_SER=[];
@@ -50,7 +50,7 @@ cd mat_Rayleigh_fading_MISO
 if (exist('Selection_QPSK_Rayleigh_MISO.mat', 'file') > 0)
     save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection', '-append');
 else
-    save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Secection');
+    save('Selection_QPSK_Rayleigh_MISO.mat', 'QPSK_BER_Selection');
 end
 cd ..
 cd Rayleigh_fading_MISO
