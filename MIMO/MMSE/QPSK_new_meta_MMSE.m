@@ -25,34 +25,34 @@ for SNR=0:5:60
         h = h * ones(Rx,1);
         noise = (randn(Rx,1)+j*randn(Rx,1))*sqrt(N/2);
         r = h*symbol+noise;
-        % ZF(Rx,Tx,N,symbol)
-        % MMSE(Rx,Tx,N,symbol)
+        
+        Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
+        
         
         % demodulation
-        Demo_result(1,1) = real(MRC)>0; % MRC는 추후 변경하기
-        Demo_result(2,1) = imag(MRC)>0;
+        Demo_result(:,1) = real(Demo_symbol)>0; 
+        Demo_result(:,2) = imag(Demo_symbol)>0;
         
         % count error
-        error = error + sum(abs(bit-Demo_result));
+        error = error + sum(abs(bit-Demo_result),'all');
     end
     
-    error = error / (trial*2);
+    error = error / (trial * 2);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
     result = [result;error];
 end
 
 % save mat file
-ZF_result = result;
-cd ..
-cd mat_Rayleigh_fading_MISO % 폴더명
+MMSE_result = result;
 
-if (exist('MRT_QPSK_Rayleigh_MISO.mat', 'file') > 0) 
-    save('MRT_QPSK_Rayleigh_MISO.mat', 'ZF_result', '-append'); 
+cd mat_folder % 폴더명
+
+if (exist('QPSK_new_meta_MMSE.mat', 'file') > 0) 
+    save('QPSK_new_meta_MMSE.mat', 'MMSE_result', '-append'); 
 else
-    save('MRT_QPSK_Rayleigh_MISO.mat', 'ZF_result');
+    save('QPSK_new_meta_MMSE.mat', 'MMSE_result');
 end
 
 cd ..
-cd Rayleigh_fading_MISO
 
 toc
