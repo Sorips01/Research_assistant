@@ -1,4 +1,5 @@
 function result = Channel_maker_Selection(N, TX_count, symbol)
+% N=TX_count*N;
 noise =sqrt(N/2)*randn(TX_count,length(symbol)) + 1i*(sqrt(N/2)*randn(TX_count,length(symbol)));      %���� ����
 %h = sqrt(0.5) * [randn(RX_count,length(symbol)) + 1i*randn(RX_count,length(symbol))];       % Rayleigh channel
 h = sqrt(0.5) * [randn(TX_count,length(symbol)) + 1i*randn(TX_count,length(symbol))];       % Rayleigh channel

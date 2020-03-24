@@ -7,6 +7,7 @@ close all;
 %     %run(sprintf('RX_%d_EGC_Rayleigh_fading_Channel_QPSK.m',a));
 %     %run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
 % end
+
 run('RX_2_MRC_Rayleigh_fading_Channel_QPSK.m');
 run('RX_2_EGC_Rayleigh_fading_Channel_QPSK.m');
 run('RX_2_SC_Rayleigh_fading_Channel_QPSK.m');
@@ -36,7 +37,9 @@ load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_SC_QPSK_Rayleigh_SIMO.mat'));
 load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_MRC_QPSK_Rayleigh_SIMO.mat'));
 load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_EGC_QPSK_Rayleigh_SIMO.mat'));
 load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_SC_QPSK_Rayleigh_SIMO.mat'));
+
 cd C:\Users\Assistant_2\paeng\Research_assistant\SIMO\SIMO_MRC_EGC_SC_dependant
+
 lim_y = 1E-6;
 
 % 1) SNR - BER (RX is 2)
