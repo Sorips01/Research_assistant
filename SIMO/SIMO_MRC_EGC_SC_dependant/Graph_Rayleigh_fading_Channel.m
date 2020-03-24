@@ -30,17 +30,17 @@ x=0:5:60;
 LineWidth = 3;
 
 cd ..
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_4_MRC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_4_EGC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_4_SC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_4_MRC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_4_EGC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_4_SC_QPSK_Rayleigh_SIMO.mat'));
 
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_MRC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_EGC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_3_SC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_3_MRC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_3_EGC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_3_SC_QPSK_Rayleigh_SIMO.mat'));
 
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_MRC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_EGC_QPSK_Rayleigh_SIMO.mat'));
-load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO\RX_2_SC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_2_MRC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_2_EGC_QPSK_Rayleigh_SIMO.mat'));
+load(fullfile(pwd, '\mat_Rayleigh_fading_SIMO_dependant\RX_2_SC_QPSK_Rayleigh_SIMO.mat'));
 
 lim_y = 1E-6;
 
