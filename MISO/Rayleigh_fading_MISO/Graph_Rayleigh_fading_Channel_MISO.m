@@ -3,7 +3,7 @@ clear all;
 close all;
 
 run('MRT_Rayleigh_fading_Channel_QPSK.m');
-run('Selection_Rayleigh_fading_Channel_QPSK.m');
+% run('Selection_Rayleigh_fading_Channel_QPSK.m');
 % run('Alamouti_was_awesome_in_QPSK.m');
 clear all;
 
