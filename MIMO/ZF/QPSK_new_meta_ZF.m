@@ -7,7 +7,7 @@ Tx = 2;
 Rx = 4;
 result = [];
 
-for SNR=0:5:60
+for SNR = 0:5:60
     N = 10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
@@ -31,7 +31,7 @@ for SNR=0:5:60
         Demo_result(:,2) = imag(Demo_symbol)>0;
         
         % count error
-        error = error + sum(abs(bit-Demo_result));
+        error = error + sum(abs(bit-Demo_result), 'all');
     end
     
     error = error / (trial * 2 * Tx);
