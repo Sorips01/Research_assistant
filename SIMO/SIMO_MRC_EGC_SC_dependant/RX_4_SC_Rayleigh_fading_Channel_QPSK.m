@@ -42,7 +42,7 @@ QPSK_BER_SC_RX_4 = [QPSK_BER_SC_RX_4; Demodulation(message, symbol, RX_count, 3)
 toc
 
 cd ..
-cd mat_Rayleigh_fading_SIMO
+cd mat_Rayleigh_fading_SIMO_dependant
 
 if (exist('RX_4_SC_QPSK_Rayleigh_SIMO.mat', 'file') > 0)
     save('RX_4_SC_QPSK_Rayleigh_SIMO.mat', 'QPSK_BER_SC_RX_4', '-append');
