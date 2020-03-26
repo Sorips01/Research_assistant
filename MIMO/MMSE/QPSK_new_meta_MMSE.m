@@ -41,7 +41,7 @@ for SNR = 0:5:60
     if Error_Limit > error
         break;
     end
-    result = [result; error];
+    result = [result error];
 end
 
 % save mat file
