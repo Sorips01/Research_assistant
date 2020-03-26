@@ -6,7 +6,7 @@ tic
 Tx = 2;
 Rx = 4;
 result = [];
-Error_Limit = 10^-8;
+Error_Limit = 10^-5;
 
 for SNR = 0:5:60
     N = 10^(-0.1*SNR);
