@@ -1,9 +1,12 @@
-% clc;
 clear all;
 close all;
 
+cd ZF
 run('QPSK_new_meta_ZF.m');
+cd ..
+cd MMSE
 run('QPSK_new_meta_MMSE.m');
+cd ..
 clear all;
 
 x=0:5:60;
@@ -28,7 +31,9 @@ semilogy(x,QPSK_BER_MRC_RX_3, 'LineWidth', LineWidth);
 hold on;
 xlim([0 60]);
 ylim([lim_y 1]);
-ylabel(graph1,'BER ---->');
-xlabel(graph1, 'SNR ---->');
+ylabel(f1,'BER ---->');
+xlabel(f1, 'SNR ---->');
+ylabel('BER ---->');
+xlabel('SNR ---->');
 legend('ZF','MMSE','MRC');
 
