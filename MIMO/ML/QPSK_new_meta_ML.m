@@ -4,9 +4,20 @@ format shortE;
 tic
 
 Tx = 2;
-Rx = 4;
+Rx = 2;
 result = [];
 Error_Limit = 10^-5;
+
+% data X
+symbolSet = [1+1i 1-1i -1+1i -1-1i];
+x = [];
+for i = symbolSet
+    for j = symbolSet
+        temp = [i j];
+        x = [x; temp];
+    end
+end
+x = x.';
 
 for SNR = 0:5:60
     N = 10^(-0.1*SNR);
@@ -30,9 +41,11 @@ for SNR = 0:5:60
         % demodulation
         % Demo_result(:,1) = real(Demo_symbol)>0; 
         % Demo_result(:,2) = imag(Demo_symbol)>0;
-        x = makingX(Tx);
-        [~,index] = min(abs(Demo_symbol - h * x)); 
-        Demo_result = x(index);
+        [~,index] = min(abs(Demo_symbol - h * x),[],2); 
+        Demo_result = [x(1,index(1)); x(2,index(2))];
+        
+        Demo_result(:,1) = real(Demo_symbol)>0; 
+        Demo_result(:,2) = imag(Demo_symbol)>0;
         
         % count error
         error = error + sum(abs(bit-Demo_result), 'all');
