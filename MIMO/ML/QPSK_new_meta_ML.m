@@ -23,14 +23,16 @@ for SNR = 0:5:60
         symbol = symbol(:,1) + symbol(:,2) * 1j;
                 
         % modulation
-        Demo_symbol = ML_Modulation(Tx, Rx, N, symbol);
+        [Demo_symbol, h] = ML_Modulation(Tx, Rx, N, symbol);
         % ZF(Rx,Tx,N,symbol)
         % MMSE(Rx,Tx,N,symbol)
         
         % demodulation
         % Demo_result(:,1) = real(Demo_symbol)>0; 
         % Demo_result(:,2) = imag(Demo_symbol)>0;
-        
+        x = makingX(Tx);
+        [~,index] = min(abs(Demo_symbol - h * x)); 
+        Demo_result = x(index);
         
         % count error
         error = error + sum(abs(bit-Demo_result), 'all');
