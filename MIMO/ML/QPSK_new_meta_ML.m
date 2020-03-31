@@ -41,8 +41,8 @@ for SNR = 0:5:60
         % demodulation
         % Demo_result(:,1) = real(Demo_symbol)>0; 
         % Demo_result(:,2) = imag(Demo_symbol)>0;
-        [~,index] = min(abs(Demo_symbol - h * x),[],2); 
-        Demo_result = [x(1,index(1)); x(2,index(2))];
+        [~,index] = min((Demo_symbol - (h * x)),[],2); 
+        Demo_symbol = [x(1,index(1)); x(2,index(2))];
         
         Demo_result(:,1) = real(Demo_symbol)>0; 
         Demo_result(:,2) = imag(Demo_symbol)>0;
