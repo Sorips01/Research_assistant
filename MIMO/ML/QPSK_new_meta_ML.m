@@ -23,13 +23,14 @@ for SNR = 0:5:60
         symbol = symbol(:,1) + symbol(:,2) * 1j;
                 
         % modulation
-        Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
+        Demo_symbol = ML_Modulation(Tx, Rx, N, symbol);
         % ZF(Rx,Tx,N,symbol)
         % MMSE(Rx,Tx,N,symbol)
         
         % demodulation
-        Demo_result(:,1) = real(Demo_symbol)>0; % MRC는 추후 변경하기
-        Demo_result(:,2) = imag(Demo_symbol)>0;
+        % Demo_result(:,1) = real(Demo_symbol)>0; 
+        % Demo_result(:,2) = imag(Demo_symbol)>0;
+        
         
         % count error
         error = error + sum(abs(bit-Demo_result), 'all');
@@ -45,14 +46,14 @@ for SNR = 0:5:60
 end
 
 % save mat file
-MMSE_result = result;
+ML_result = result;
 
 cd mat_folder % 폴더명
 
-if (exist('QPSK_new_meta_MMSE.mat', 'file') > 0) 
-    save('QPSK_new_meta_MMSE.mat', 'MMSE_result', '-append'); 
+if (exist('QPSK_new_meta_ML.mat', 'file') > 0) 
+    save('QPSK_new_meta_ML.mat', 'ML_result', '-append'); 
 else
-    save('QPSK_new_meta_MMSE.mat', 'MMSE_result');
+    save('QPSK_new_meta_ML.mat', 'ML_result');
 end
 
 cd ..
