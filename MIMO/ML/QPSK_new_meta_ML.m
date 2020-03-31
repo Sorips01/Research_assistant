@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 2;
-Rx = 2;
+Tx = 4;
+Rx = 4;
 result = [];
 Error_Limit = 10^-5;
 
@@ -13,8 +13,12 @@ symbolSet = [1+1i 1-1i -1+1i -1-1i];
 x = [];
 for i = symbolSet
     for j = symbolSet
-        temp = [i j];
+        for k = symbolSet
+            for d = symbolSet
+        temp = [i j k d];
         x = [x; temp];
+            end
+        end
     end
 end
 x = x.';
@@ -41,8 +45,8 @@ for SNR = 0:5:60
         % demodulation
         % Demo_result(:,1) = real(Demo_symbol)>0; 
         % Demo_result(:,2) = imag(Demo_symbol)>0;
-        [~,index] = min((Demo_symbol - (h * x)),[],2); 
-        Demo_symbol = [x(1,index(1)); x(2,index(2))];
+        [~,index] = min(abs(Demo_symbol - (h * x)),[],2); 
+        Demo_symbol = [x(1,index(1)); x(2,index(2));x(3,index(3)); x(4,index(4))];
         
         Demo_result(:,1) = real(Demo_symbol)>0; 
         Demo_result(:,2) = imag(Demo_symbol)>0;
