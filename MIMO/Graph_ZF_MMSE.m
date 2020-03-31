@@ -21,6 +21,7 @@ cd MMSE
 load(fullfile(pwd, '\mat_folder\QPSK_new_meta_MMSE.mat'));
 cd ..
 load(fullfile(pwd, '\RX_3_MRC_QPSK_Rayleigh_SIMO'));
+load(fullfile(pwd, '\RX_2_MRC_QPSK_Rayleigh_SIMO'));
 
 % length of result normalize
 ZF_result = length_normalize(x, ZF_result);
@@ -32,7 +33,8 @@ semilogy(x,ZF_result, 'LineWidth', LineWidth);
 hold on;
 semilogy(x,MMSE_result, 'LineWidth', LineWidth);
 hold on;
-semilogy(x,QPSK_BER_MRC_RX_3, 'LineWidth', LineWidth);
+%semilogy(x,QPSK_BER_MRC_RX_3, 'LineWidth', LineWidth);
+semilogy(x,QPSK_BER_MRC_RX_2, 'LineWidth', LineWidth);
 hold on;
 % xlim([0 60]);
 ylim([lim_y 1]);
