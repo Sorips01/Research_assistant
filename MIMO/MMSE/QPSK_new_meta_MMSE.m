@@ -3,7 +3,7 @@ close all;
 format shortE;
 tic
 
-Tx = 2;
+Tx = 3;
 Rx = 4;
 result = [];
 Error_Limit = 10^-5;
