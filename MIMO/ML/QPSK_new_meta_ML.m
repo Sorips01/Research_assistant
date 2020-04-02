@@ -69,10 +69,10 @@ for SNR = 0:5:60
     
     error = error / (trial * 2 * Tx);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
+    result = [result error];
     if Error_Limit > error
         break;
     end
-    result = [result error];
 end
 
 % save mat file
