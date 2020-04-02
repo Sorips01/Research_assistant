@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 4;
-Rx = 4;
+Tx = 2;
+Rx = 2;
 result = [];
 Error_Limit = 10^-5;
 
@@ -74,14 +74,14 @@ for SNR = 0:5:60
 end
 
 % save mat file
-ML_result = result;
+ML_result_2x2 = result;
 
 cd mat_folder % 폴더명
 
 if (exist('QPSK_new_meta_ML.mat', 'file') > 0) 
-    save('QPSK_new_meta_ML.mat', 'ML_result', '-append'); 
+    save('QPSK_new_meta_ML.mat', 'ML_result_2x2', '-append'); 
 else
-    save('QPSK_new_meta_ML.mat', 'ML_result');
+    save('QPSK_new_meta_ML.mat', 'ML_result_2x2');
 end
 
 cd ..
