@@ -8,20 +8,29 @@ Rx = 4;
 result = [];
 Error_Limit = 10^-5;
 
-% data X
-symbolSet = [1+1i 1-1i -1+1i -1-1i];
-x = [];
-for i = symbolSet
-    for j = symbolSet
-        for k = symbolSet
-            for d = symbolSet
-        temp = [i j k d];
-        x = [x; temp];
-            end
-        end
+% Make data X
+x = zeros(Tx,4^Tx);
+for i=0:4^Tx-1
+    share = fix(i/4);
+    remainder = rem(i,4);
+    for j = Tx:-1:1
+        x(j,i+1) = remainder;
+        remainder = rem(share,4);
+        share = fix(share/4);
     end
 end
-x = x.';
+
+for k=1:1:length(x)*Tx
+    if x(k) == 0
+        x(k) = -1-1i;
+    elseif x(k) == 1
+        x(k) = -1+1i;
+    elseif x(k) == 2
+        x(k) = 1-1i;
+    elseif x(k) == 3
+        x(k) = 1+1i;
+    end
+end
 
 for SNR = 0:5:60
     N = 10^(-0.1*SNR);
@@ -45,8 +54,8 @@ for SNR = 0:5:60
         % demodulation
         % Demo_result(:,1) = real(Demo_symbol)>0; 
         % Demo_result(:,2) = imag(Demo_symbol)>0;
-        [~,index] = min(abs(Demo_symbol - (h * x)),[],2); 
-        Demo_symbol = [x(1,index(1)); x(2,index(2));x(3,index(3)); x(4,index(4))];
+        [~,index] = min(sum(abs(Demo_symbol - (h * x))),[],2); 
+        Demo_symbol = x(:,index);
         
         Demo_result(:,1) = real(Demo_symbol)>0; 
         Demo_result(:,2) = imag(Demo_symbol)>0;
