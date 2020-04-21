@@ -1,12 +1,16 @@
+
 Research_assistant
 
-JeonHa_학부연구생(feat. 박상준 교수님)
-
-# MISO
-
+# Research_assistant
+JEoN-Ha 학부연구생(feat. 박상준 교수님)
 
 
-## Maximal -Ratio Transmission(MRT)
+
+
+
+
+# MIMO
+
 
 - **SIMO의 MRC와 동일한 원리-->동일성능**
   - 차이점) 채널 정보를 송신단에서 알고 있어야 함. 
@@ -28,10 +32,20 @@ $$
 
 
 
+![MIMO-antennas](_images\MIMO-antennas.PNG)
+- **Multiple-Input and Multiple-Output**
+- 다수의 송신 안테와 다수의 수신 안테나 시스템
+
+## ZF (Zero Forcing)
 
 
 
-## Selection
+
+# SISO
+
+- **Single Input Single Output**
+- 단일 송신 안테나, 단일 수신 안테나
+- 안테나 diversity 효과 없음
 
 -  MISO 시스템에서 Transmit Diversity를 달성하기 위한 송신 방법 중 하나 
 
@@ -55,7 +69,8 @@ $$
 
 
 
-## Alamouti
+## BPSK
+
 
 
 
@@ -127,15 +142,20 @@ $$
 
 
 
+- **디지털 신호(1,0)**에 따라 위상이 180˚ 다른 두 정현파로 변조하는 방식
+![BPSK](_images\BPSK.JPG)
 
 
 
 
-# MIMO
+## QPSK
 
-![MIMO-antennas](_images\MIMO-antennas.PNG)
-- **Multiple-Input and Multiple-Output**
-- 다수의 송신 안테와 다수의 수신 안테나 시스템
+- 2진 PSK(BPSK) 방식과 달리, 위상을 90˚씩 변화함
+- **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
+![QPSK](_images\QPSK.JPG)
+
+
+
 
 
 
@@ -143,4 +163,10 @@ $$
 
 ## ZF (Zero Forcing)
 
+## 16QAM
+![16QAM](_images\16QAM.PNG) <img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
 
+
+- QAM (Quadrature Amplitude Modulation)
+
+- 한 심볼에 n bit 코딩 (16QAM은 1 symbol = 4 bits)
