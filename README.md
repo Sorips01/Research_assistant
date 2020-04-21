@@ -24,10 +24,7 @@ Research_assistant
 ![](./_images/MISO_Selection.JPG)
 
 Transmitt Power:
-<img src="https://latex.codecogs.com/gif.latex?\left|x\right|^2 " />
-$@
-\left|x\right|^2
-$@
+<a href="https://www.codecogs.com/eqnedit.php?latex=\left|x\right|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left|x\right|^2" title="\left|x\right|^2" /></a>
 
 
 
