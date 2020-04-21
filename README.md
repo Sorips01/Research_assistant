@@ -2,17 +2,11 @@
 Research_assistant
 
 # Research_assistant
-JEoN-Ha 학부연구생(feat. 박상준 교수님)
-
-
-
 [TOC]
 
 
 
 # MISO
-
-
 
 
 
@@ -59,28 +53,26 @@ $$
 
 
 
-___
-
-___
 
 
 
-### MRT (Maximal-Ratio Transmission) / Antenna Selection 
+## Alamouti STBC
+
+##### pre) 
+
+##### 	MRT (Maximal-Ratio Transmission) / Antenna Selection 
 
 -  MISO System을 위한 Diversity 달성 기법 
 -  송신단에서 채널 정보를 알아야만 사용 가능한 기술들 
-  -  MRT: 정확한 채널 값 
-  -  Antenna Selection: 어떤 안테나의 채널이 더 좋은지 
-    -  수신단에서부터 송신단으로의 피드백이 기본적으로 필요
+   -  MRT : 정확한 채널 값 
+   -  Antenna Selection: 어떤 안테나의 채널이 더 좋은지 
+      -  수신단에서부터 송신단으로의 피드백이 기본적으로 필요
 
 
+
+#### Alamouti STBC
 
 ___
-
-
-
-
-## Alamouti
 
 
 
@@ -89,7 +81,7 @@ ___
 
 
 
-- 각 시간마다 한 TX Antenna만을 사용하여 Diversity를 확보하는 방 법
+- 각 시간마다 한 TX Antenna만을 사용하여 Diversity를 확보하는 방법
   -  본 기법: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO)	
   -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
   -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
@@ -161,26 +153,6 @@ $$
 
 
 # MIMO
-
-
-- **SIMO의 MRC와 동일한 원리-->동일성능**
-  
-- 차이점) 채널 정보를 송신단에서 알고 있어야 함. 
-  
-- 송신 Power를 더 쓰지 않도록 각 송신 안테나 신호에 대한 Power Normalization이 필요
-
-  
-
-  ![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_MRC.JPG)
-
-
-
-Transmitt Power:
-$$
-\left|\frac{|h_1^H*x}{a}\right|^2 +\left|\frac{|h_1^H*x}{a}\right|^2 =\frac{\left|H_1\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2} +\frac{\left|H_2\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2}  = \left|x\right|^2
-$$
-
-
 
 
 
