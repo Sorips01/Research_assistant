@@ -24,8 +24,7 @@ Research_assistant
 ![](./_images/MISO_Selection.JPG)
 
 Transmitt Power: 
-![equation](https://latex.codecogs.com/gif.latex?%5Cleft%7Cx%5Cright%7C%5E2)
-
+$ \left|x\right|^2 $
 
 
 
