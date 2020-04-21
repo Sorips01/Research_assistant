@@ -131,7 +131,9 @@ $$
 
 
 ## 16QAM
-![16QAM](./_images/16QAM.PNG) <img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
+![16QAM](./_images/16QAM.PNG)
+
+<img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
 
 
 - QAM (Quadrature Amplitude Modulation)
@@ -152,7 +154,9 @@ $$
 
 - 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
 - 건물이 많이 세워진 도심지에서 유용한 모델
-![Rayleigh fading](./_images\Rayleigh fading.PNG)
+
+
+![Rayleigh fading](./_images/Rayleigh fading.PNG)
 
 
 
@@ -193,11 +197,14 @@ $$
 $$
 N0 = \frac{N}{W}
 $$
+
+
 ![BER_vs_EbN0](./_images/BER_vs_EbN0.PNG)
 
 
 
 ## BER/SER 과 SNR/EbN0 Graph 비교
+
 ![BERSER_graph](./_images/BERSER_graph.PNG)
 
 
