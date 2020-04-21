@@ -19,15 +19,15 @@ Research_assistant
 -  SISO 환경과 동일한 신호 파워로 전송
 
 
-  
+
 
 ![](./_images/MISO_Selection.JPG)
 
 Transmitt Power: 
 
-```math
+$$
 \left|x\right|^2 
-```
+$$
 
 
 
