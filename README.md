@@ -2,7 +2,7 @@
 Research_assistant
 
 # Research_assistant
-[TOC]
+
 
 # SISO
 
