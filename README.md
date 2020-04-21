@@ -20,7 +20,7 @@ Research_assistant
 
   
 
-![](_images\MISO_Selection.JPG)
+![](./_images\MISO_Selection.JPG)
 
 Transmitt Power:
 $$
@@ -37,7 +37,7 @@ $$
 
 
 
-![](_images\MISO_Alamouti1.JPG)
+![](./_images\MISO_Alamouti1.JPG)
 
 
 
@@ -48,7 +48,7 @@ $$
 
 
 
-![](_images\MISO_Alamouti2.JPG)
+![](./_images\MISO_Alamouti2.JPG)
 
 
 
@@ -105,7 +105,7 @@ $$
 
 
 - **디지털 신호(1,0)**에 따라 위상이 180˚ 다른 두 정현파로 변조하는 방식
-![BPSK](_images\BPSK.JPG)
+![BPSK](./_images\BPSK.JPG)
 
 
 
@@ -114,7 +114,7 @@ $$
 
 - 2진 PSK(BPSK) 방식과 달리, 위상을 90˚씩 변화함
 - **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
-![QPSK](_images\QPSK.JPG)
+![QPSK](./_images\QPSK.JPG)
 
 
 
@@ -123,7 +123,7 @@ $$
 
 
 ## 16QAM
-![16QAM](_images\16QAM.PNG) <img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
+![16QAM](./_images\16QAM.PNG) <img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
 
 
 - QAM (Quadrature Amplitude Modulation)
@@ -144,7 +144,7 @@ $$
 
 - 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
 - 건물이 많이 세워진 도심지에서 유용한 모델
-![Rayleigh fading](_images\Rayleigh fading.PNG)
+![Rayleigh fading](./_images\Rayleigh fading.PNG)
 
 
 
@@ -185,19 +185,19 @@ $$
 $$
 N0 = \frac{N}{W}
 $$
-![BER_vs_EbN0](_images\BER_vs_EbN0.PNG)
+![BER_vs_EbN0](./_images\BER_vs_EbN0.PNG)
 
 
 
 ## BER/SER 과 SNR/EbN0 Graph 비교
-![BERSER_graph](_images\BERSER_graph.PNG)
+![BERSER_graph](./_images\BERSER_graph.PNG)
 
 
 
 # SIMO
 
 - **Single Input Multiple Output**
-![SIMO](_images\SIMO.PNG)
+![SIMO](./_images\SIMO.PNG)
 
 ## Diversity
 
@@ -222,7 +222,7 @@ $$
 
   
 
-  ![](_images\MISO_MRC.JPG)
+  ![](./_images\MISO_MRC.JPG)
 
 
 
@@ -246,7 +246,7 @@ $$
 
   
 
-![](_images\MISO_Selection.JPG)
+![](./_images\MISO_Selection.JPG)
 
 
 $$
@@ -279,7 +279,7 @@ ___
 
 
 
-![](_images\MISO_Alamouti1.JPG)
+![](./_images\MISO_Alamouti1.JPG)
 
 
 
@@ -290,7 +290,7 @@ ___
 
 
 
-![](_images\MISO_Alamouti2.JPG)
+![](./_images\MISO_Alamouti2.JPG)
 
 
 
@@ -377,7 +377,7 @@ JEoN-Ha 학부연구생(feat. 박상준 교수님)
 
 # MIMO
 
-![MIMO-antennas](_images\MIMO-antennas.PNG)
+![MIMO-antennas](./_images\MIMO-antennas.PNG)
 - **Multiple-Input and Multiple-Output**
 - 다수의 송신 안테와 다수의 수신 안테나 시스템
 - Spatially multiplexing (공간 다중화) 개념과 Spatial Diversity (공간 다이버시티) 개념이 포함됨
@@ -431,7 +431,9 @@ $$
 
 
 ## MMSE (Minimum Mean Square Error)
-![MMSE](_images\MMSE.PNG)
+
+![MMSE](./_images\MMSE.PNG)
+
 $$
 \begin{matrix}
 G_{MMSE} &=& H^H(HH^H + \sigma_n^2 I)^{-1}\\
@@ -453,7 +455,7 @@ $$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리�
 
 즉, $$x$$에 들어갈 수 있는 모든 조합을 구하여 $$H$$를 곱한 후, 수신 심벌 $$y$$에서 뺀 값이 최소인 $$x$$가 Demodulation한 값이 된다. 
 
-![ML](_images\ML.PNG)
+![ML](./_images\ML.PNG)
 
 - Optimal performance를 가지고 있다. (즉 최적화가 잘 되어 있다.)
 - 하지만 복잡하고 연산 시 시간이 많이 필요하다.
@@ -463,7 +465,7 @@ $$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리�
 
 ### Diversity order 비교 (ZF, MMSE, ML)
 
-![diversityOrder](_images\diversityOrder.PNG)
+![diversityOrder](./_images\diversityOrder.PNG)
 
 ## SIC (Successive Interference Cancellation)
 
@@ -480,9 +482,9 @@ $$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리�
 
 ### Example
 
-![sic-example_1](_images\sic-example_1.PNG) 
-![sic-example_2](_images\sic-example_2.PNG)
-![sic-example_3](_images\sic-example_3.PNG)
+![sic-example_1](./_images\sic-example_1.PNG) 
+![sic-example_2](./_images\sic-example_2.PNG)
+![sic-example_3](./_images\sic-example_3.PNG)
 
 - ZF, MMSE 기법만 사용한 것 보다 성능이 좋다.
 - ZF, MMSE 보다 복잡도가 증가된다.
@@ -503,10 +505,10 @@ $$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리�
 
 
 ### SNR 구하는 과정 (어려움)
-![OSIC_receiver](_images\OSIC_receiver.PNG)
+![OSIC_receiver](./_images\OSIC_receiver.PNG)
 
 
 
 ###  Diversity order 비교 (Normal, SIC, OSIC)
 
-![diversity-OSIC](_images\diversity-OSIC.PNG)
+![diversity-OSIC](./_images\diversity-OSIC.PNG)
