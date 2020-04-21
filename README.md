@@ -349,9 +349,164 @@ $$
   -  두 전송 시간동안 채널이 변하지 않아야 최대 성능 보장. 
      -  채널이 변화할 경우 간섭 성분이 남을 수 있음
 
+# MISO
+
+
+
+## Maximal -Ratio Transmission(MRT)
+
+**SIMO의 MRC와 동일한 원리-->동일성능**
+
+ 
+
+수식: $$ abs(conj(h1)*x/a)^2 + abs(conj(h2)*x/a)^2 = abs*() $$
+
+
+
+## Selection
+
+
+
+## Alamouti
+
+JEoN-Ha 학부연구생(feat. 박상준 교수님)
 
 
 
 
 
+# MIMO
 
+![MIMO-antennas](_images\MIMO-antennas.PNG)
+- **Multiple-Input and Multiple-Output**
+- 다수의 송신 안테와 다수의 수신 안테나 시스템
+- Spatially multiplexing (공간 다중화) 개념과 Spatial Diversity (공간 다이버시티) 개념이 포함됨
+
+
+$$
+y = Hx + n
+$$
+
+보통 MIMO System Model은 N개의 TX, M개의 RX를 가진다.
+
+- y : M x 1 receive signal vector
+- H : M x N **MIMO** channel matrix
+- x : N x 1 transmitted signal vector
+- n : M x 1 AWGN (Additive white Gaussian noise) vector
+
+
+
+## ZF (Zero-Forcing)
+
+### ZF Filter
+
+$$
+G_{ZF} = 
+\begin{cases}
+H^{-1}\quad\quad\quad\quad\quad\quad\quad\quad	M = N
+\\
+H^{\dagger} = (H^H H)^{-1}H^H \quad\,\, M>N
+\end{cases}
+$$
+
+### Output of the ZF receiver
+
+$$
+G_{ZF} \,\, y = 
+\begin{cases}
+H^{-1}(Hx + n) = x + H^{-1}n\quad\quad\quad\quad\quad\quad\quad\quad\quad\,\,	M = N
+\\
+(H^H H)^{-1}H^H(Hx + n) = x + (H^H H)^{-1}H^Hn \quad\,\, M>N
+\end{cases}
+$$
+
+- M < N 인 시스템에서는 사용할 수 없다.
+- Diversity order가 $$ M-N+1$$ 이다.
+- Linear receivers 이다.
+
+송수신 수식에서 H를 이용해 H의 **에르미트 행렬**을 구하고 이를 이용해 **ZF Filter**를 구한다. <br>
+
+구한 **ZF Filter**를 수식에 곱하여 수신 심벌 x + N(이외의 수) 꼴로 보상해준다.
+
+
+
+## MMSE (Minimum Mean Square Error)
+![MMSE](_images\MMSE.PNG)
+$$
+\begin{matrix}
+G_{MMSE} &=& H^H(HH^H + \sigma_n^2 I)^{-1}\\
+		&=&(H^HH + \sigma_n^2 I)^{-1} H^H
+\end{matrix}
+$$
+
+- 여기서 $$ \sigma_n^2$$는 잡음 전력의 분산의 제곱이다.
+- M < N 인 시스템에서는 사용할 수 없다.
+- Diversity order 는 $$ M-N+1$$ 로  ZF 와 같다.
+- Error Performance는 ZF 보다 좋다.
+- Linear receivers 이다.
+
+
+
+## ML (Maximum-likelihood)
+
+$$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리즘이다. 
+
+즉, $$x$$에 들어갈 수 있는 모든 조합을 구하여 $$H$$를 곱한 후, 수신 심벌 $$y$$에서 뺀 값이 최소인 $$x$$가 Demodulation한 값이 된다. 
+
+![ML](_images\ML.PNG)
+
+- Optimal performance를 가지고 있다. (즉 최적화가 잘 되어 있다.)
+- 하지만 복잡하고 연산 시 시간이 많이 필요하다.
+- Non-Linear receivers 이다.
+
+
+
+### Diversity order 비교 (ZF, MMSE, ML)
+
+![diversityOrder](_images\diversityOrder.PNG)
+
+## SIC (Successive Interference Cancellation)
+
+- **Based on the Linear Receiver (MMSE, ZF)**
+- **Serial IC** 라고도 부른다.
+- 자료에 있는 설명
+  - First, Estimate ont of TX symbols using Linear Filter
+  - Second, Cancel it from the RX vectors, as if the TX symbol was no actually transmitted -> Go to First
+- 해석
+  1. 선행 필터(MMSE, ZF)를 통해 송신부에서 온 symbol을 복조한다.
+  2. 수신부에 섞인 간섭을 제거하여 다시 선행 필터를 통해 필터링한다. 아직 남은 송신 심벌이 남아 있다면 1.번을 반복한다.
+
+
+
+### Example
+
+![sic-example_1](_images\sic-example_1.PNG) 
+![sic-example_2](_images\sic-example_2.PNG)
+![sic-example_3](_images\sic-example_3.PNG)
+
+- ZF, MMSE 기법만 사용한 것 보다 성능이 좋다.
+- ZF, MMSE 보다 복잡도가 증가된다.
+- 하지만 ML 보다는 복잡도가 낮다.
+- 주의점 Error Propagation(오류 전파)
+  - 첫 심벌이 오류가 일어난 것이었다면 이 오류성은 후에 일어나는 일련의 과정들 모두에게 전파된다. 따라서 오류가 커질 수도 있다.
+
+
+
+## OSIC (Ordered Successive Interference Cancellation)
+
+- To minimize the occurence of error propagations in SIC
+- SIC에서 Error Propagation을 최소화 하기 위해 고안된 방법
+- TX에서 보낸 심벌의 SNR을 측정하여, 최대인 것을 SIC 연산식에서 우선순위를 둔다.(먼저 뺀다)
+- SNR이 최대라는 것은 송신 및 수신과정에서 오류가 일어났을 확률이 최소이기 때문에, 우선순위를 둔다. 이에 따라 오류가 일어날 확률이 큰, 즉 SNR이 제일 작은 송신 심벌은 간섭이 제거되기 때문에 전체적으로 오류의 확률이 적어지게 된다.
+- SNR을 구하기(구현과정이) 힘들기 때문에 행렬 $$H$$에서 열 순서로 $$h1, h2, h3, ...$$ 중 크기가 가장 큰 것으로 우선순위를 두어도 크게 상관은 없다. (정확한 OSIC는 아니지만, 연산 결과도 크게 차이나지 않는다.)
+
+
+
+### SNR 구하는 과정 (어려움)
+![OSIC_receiver](_images\OSIC_receiver.PNG)
+
+
+
+###  Diversity order 비교 (Normal, SIC, OSIC)
+
+![diversity-OSIC](_images\diversity-OSIC.PNG)
