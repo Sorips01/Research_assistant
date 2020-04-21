@@ -39,7 +39,8 @@ JEoN-Ha 학부연구생(feat. 박상준 교수님)
 
 
 ## 16QAM
-![16QAM](_images\16QAM.PNG)
-<img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
+![16QAM](_images\16QAM.PNG) <img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
 
 - QAM (Quadrature Amplitude Modulation)
+
+- 한 심볼에 n bit 코딩 (16QAM은 1 symbol = 4 bits)
