@@ -24,9 +24,9 @@ Research_assistant
 ![](./_images/MISO_Selection.JPG)
 
 Transmitt Power:
-$$
+$@
 \left|x\right|^2
-$$
+$@
 
 
 
