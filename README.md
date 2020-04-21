@@ -20,7 +20,7 @@ Research_assistant
 
   
 
-  ![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_MRC.JPG)
+  ![](_images\MISO_MRC.JPG)
 
 
 
@@ -44,7 +44,7 @@ $$
 
   
 
-![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_Selection.JPG)
+![](_images\MISO_Selection.JPG)
 
 
 $$
@@ -77,7 +77,7 @@ ___
 
 
 
-![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_Alamouti1.JPG)
+![](_images\MISO_Alamouti1.JPG)
 
 
 
@@ -88,7 +88,7 @@ ___
 
 
 
-![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_Alamouti2.JPG)
+![](_images\MISO_Alamouti2.JPG)
 
 
 
@@ -181,7 +181,7 @@ $$
 
   
 
-![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_Selection.JPG)
+![](_images\MISO_Selection.JPG)
 
 Transmitt Power:
 $$
@@ -198,7 +198,7 @@ $$
 
 
 
-![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_Alamouti1.JPG)
+![](_images\MISO_Alamouti1.JPG)
 
 
 
@@ -209,7 +209,7 @@ $$
 
 
 
-![](C:\Users\Assistant_4\Documents\GitHub\Research_assistant\_images\MISO_Alamouti2.JPG)
+![](_images\MISO_Alamouti2.JPG)
 
 
 
