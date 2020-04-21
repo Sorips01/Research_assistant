@@ -25,7 +25,9 @@ Research_assistant
 
 Transmitt Power: 
 
-$$$ \left|x\right|^2 $$$
+$$$ \left|x\right|^2 $$$<br>
+<img src="https://latex.codecogs.com/gif.latex?\left|x\right|^2" title="\left|x\right|^2" />
+
 
 
 
