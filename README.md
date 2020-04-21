@@ -18,89 +18,10 @@ Research_assistant
 
 -  SISO 환경과 동일한 신호 파워로 전송
 
-  
-
-![](_images\MISO_Selection.JPG)
-
-Transmitt Power:
-$$
-\left|x\right|^2
-$$
-
-
-
 
 
 
 ## BPSK
-
-
-
-
-![](_images\MISO_Alamouti1.JPG)
-
-
-
-- 각 시간마다 한 TX Antenna만을 사용하여 Diversity를 확보하는 방 법
-  -  본 기법: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO)	
-  -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
-  -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
-
-
-
-![](_images\MISO_Alamouti2.JPG)
-
-
-
-- *Alamouti STBC – Equivalent System Model*
-
-
-$$
-\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} = \begin{bmatrix} h_1&h_2\\ h_2^*& -h_1^* \end{bmatrix}\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} +\begin{bmatrix} n_1 \\ n_2^* \end{bmatrix}
-$$
-
-- *Detection for the 1st TX symbol*
-
-  
-
-$$
-h_1^*y_1 + h_2y_2^*= \left|h_1\right|^2 + h_1^*h_2x_2 + \left|h_2\right|^2x_1 - h_2h_1^*x_2 + noise = \left|h_1\right|^2x_1 + \left|h_2\right|^2x_1 =noise
-$$
-
-
-
-- *Detection for the 2nd TX symbol*
-
-  
-  $$
-  h_2^*y_1 + h_1y_2^*=  h_2^*h_1x_1 + \left|h_2\right|^2x_2 - h_1h_2^*x_1+ \left|h_1\right|^2x_2 + noise = \left|h_1\right|^2x_2 + \left|h_2\right|^2x_2 +noise
-  $$
-  
-- Alamouti STBC in MISO Systems (2x1)
-
-  -   두 개의 신호를 두 번의 시간 동안 전송함
-
-  -   두 전송 신호에 대해 두개의 채널(Diversity)을 보장하며, 또한 상호간 간섭 없는 신호를 추출할 수 있는 간단한 복호과정을 가짐 
-
-  - Alamouti STBC: 1 심볼 전송 / 시간, 채널 정보 필요 X (MISO 2x1)
-
-  -  Simple STBC: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO) 
-
-  -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
-
-  -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
-
-    
-
-- 상기 기법들은 2x1 MISO / 1x2 SIMO를 가정할 때 모두 2개의 독립 적인 채널을 통한 Diversity 획득
-
-  
-
--  Alamouti STBC의 제약 사항 
-
-  -  MISO 시스템 중에서는 2x1 환경에만 적용 가능
-  - 두 전송 시간동안 채널이 변하지 않아야 최대 성능 보장. 
-    -  채널이 변화할 경우 간섭 성분이 남을 수 있음
 
 
 
@@ -194,6 +115,14 @@ $$
 
 
 
+
+
+___
+
+___
+
+
+
 # SIMO
 
 - **Single Input Multiple Output**
@@ -204,6 +133,14 @@ $$
 - 송신, 수신측에 복수 개의 안테나(다중 안테나)를 설치하여 Diversity 효과를 얻는 방법
 
 
+
+
+
+
+
+___
+
+___
 
 
 
@@ -347,33 +284,14 @@ $$
 
   -  MISO 시스템 중에서는 2x1 환경에만 적용 가능
   -  두 전송 시간동안 채널이 변하지 않아야 최대 성능 보장. 
+     
      -  채널이 변화할 경우 간섭 성분이 남을 수 있음
+     
+     
 
-# MISO
+___
 
-
-
-## Maximal -Ratio Transmission(MRT)
-
-**SIMO의 MRC와 동일한 원리-->동일성능**
-
- 
-
-수식: $$ abs(conj(h1)*x/a)^2 + abs(conj(h2)*x/a)^2 = abs*() $$
-
-
-
-## Selection
-
-
-
-## Alamouti
-
-JEoN-Ha 학부연구생(feat. 박상준 교수님)
-
-
-
-
+___
 
 # MIMO
 
