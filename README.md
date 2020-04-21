@@ -37,7 +37,7 @@ $$
 
 
 
-![](./_images\MISO_Alamouti1.JPG)
+![](./_images/MISO_Alamouti1.JPG)
 
 
 
@@ -48,7 +48,7 @@ $$
 
 
 
-![](./_images\MISO_Alamouti2.JPG)
+![](./_images/MISO_Alamouti2.JPG)
 
 
 
