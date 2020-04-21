@@ -25,7 +25,7 @@ Research_assistant
 
 Transmitt Power: 
 
-$\left|x\right|^2 $
+$$$ \left|x\right|^2 $$$
 
 
 
