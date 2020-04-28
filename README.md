@@ -27,6 +27,7 @@ Transmitt Power:
 
 
 
+
 ![x_square](./_images/x_square.PNG)
 
 
@@ -38,7 +39,10 @@ Transmitt Power:
 
 
 - **디지털 신호(1,0)**에 따라 위상이 180˚ 다른 두 정현파로 변조하는 방식
+
+
 ![BPSK](./_images/BPSK.PNG)
+
 
 
 
@@ -47,6 +51,8 @@ Transmitt Power:
 
 - 2진 PSK(BPSK) 방식과 달리, 위상을 90˚씩 변화함
 - **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
+
+
 ![QPSK](./_images/QPSK.PNG)
 
 
@@ -55,10 +61,13 @@ Transmitt Power:
 
 
 
+
 ## 16QAM
+
 ![16QAM](./_images/16QAM.PNG) 
 
 ![16QAM_1](./_images/16QAM_1.png)
+
 
 
 - QAM (Quadrature Amplitude Modulation)
@@ -77,7 +86,10 @@ Transmitt Power:
 
 - 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
 - 건물이 많이 세워진 도심지에서 유용한 모델
+
+
 ![Rayleigh fading](./_images/Rayleigh_fading.PNG)
+
 
 
 
@@ -107,12 +119,19 @@ Transmitt Power:
 
 - 정의 : 디지털 통신의 성능평가 기준으로 **비트에너지 대 잡음전력 스펙트럼 밀도의 비**
 
+
+
+
+
 ![EbN0](./_images/EbN0.PNG)
-![BEREbno](./_images\BEREbno.PNG)
+
+![BEREbno](./_images/BEREbno.PNG)
+
 
 
 
 ## BER/SER 과 SNR/EbN0 Graph 비교
+
 ![BERSER_graph](./_images/BERSER_graph.PNG)
 
 
@@ -182,7 +201,7 @@ ___
 
 
 
-
+Transmit Power : 
 ![](./_images/image-20200428131348545.png)
 
 
@@ -231,7 +250,7 @@ ___
 
 - *Detection for the 2nd TX symbol*
 
-![detection_for_the_2nd_TX_symbol](C:\Users\Assistant_2\paeng\Research_assistant\_images\detection_for_the_2nd_TX_symbol.PNG)
+![detection_for_the_2nd_TX_symbol](./_images/detection_for_the_2nd_TX_symbol.PNG)
 
 - Alamouti STBC in MISO Systems (2x1)
 
