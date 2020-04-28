@@ -125,7 +125,7 @@ Transmitt Power:
 
 ![EbN0](./_images/EbN0.PNG)
 
-![BEREbno](./_images\BEREbno.PNG)
+![BEREbno](./_images/BEREbno.PNG)
 
 
 
@@ -201,7 +201,7 @@ ___
 
 
 
-
+Transmit Power : 
 ![](./_images/image-20200428131348545.png)
 
 
@@ -250,7 +250,7 @@ ___
 
 - *Detection for the 2nd TX symbol*
 
-![detection_for_the_2nd_TX_symbol](C:\Users\Assistant_2\paeng\Research_assistant\_images\detection_for_the_2nd_TX_symbol.PNG)
+![detection_for_the_2nd_TX_symbol](./_images/detection_for_the_2nd_TX_symbol.PNG)
 
 - Alamouti STBC in MISO Systems (2x1)
 
