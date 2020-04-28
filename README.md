@@ -227,15 +227,7 @@ ___
 
   ![](./_images/MISO_MRC.JPG)
 
-
-
-
-$$
-Transmitt Power: 
-\left|\frac{|h_1^H*x}{a}\right|^2 +\left|\frac{|h_1^H*x}{a}\right|^2 =\frac{\left|H_1\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2} +\frac{\left|H_2\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2}  = \left|x\right|^2
-$$
-
-
+![](./_images/image-20200428131108944.png)
 
 ## Selection
 
@@ -252,13 +244,10 @@ $$
 ![](./_images/MISO_Selection.JPG)
 
 
-$$
-Transmitt Power = \left|x\right|^2
-$$
 
 
 
-
+![](./_images/image-20200428131348545.png)
 
 
 ## Alamouti STBC
@@ -299,31 +288,24 @@ ___
 
 - *Alamouti STBC – Equivalent System Model*
 
-  
+  ![](./_images/image-20200428131430995.png)
 
 
-$$
-\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} = \begin{bmatrix} h_1&h_2\\ h_2^*& -h_1^* \end{bmatrix}\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} +\begin{bmatrix} n_1 \\ n_2^* \end{bmatrix}
-$$
 
 - *Detection for the 1st TX symbol*
 
-  
+  ![](./_images/image-20200428131656340.png)
 
-$$
-h_1^*y_1 + h_2y_2^*= \left|h_1\right|^2 + h_1^*h_2x_2 + \left|h_2\right|^2x_1 - h_2h_1^*x_2 + noise = \left|h_1\right|^2x_1 + \left|h_2\right|^2x_1 =noise
-$$
+
 
 
 
 - *Detection for the 2nd TX symbol*
 
+  ![](\./_images/image-20200428132253236.png)
+
   
-
-  $$
-  h_2^*y_1 + h_1y_2^*=  h_2^*h_1x_1 + \left|h_2\right|^2x_2 - h_1h_2^*x_1+ \left|h_1\right|^2x_2 + noise = \left|h_1\right|^2x_2 + \left|h_2\right|^2x_2 +noise
-  $$
-
+  
   
 
 - Alamouti STBC in MISO Systems (2x1)
@@ -366,10 +348,7 @@ ___
 - 다수의 송신 안테와 다수의 수신 안테나 시스템
 - Spatially multiplexing (공간 다중화) 개념과 Spatial Diversity (공간 다이버시티) 개념이 포함됨
 
-
-$$
-y = Hx + n
-$$
+<img src="https://latex.codecogs.com/gif.latex?y%20%3D%20Hx%20&plus;%20n">
 
 보통 MIMO System Model은 N개의 TX, M개의 RX를 가진다.
 
@@ -384,25 +363,12 @@ $$
 
 ### ZF Filter
 
-$$
-G_{ZF} = 
-\begin{cases}
-H^{-1}\quad\quad\quad\quad\quad\quad\quad\quad	M = N
-\\
-H^{\dagger} = (H^H H)^{-1}H^H \quad\,\, M>N
-\end{cases}
-$$
+<img src="https://latex.codecogs.com/gif.latex?G_%7BZF%7D%20%3D%20%5Cbegin%7Bcases%7D%20H%5E%7B-1%7D%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%20M%20%3D%20N%20%5C%5C%20H%5E%7B%5Cdagger%7D%20%3D%20%28H%5EH%20H%29%5E%7B-1%7DH%5EH%20%5Cquad%5C%2C%5C%2C%20M%3EN%20%5Cend%7Bcases%7D">
+
 
 ### Output of the ZF receiver
+<img src="https://latex.codecogs.com/gif.latex?G_%7BZF%7D%20%5C%2C%5C%2C%20y%20%3D%20%5Cbegin%7Bcases%7D%20H%5E%7B-1%7D%28Hx%20&plus;%20n%29%20%3D%20x%20&plus;%20H%5E%7B-1%7Dn%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5C%2C%5C%2C%20M%20%3D%20N%20%5C%5C%20%28H%5EH%20H%29%5E%7B-1%7DH%5EH%28Hx%20&plus;%20n%29%20%3D%20x%20&plus;%20%28H%5EH%20H%29%5E%7B-1%7DH%5EHn%20%5Cquad%5C%2C%5C%2C%20M%3EN%20%5Cend%7Bcases%7D">
 
-$$
-G_{ZF} \,\, y = 
-\begin{cases}
-H^{-1}(Hx + n) = x + H^{-1}n\quad\quad\quad\quad\quad\quad\quad\quad\quad\,\,	M = N
-\\
-(H^H H)^{-1}H^H(Hx + n) = x + (H^H H)^{-1}H^Hn \quad\,\, M>N
-\end{cases}
-$$
 
 - M < N 인 시스템에서는 사용할 수 없다.
 - Diversity order가 $$ M-N+1$$ 이다.
@@ -418,12 +384,7 @@ $$
 
 ![MMSE](./_images/MMSE.PNG)
 
-$$
-\begin{matrix}
-G_{MMSE} &=& H^H(HH^H + \sigma_n^2 I)^{-1}\\
-		&=&(H^HH + \sigma_n^2 I)^{-1} H^H
-\end{matrix}
-$$
+<img src="https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20G_%7BMMSE%7D%20%26%3D%26%20H%5EH%28HH%5EH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%5C%5C%20%26%3D%26%28H%5EHH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%20H%5EH%20%5Cend%7Bmatrix%7D">
 
 - 여기서 $$ \sigma_n^2$$는 잡음 전력의 분산의 제곱이다.
 - M < N 인 시스템에서는 사용할 수 없다.
@@ -435,7 +396,7 @@ $$
 
 ## ML (Maximum-likelihood)
 
-$$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리즘이다. 
+<img src="https://latex.codecogs.com/gif.latex?%5Carg%7B%28min%20%28%5CrVert%20y-Hx%27%20%5CrVert%5E2%29%29%7D">를 만족하는 X를 찾는 알고리즘이다. 
 
 즉, $$x$$에 들어갈 수 있는 모든 조합을 구하여 $$H$$를 곱한 후, 수신 심벌 $$y$$에서 뺀 값이 최소인 $$x$$가 Demodulation한 값이 된다. 
 
