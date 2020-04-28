@@ -26,13 +26,16 @@ for SNR = 0:5:60
          h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
          noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
          
-         for i = 1:1:Rx
+      
          Demo_symbol = ZF_Modulation(h,noise,symbol);
-         h(:,1) = [];
-         noise(1) = [];
-         symbol(1) = [];
+         
+         for i= 1:1:Rx
+            sicResult = SIC_Demodulation(Demo_symbol,h)
+            h(:,1) = []
+            
          end
          
+             
 
         
         % ZF(Rx,Tx,N,symbol)

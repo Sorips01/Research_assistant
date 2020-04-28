@@ -1,5 +1,5 @@
-function [sicResult] = SIC_Demodulation(result,h,symbol)
+function [sicResult] = SIC_Demodulation(Demo_symbol,h)
 
-sicResult = result - h(:,1)*symbol(1);
+sicResult = Demo_symbol - h(:,1)*Demo_symbol(1)
 
 end
