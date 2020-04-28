@@ -245,15 +245,7 @@ ___
 
   ![](./_images/MISO_MRC.JPG)
 
-
-
-
-$$
-Transmitt Power: 
-\left|\frac{|h_1^H*x}{a}\right|^2 +\left|\frac{|h_1^H*x}{a}\right|^2 =\frac{\left|H_1\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2} +\frac{\left|H_2\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2}  = \left|x\right|^2
-$$
-
-
+![](./_images/image-20200428131108944.png)
 
 ## Selection
 
@@ -270,13 +262,10 @@ $$
 ![](./_images/MISO_Selection.JPG)
 
 
-$$
-Transmitt Power = \left|x\right|^2
-$$
 
 
 
-
+![](./_images/image-20200428131348545.png)
 
 
 ## Alamouti STBC
@@ -317,31 +306,24 @@ ___
 
 - *Alamouti STBC – Equivalent System Model*
 
-  
+  ![](./_images/image-20200428131430995.png)
 
 
-$$
-\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} = \begin{bmatrix} h_1&h_2\\ h_2^*& -h_1^* \end{bmatrix}\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} +\begin{bmatrix} n_1 \\ n_2^* \end{bmatrix}
-$$
 
 - *Detection for the 1st TX symbol*
 
-  
+  ![](./_images/image-20200428131656340.png)
 
-$$
-h_1^*y_1 + h_2y_2^*= \left|h_1\right|^2 + h_1^*h_2x_2 + \left|h_2\right|^2x_1 - h_2h_1^*x_2 + noise = \left|h_1\right|^2x_1 + \left|h_2\right|^2x_1 =noise
-$$
+
 
 
 
 - *Detection for the 2nd TX symbol*
 
+  ![](\./_images/image-20200428132253236.png)
+
   
-
-  $$
-  h_2^*y_1 + h_1y_2^*=  h_2^*h_1x_1 + \left|h_2\right|^2x_2 - h_1h_2^*x_1+ \left|h_1\right|^2x_2 + noise = \left|h_1\right|^2x_2 + \left|h_2\right|^2x_2 +noise
-  $$
-
+  
   
 
 - Alamouti STBC in MISO Systems (2x1)
