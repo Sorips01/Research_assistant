@@ -58,28 +58,20 @@ $$
 
 - *Alamouti STBC – Equivalent System Model*
 
-
-$$
-\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} = \begin{bmatrix} h_1&h_2\\ h_2^*& -h_1^* \end{bmatrix}\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} +\begin{bmatrix} n_1 \\ n_2^* \end{bmatrix}
-$$
+<img src = "https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%20h_1%26h_2%5C%5C%20h_2%5E*%26%20-h_1%5E*%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20&plus;%5Cbegin%7Bbmatrix%7D%20n_1%20%5C%5C%20n_2%5E*%20%5Cend%7Bbmatrix%7D">
 
 - *Detection for the 1st TX symbol*
 
   
 
-$$
-h_1^*y_1 + h_2y_2^*= \left|h_1\right|^2 + h_1^*h_2x_2 + \left|h_2\right|^2x_1 - h_2h_1^*x_2 + noise = \left|h_1\right|^2x_1 + \left|h_2\right|^2x_1 =noise
-$$
+<img src = "https://latex.codecogs.com/gif.latexh_1%5E*y_1%20&plus;%20h_2y_2%5E*%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2%20&plus;%20h_1%5E*h_2x_2%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_1%20%20h_2h_1%5E*x_2%20&plus;%20noise%20%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2x_1%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_1%20%3Dnoise">
 
 
 
 - *Detection for the 2nd TX symbol*
 
-  
-  $$
-  h_2^*y_1 + h_1y_2^*=  h_2^*h_1x_1 + \left|h_2\right|^2x_2 - h_1h_2^*x_1+ \left|h_1\right|^2x_2 + noise = \left|h_1\right|^2x_2 + \left|h_2\right|^2x_2 +noise
-  $$
-  
+<img src = "https://latex.codecogs.com/gif.latex?h_2%5E*y_1%20&plus;%20h_1y_2%5E*%3D%20h_2%5E*h_1x_1%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_2%20-%20h_1h_2%5E*x_1&plus;%20%5Cleft%7Ch_1%5Cright%7C%5E2x_2%20&plus;%20noise%20%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2x_2%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_2%20&plus;noise">
+
 - Alamouti STBC in MISO Systems (2x1)
 
   -   두 개의 신호를 두 번의 시간 동안 전송함
@@ -149,16 +141,14 @@ $$
 
 - 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
 - 건물이 많이 세워진 도심지에서 유용한 모델
-![Rayleigh fading](./_images\Rayleigh fading.PNG)
+![Rayleigh fading](./_images/Rayleigh fading.PNG)
 
 
 
 ## BER
 
 - Bit Error Ratio (비트 오류율)
-  $$
-  BER = \frac{수신된 비트 중 오류 비트 수}{송신한 총 비트 수}
-  $$
+  ![BER](./_images/BER.PNG)
 
 
 
@@ -173,9 +163,7 @@ $$
 - **신호 대 잡음 비** (Signal to noise ratio)
 - SNR이 크다 = 잡음보다 신호의 power가 더 크다
 
-$$
-SNR = 10log\frac{v_s(rms)}{v_n(rms)} dB
-$$
+<img src = "https://latex.codecogs.com/gif.latex?SNR%20%3D%2010log%5Cfrac%7Bv_s%28rms%29%7D%7Bv_n%28rms%29%7D">
 
 
 
@@ -183,13 +171,7 @@ $$
 
 - 정의 : 디지털 통신의 성능평가 기준으로 **비트에너지 대 잡음전력 스펙트럼 밀도의 비**
 
-$$
-Eb = 비트시간 * 신호 전력 = Tb * S = (\frac{1}{비트전송률})*S = \frac{S}{Rb}
-$$
-
-$$
-N0 = \frac{N}{W}
-$$
+![EbN0](./_images/EbN0.PNG)
 ![BER_vs_EbN0](./_images/BER_vs_EbN0.PNG)
 
 
