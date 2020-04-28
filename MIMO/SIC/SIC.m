@@ -1,7 +1,5 @@
-function [r_result, h_result] = SIC(r,h)
-r(:,1) = [];
+function [result,h] = SIC(symbol,h,r,i)
+r=r-h(:,1)*symbol(i,1);
+result = r;
 h(:,1) = [];
-%h(1,:) = [];
-r_result = r;
-h_result = h;
 end
