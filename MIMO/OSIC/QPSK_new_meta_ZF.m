@@ -77,9 +77,9 @@ OSIC_result_4x4 = result;
 cd mat_folder % 폴더명
 
 if (exist('QPSK_new_meta_OSIC.mat', 'file') > 0) 
-    save('QPSK_new_meta_OSIC.mat', 'SIC_result_4x4', '-append'); 
+    save('QPSK_new_meta_OSIC.mat', 'OSIC_result_4x4', '-append'); 
 else
-    save('QPSK_new_meta_SIC.mat', 'SIC_result_4x4');
+    save('QPSK_new_meta_OSIC.mat', 'OSIC_result_4x4');
 end
 
 cd ..
