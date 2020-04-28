@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 3;
-Rx = 3;
+Tx = 4;
+Rx = 4;
 count = Tx;
 result = [];
 Demo_symbol = [];
@@ -29,20 +29,26 @@ for SNR = 0:5:60
         r = h*symbol + noise;
         Demo_symbol = [];
 
+        [value index] =sort(sum(abs(h)),'descend');
+         
         
-
-%         [value index] =sort(sum(h),'descend');
 
         % modulation
         for i = 1:1:count
-            
-            [~,maxIndex] = max(sum(h));
+           
             r_result = ZF_Modulation(r, h);
             Demo_symbol = [Demo_symbol; r_result(1,:)];
             if i ~= count
                 [r,h] = SIC(r_result,h,r);
             end    
+                  
         end
+        
+        for v =1:1:count
+             osicResult(index(v)) = Demo_symbol(v);
+        end
+        
+        
         
         % ZF(Rx,Tx,N,symbol)
         % MMSE(Rx,Tx,N,symbol)
@@ -66,14 +72,14 @@ for SNR = 0:5:60
 end
 
 % save mat file
-SIC_result = result;
+OSIC_result_4x4 = result;
 
 cd mat_folder % 폴더명
 
-if (exist('QPSK_new_meta_SIC.mat', 'file') > 0) 
-    save('QPSK_new_meta_SIC.mat', 'SIC_result_3x3', '-append'); 
+if (exist('QPSK_new_meta_OSIC.mat', 'file') > 0) 
+    save('QPSK_new_meta_OSIC.mat', 'SIC_result_4x4', '-append'); 
 else
-    save('QPSK_new_meta_SIC.mat', 'SIC_result_3x3');
+    save('QPSK_new_meta_SIC.mat', 'SIC_result_4x4');
 end
 
 cd ..
