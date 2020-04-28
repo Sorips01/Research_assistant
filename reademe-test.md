@@ -25,8 +25,9 @@ Research_assistant
 
 Transmitt Power: 
 
-$$$ \left|x\right|^2 $$$<br>
-<img src="https://latex.codecogs.com/gif.latex?\left|x\right|^2" title="\left|x\right|^2" />
+$$
+\left|x\right|^2 
+$$
 
 
 
@@ -57,20 +58,28 @@ $$$ \left|x\right|^2 $$$<br>
 
 - *Alamouti STBC – Equivalent System Model*
 
-<img src = "https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%20h_1%26h_2%5C%5C%20h_2%5E*%26%20-h_1%5E*%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20&plus;%5Cbegin%7Bbmatrix%7D%20n_1%20%5C%5C%20n_2%5E*%20%5Cend%7Bbmatrix%7D">
+
+$$
+\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} = \begin{bmatrix} h_1&h_2\\ h_2^*& -h_1^* \end{bmatrix}\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} +\begin{bmatrix} n_1 \\ n_2^* \end{bmatrix}
+$$
 
 - *Detection for the 1st TX symbol*
 
   
 
-<img src = "https://latex.codecogs.com/gif.latexh_1%5E*y_1%20&plus;%20h_2y_2%5E*%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2%20&plus;%20h_1%5E*h_2x_2%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_1%20%20h_2h_1%5E*x_2%20&plus;%20noise%20%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2x_1%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_1%20%3Dnoise">
+$$
+h_1^*y_1 + h_2y_2^*= \left|h_1\right|^2 + h_1^*h_2x_2 + \left|h_2\right|^2x_1 - h_2h_1^*x_2 + noise = \left|h_1\right|^2x_1 + \left|h_2\right|^2x_1 =noise
+$$
 
 
 
 - *Detection for the 2nd TX symbol*
 
-<img src = "https://latex.codecogs.com/gif.latex?h_2%5E*y_1%20&plus;%20h_1y_2%5E*%3D%20h_2%5E*h_1x_1%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_2%20-%20h_1h_2%5E*x_1&plus;%20%5Cleft%7Ch_1%5Cright%7C%5E2x_2%20&plus;%20noise%20%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2x_2%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_2%20&plus;noise">
-
+  
+  $$
+  h_2^*y_1 + h_1y_2^*=  h_2^*h_1x_1 + \left|h_2\right|^2x_2 - h_1h_2^*x_1+ \left|h_1\right|^2x_2 + noise = \left|h_1\right|^2x_2 + \left|h_2\right|^2x_2 +noise
+  $$
+  
 - Alamouti STBC in MISO Systems (2x1)
 
   -   두 개의 신호를 두 번의 시간 동안 전송함
@@ -101,8 +110,6 @@ $$$ \left|x\right|^2 $$$<br>
 
 
 - **디지털 신호(1,0)**에 따라 위상이 180˚ 다른 두 정현파로 변조하는 방식
-
-
 ![BPSK](./_images/BPSK.JPG)
 
 
@@ -112,8 +119,6 @@ $$$ \left|x\right|^2 $$$<br>
 
 - 2진 PSK(BPSK) 방식과 달리, 위상을 90˚씩 변화함
 - **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
-
-
 ![QPSK](./_images/QPSK.JPG)
 
 
@@ -123,9 +128,7 @@ $$$ \left|x\right|^2 $$$<br>
 
 
 ## 16QAM
-![16QAM](./_images/16QAM.PNG)
-
-<img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
+![16QAM](./_images/16QAM.PNG) <img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
 
 
 - QAM (Quadrature Amplitude Modulation)
@@ -146,16 +149,16 @@ $$$ \left|x\right|^2 $$$<br>
 
 - 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
 - 건물이 많이 세워진 도심지에서 유용한 모델
-
-
-![Rayleigh fading](./_images/Rayleigh fading.PNG)
+![Rayleigh fading](./_images\Rayleigh fading.PNG)
 
 
 
 ## BER
 
 - Bit Error Ratio (비트 오류율)
-  ![BER](./_images/BER.PNG)
+  $$
+  BER = \frac{수신된 비트 중 오류 비트 수}{송신한 총 비트 수}
+  $$
 
 
 
@@ -170,7 +173,9 @@ $$$ \left|x\right|^2 $$$<br>
 - **신호 대 잡음 비** (Signal to noise ratio)
 - SNR이 크다 = 잡음보다 신호의 power가 더 크다
 
-<img src = "https://latex.codecogs.com/gif.latex?SNR%20%3D%2010log%5Cfrac%7Bv_s%28rms%29%7D%7Bv_n%28rms%29%7D">
+$$
+SNR = 10log\frac{v_s(rms)}{v_n(rms)} dB
+$$
 
 
 
@@ -178,18 +183,18 @@ $$$ \left|x\right|^2 $$$<br>
 
 - 정의 : 디지털 통신의 성능평가 기준으로 **비트에너지 대 잡음전력 스펙트럼 밀도의 비**
 
+$$
+Eb = 비트시간 * 신호 전력 = Tb * S = (\frac{1}{비트전송률})*S = \frac{S}{Rb}
+$$
 
-
-
-
-![EbN0](./_images/EbN0.PNG)
-
+$$
+N0 = \frac{N}{W}
+$$
 ![BER_vs_EbN0](./_images/BER_vs_EbN0.PNG)
 
 
 
 ## BER/SER 과 SNR/EbN0 Graph 비교
-
 ![BERSER_graph](./_images/BERSER_graph.PNG)
 
 
@@ -240,7 +245,15 @@ ___
 
   ![](./_images/MISO_MRC.JPG)
 
-![](./_images/image-20200428131108944.png)
+
+
+
+$$
+Transmitt Power: 
+\left|\frac{|h_1^H*x}{a}\right|^2 +\left|\frac{|h_1^H*x}{a}\right|^2 =\frac{\left|H_1\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2} +\frac{\left|H_2\right|^2*\left|x\right|^2}{\left|H_1\right|^2+\left|H_2\right|^2}  = \left|x\right|^2
+$$
+
+
 
 ## Selection
 
@@ -257,10 +270,13 @@ ___
 ![](./_images/MISO_Selection.JPG)
 
 
+$$
+Transmitt Power = \left|x\right|^2
+$$
 
 
 
-![](./_images/image-20200428131348545.png)
+
 
 
 ## Alamouti STBC
@@ -301,24 +317,31 @@ ___
 
 - *Alamouti STBC – Equivalent System Model*
 
-  ![](./_images/image-20200428131430995.png)
+  
 
 
+$$
+\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} = \begin{bmatrix} h_1&h_2\\ h_2^*& -h_1^* \end{bmatrix}\begin{bmatrix} y_1 \\ y_2^* \end{bmatrix} +\begin{bmatrix} n_1 \\ n_2^* \end{bmatrix}
+$$
 
 - *Detection for the 1st TX symbol*
 
-  ![](./_images/image-20200428131656340.png)
+  
 
-
+$$
+h_1^*y_1 + h_2y_2^*= \left|h_1\right|^2 + h_1^*h_2x_2 + \left|h_2\right|^2x_1 - h_2h_1^*x_2 + noise = \left|h_1\right|^2x_1 + \left|h_2\right|^2x_1 =noise
+$$
 
 
 
 - *Detection for the 2nd TX symbol*
 
-  ![](\./_images/image-20200428132253236.png)
+  
 
-  
-  
+  $$
+  h_2^*y_1 + h_1y_2^*=  h_2^*h_1x_1 + \left|h_2\right|^2x_2 - h_1h_2^*x_1+ \left|h_1\right|^2x_2 + noise = \left|h_1\right|^2x_2 + \left|h_2\right|^2x_2 +noise
+  $$
+
   
 
 - Alamouti STBC in MISO Systems (2x1)
@@ -361,7 +384,10 @@ ___
 - 다수의 송신 안테와 다수의 수신 안테나 시스템
 - Spatially multiplexing (공간 다중화) 개념과 Spatial Diversity (공간 다이버시티) 개념이 포함됨
 
-<img src="https://latex.codecogs.com/gif.latex?y%20%3D%20Hx%20&plus;%20n">
+
+$$
+y = Hx + n
+$$
 
 보통 MIMO System Model은 N개의 TX, M개의 RX를 가진다.
 
@@ -376,12 +402,25 @@ ___
 
 ### ZF Filter
 
-<img src="https://latex.codecogs.com/gif.latex?G_%7BZF%7D%20%3D%20%5Cbegin%7Bcases%7D%20H%5E%7B-1%7D%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%20M%20%3D%20N%20%5C%5C%20H%5E%7B%5Cdagger%7D%20%3D%20%28H%5EH%20H%29%5E%7B-1%7DH%5EH%20%5Cquad%5C%2C%5C%2C%20M%3EN%20%5Cend%7Bcases%7D">
-
+$$
+G_{ZF} = 
+\begin{cases}
+H^{-1}\quad\quad\quad\quad\quad\quad\quad\quad	M = N
+\\
+H^{\dagger} = (H^H H)^{-1}H^H \quad\,\, M>N
+\end{cases}
+$$
 
 ### Output of the ZF receiver
-<img src="https://latex.codecogs.com/gif.latex?G_%7BZF%7D%20%5C%2C%5C%2C%20y%20%3D%20%5Cbegin%7Bcases%7D%20H%5E%7B-1%7D%28Hx%20&plus;%20n%29%20%3D%20x%20&plus;%20H%5E%7B-1%7Dn%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5C%2C%5C%2C%20M%20%3D%20N%20%5C%5C%20%28H%5EH%20H%29%5E%7B-1%7DH%5EH%28Hx%20&plus;%20n%29%20%3D%20x%20&plus;%20%28H%5EH%20H%29%5E%7B-1%7DH%5EHn%20%5Cquad%5C%2C%5C%2C%20M%3EN%20%5Cend%7Bcases%7D">
 
+$$
+G_{ZF} \,\, y = 
+\begin{cases}
+H^{-1}(Hx + n) = x + H^{-1}n\quad\quad\quad\quad\quad\quad\quad\quad\quad\,\,	M = N
+\\
+(H^H H)^{-1}H^H(Hx + n) = x + (H^H H)^{-1}H^Hn \quad\,\, M>N
+\end{cases}
+$$
 
 - M < N 인 시스템에서는 사용할 수 없다.
 - Diversity order가 $$ M-N+1$$ 이다.
@@ -397,7 +436,12 @@ ___
 
 ![MMSE](./_images/MMSE.PNG)
 
-<img src="https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20G_%7BMMSE%7D%20%26%3D%26%20H%5EH%28HH%5EH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%5C%5C%20%26%3D%26%28H%5EHH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%20H%5EH%20%5Cend%7Bmatrix%7D">
+$$
+\begin{matrix}
+G_{MMSE} &=& H^H(HH^H + \sigma_n^2 I)^{-1}\\
+		&=&(H^HH + \sigma_n^2 I)^{-1} H^H
+\end{matrix}
+$$
 
 - 여기서 $$ \sigma_n^2$$는 잡음 전력의 분산의 제곱이다.
 - M < N 인 시스템에서는 사용할 수 없다.
@@ -409,7 +453,7 @@ ___
 
 ## ML (Maximum-likelihood)
 
-<img src="https://latex.codecogs.com/gif.latex?%5Carg%7B%28min%20%28%5CrVert%20y-Hx%27%20%5CrVert%5E2%29%29%7D">를 만족하는 X를 찾는 알고리즘이다. 
+$$\arg{(min (\rVert y-Hx' \rVert^2))}$$ 를 만족하는 X를 찾는 알고리즘이다. 
 
 즉, $$x$$에 들어갈 수 있는 모든 조합을 구하여 $$H$$를 곱한 후, 수신 심벌 $$y$$에서 뺀 값이 최소인 $$x$$가 Demodulation한 값이 된다. 
 
