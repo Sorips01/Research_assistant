@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 2;
-Rx = 4;
+Tx = 3;
+Rx = 3;
 result = [];
 Error_Limit = 10^-5;
 
@@ -21,15 +21,27 @@ for SNR = 0:5:60
         % creat symbol
         symbol = 2 * bit - 1;
         symbol = symbol(:,1) + symbol(:,2) * 1j;
-                
+         
         % modulation
-        Demo_symbol = ZF_Modulation(Tx, Rx, N, symbol);
+         h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
+         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
+         
+         for i = 1:1:Rx
+         Demo_symbol = ZF_Modulation(h,noise,symbol);
+         h(:,1) = [];
+         noise(1) = [];
+         symbol(1) = [];
+         end
+         
+
+        
         % ZF(Rx,Tx,N,symbol)
         % MMSE(Rx,Tx,N,symbol)
         
         % demodulation
         Demo_result(:,1) = real(Demo_symbol)>0; % MRC는 추후 변경하기
         Demo_result(:,2) = imag(Demo_symbol)>0;
+
         
         % count error
         error = error + sum(abs(bit-Demo_result), 'all');

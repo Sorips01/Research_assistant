@@ -1,9 +1,13 @@
-function [result] = ZF_Modulation(Tx, Rx, N, symbol)
-h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
-noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
+function [sicResult] = ZF_Modulation(h,noise,symbol)
+
+% h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
+
 % h_Hermitian = inv(conj(h.') * h) * conj(h.');
 h_Hermitian = (conj(h.') * h) \ conj(h.');
 r = h * symbol + noise;
 result = h_Hermitian * r;
+
+sicResult = SIC_Demodulation(result,h,symbol);
+
 end
 
