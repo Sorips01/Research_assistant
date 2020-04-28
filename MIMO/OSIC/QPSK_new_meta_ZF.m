@@ -28,13 +28,19 @@ for SNR = 0:5:60
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
         r = h*symbol + noise;
         Demo_symbol = [];
+
         
+
+%         [value index] =sort(sum(h),'descend');
+
         % modulation
         for i = 1:1:count
+            
+            [~,maxIndex] = max(sum(h));
             r_result = ZF_Modulation(r, h);
             Demo_symbol = [Demo_symbol; r_result(1,:)];
             if i ~= count
-                [r,h] = SIC(r_result,h,r,i);
+                [r,h] = SIC(r_result,h,r);
             end    
         end
         
