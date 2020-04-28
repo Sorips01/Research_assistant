@@ -25,10 +25,10 @@ Research_assistant
 
 Transmitt Power: 
 
-$$$ \left|x\right|^2 $$$<br>
-<img src="https://latex.codecogs.com/gif.latex?\left|x\right|^2" title="\left|x\right|^2" />
 
 
+
+![x_square](./_images/x_square.PNG)
 
 
 
@@ -38,72 +38,11 @@ $$$ \left|x\right|^2 $$$<br>
 
 
 
-
-
-![](./_images/MISO_Alamouti1.JPG)
-
-
-
-- 각 시간마다 한 TX Antenna만을 사용하여 Diversity를 확보하는 방 법
-  -  본 기법: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO)	
-  -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
-  -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
-
-
-
-![](./_images/MISO_Alamouti2.JPG)
-
-
-
-- *Alamouti STBC – Equivalent System Model*
-
-<img src = "https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%20h_1%26h_2%5C%5C%20h_2%5E*%26%20-h_1%5E*%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20&plus;%5Cbegin%7Bbmatrix%7D%20n_1%20%5C%5C%20n_2%5E*%20%5Cend%7Bbmatrix%7D">
-
-- *Detection for the 1st TX symbol*
-
-  
-
-<img src = "https://latex.codecogs.com/gif.latexh_1%5E*y_1%20&plus;%20h_2y_2%5E*%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2%20&plus;%20h_1%5E*h_2x_2%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_1%20%20h_2h_1%5E*x_2%20&plus;%20noise%20%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2x_1%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_1%20%3Dnoise">
-
-
-
-- *Detection for the 2nd TX symbol*
-
-<img src = "https://latex.codecogs.com/gif.latex?h_2%5E*y_1%20&plus;%20h_1y_2%5E*%3D%20h_2%5E*h_1x_1%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_2%20-%20h_1h_2%5E*x_1&plus;%20%5Cleft%7Ch_1%5Cright%7C%5E2x_2%20&plus;%20noise%20%3D%20%5Cleft%7Ch_1%5Cright%7C%5E2x_2%20&plus;%20%5Cleft%7Ch_2%5Cright%7C%5E2x_2%20&plus;noise">
-
-- Alamouti STBC in MISO Systems (2x1)
-
-  -   두 개의 신호를 두 번의 시간 동안 전송함
-
-  -   두 전송 신호에 대해 두개의 채널(Diversity)을 보장하며, 또한 상호간 간섭 없는 신호를 추출할 수 있는 간단한 복호과정을 가짐 
-
-  - Alamouti STBC: 1 심볼 전송 / 시간, 채널 정보 필요 X (MISO 2x1)
-
-  -  Simple STBC: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO) 
-
-  -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
-
-  -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
-
-    
-
-- 상기 기법들은 2x1 MISO / 1x2 SIMO를 가정할 때 모두 2개의 독립 적인 채널을 통한 Diversity 획득
-
-  
-
--  Alamouti STBC의 제약 사항 
-
-  -  MISO 시스템 중에서는 2x1 환경에만 적용 가능
-  - 두 전송 시간동안 채널이 변하지 않아야 최대 성능 보장. 
-    -  채널이 변화할 경우 간섭 성분이 남을 수 있음
-
-
-
-
 - **디지털 신호(1,0)**에 따라 위상이 180˚ 다른 두 정현파로 변조하는 방식
 
 
-![BPSK](./_images/BPSK.JPG)
+![BPSK](./_images/BPSK.PNG)
+
 
 
 
@@ -114,7 +53,8 @@ $$$ \left|x\right|^2 $$$<br>
 - **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
 
 
-![QPSK](./_images/QPSK.JPG)
+![QPSK](./_images/QPSK.PNG)
+
 
 
 
@@ -123,15 +63,15 @@ $$$ \left|x\right|^2 $$$<br>
 
 
 ## 16QAM
-![16QAM](./_images/16QAM.PNG)
 
-<img src="_images\16QAM_1.PNG" alt="16QAM_1" title="16QAM 성상도&quot; &quot;width : 50px;height:50px" style="zoom:50%;" />
+![16QAM](./_images/16QAM.PNG) 
+
+![16QAM_1](./_images/16QAM_1.png)
+
 
 
 - QAM (Quadrature Amplitude Modulation)
 - 한 심볼에 n bit 코딩 (16QAM은 1 symbol = 4 bits)
-
-
 
 - 한 심볼에 전송할 수 있는 bit 수
 
@@ -148,13 +88,14 @@ $$$ \left|x\right|^2 $$$<br>
 - 건물이 많이 세워진 도심지에서 유용한 모델
 
 
-![Rayleigh fading](./_images/Rayleigh fading.PNG)
+![Rayleigh fading](./_images/Rayleigh_fading.PNG)
+
 
 
 
 ## BER
 
-- Bit Error Ratio (비트 오류율)
+- Bit Error Ratio (비트 오류율)<br>
   ![BER](./_images/BER.PNG)
 
 
@@ -184,7 +125,8 @@ $$$ \left|x\right|^2 $$$<br>
 
 ![EbN0](./_images/EbN0.PNG)
 
-![BER_vs_EbN0](./_images/BER_vs_EbN0.PNG)
+![BEREbno](./_images\BEREbno.PNG)
+
 
 
 
@@ -281,14 +223,11 @@ ___
 
 ___
 
-
-
-
 ![](./_images/MISO_Alamouti1.JPG)
 
 
 
-- 각 시간마다 한 TX Antenna만을 사용하여 Diversity를 확보하는 방법
+- 각 시간마다 한 TX Antenna만을 사용하여 Diversity를 확보하는 방 법
   -  본 기법: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO)	
   -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
   -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
@@ -301,25 +240,17 @@ ___
 
 - *Alamouti STBC – Equivalent System Model*
 
-  ![](./_images/image-20200428131430995.png)
-
-
+<img src = "https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%20h_1%26h_2%5C%5C%20h_2%5E*%26%20-h_1%5E*%20%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7D%20y_1%20%5C%5C%20y_2%5E*%20%5Cend%7Bbmatrix%7D%20&plus;%5Cbegin%7Bbmatrix%7D%20n_1%20%5C%5C%20n_2%5E*%20%5Cend%7Bbmatrix%7D">
 
 - *Detection for the 1st TX symbol*
 
-  ![](./_images/image-20200428131656340.png)
-
-
+  ![detection_for_the_1st_TX_symbol](./_images/detection_for_the_1st_TX_symbol.PNG)
 
 
 
 - *Detection for the 2nd TX symbol*
 
-  ![](\./_images/image-20200428132253236.png)
-
-  
-  
-  
+![detection_for_the_2nd_TX_symbol](C:\Users\Assistant_2\paeng\Research_assistant\_images\detection_for_the_2nd_TX_symbol.PNG)
 
 - Alamouti STBC in MISO Systems (2x1)
 
@@ -327,13 +258,13 @@ ___
 
   -   두 전송 신호에 대해 두개의 채널(Diversity)을 보장하며, 또한 상호간 간섭 없는 신호를 추출할 수 있는 간단한 복호과정을 가짐 
 
-  -   Alamouti STBC: 1 심볼 전송 / 시간, 채널 정보 필요 X (MISO 2x1)
+  - Alamouti STBC: 1 심볼 전송 / 시간, 채널 정보 필요 X (MISO 2x1)
 
-  -   Simple STBC: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO) 
+  -  Simple STBC: 0.5 심볼 전송 / 시간, 채널 정보 필요 X (MISO) 
 
-  -   MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
+  -  MRT: 1 심볼 전송 / 시간, 채널 정보 필요 O (MISO) 
 
-  -   MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
+  -  MRC: 1 심볼 전송 / 시간, 채널 정보 필요 X (SIMO) 
 
     
 
@@ -341,13 +272,12 @@ ___
 
   
 
-- Alamouti STBC의 제약 사항 
+-  Alamouti STBC의 제약 사항 
 
   -  MISO 시스템 중에서는 2x1 환경에만 적용 가능
-  -  두 전송 시간동안 채널이 변하지 않아야 최대 성능 보장. 
-     
-     -  채널이 변화할 경우 간섭 성분이 남을 수 있음
-     
+  - 두 전송 시간동안 채널이 변하지 않아야 최대 성능 보장. 
+    -  채널이 변화할 경우 간섭 성분이 남을 수 있음
+    
      
 
 ___
@@ -384,7 +314,7 @@ ___
 
 
 - M < N 인 시스템에서는 사용할 수 없다.
-- Diversity order가 $$ M-N+1$$ 이다.
+- Diversity order가 ![m_n+1](./_images/m_n+1.PNG)이다.
 - Linear receivers 이다.
 
 송수신 수식에서 H를 이용해 H의 **에르미트 행렬**을 구하고 이를 이용해 **ZF Filter**를 구한다. <br>
@@ -399,9 +329,9 @@ ___
 
 <img src="https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20G_%7BMMSE%7D%20%26%3D%26%20H%5EH%28HH%5EH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%5C%5C%20%26%3D%26%28H%5EHH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%20H%5EH%20%5Cend%7Bmatrix%7D">
 
-- 여기서 $$ \sigma_n^2$$는 잡음 전력의 분산의 제곱이다.
+- 여기서 ![sigma_square](./_images/sigma_square.PNG)는 잡음 전력의 분산의 제곱이다.
 - M < N 인 시스템에서는 사용할 수 없다.
-- Diversity order 는 $$ M-N+1$$ 로  ZF 와 같다.
+- Diversity order 는 ![m_n+1](./_images/m_n+1.PNG) 로  ZF 와 같다.
 - Error Performance는 ZF 보다 좋다.
 - Linear receivers 이다.
 
@@ -409,7 +339,7 @@ ___
 
 ## ML (Maximum-likelihood)
 
-<img src="https://latex.codecogs.com/gif.latex?%5Carg%7B%28min%20%28%5CrVert%20y-Hx%27%20%5CrVert%5E2%29%29%7D">를 만족하는 X를 찾는 알고리즘이다. 
+![arg_min](./_images/arg_min.PNG)를 만족하는 X를 찾는 알고리즘이다. 
 
 즉, $$x$$에 들어갈 수 있는 모든 조합을 구하여 $$H$$를 곱한 후, 수신 심벌 $$y$$에서 뺀 값이 최소인 $$x$$가 Demodulation한 값이 된다. 
 
