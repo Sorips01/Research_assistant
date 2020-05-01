@@ -4,12 +4,13 @@ format shortE;
 tic
 
 Tx = 2;
-Rx = 4;
+Rx = 2;
 result = [];
 Error_Limit = 10^-5;
+S = 2;
 
 for SNR = 0:5:60
-    N = 10^(-0.1*SNR);
+    N = 10^(-0.1*SNR) * S;
     error = zeros(1,1);
     trial = 0;
     while error < 1000      
@@ -47,13 +48,18 @@ end
 
 % save mat file
 ZF_result = result;
+ZF_result_2x2 = ZF_result;
+
+% set result
+fileName = 'QPSK_new_meta_ZF.mat';
+fileResult = 'ZF_result_2x2';
 
 cd mat_folder % 폴더명
 
-if (exist('QPSK_new_meta_ZF.mat', 'file') > 0) 
-    save('QPSK_new_meta_ZF.mat', 'ZF_result', '-append'); 
+if (exist(fileName, 'file') > 0) 
+    save(fileName, fileResult, '-append'); 
 else
-    save('QPSK_new_meta_ZF.mat', 'ZF_result');
+    save(fileName, fileResult);
 end
 
 cd ..
