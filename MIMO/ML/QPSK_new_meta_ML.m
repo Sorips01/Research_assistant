@@ -35,7 +35,7 @@ for k=1:1:length(x)*Tx
 end
 
 for SNR = 0:5:60
-    N = 10^(-0.1*SNR);
+    N = 10^(-0.1*SNR)*2;
     error = zeros(1,1);
     trial = 0;
     while error < 1000      
@@ -79,14 +79,15 @@ end
 
 ML_result_2x2 = result;
 
-
 cd mat_folder % 폴더명
+foldername = 'QPSK_new_meta_ML.mat';
+filename = 'ML_result_2x2';
 
-if (exist('QPSK_new_meta_ML.mat', 'file') > 0) 
+if (exist(foldername, 'file') > 0) 
 
-    save('QPSK_new_meta_ML.mat', 'ML_result_2x2', '-append'); 
+    save(foldername, filename, '-append'); 
 else
-    save('QPSK_new_meta_ML.mat', 'ML_result_2x2');
+    save(foldername, filename);
 
 end
 
