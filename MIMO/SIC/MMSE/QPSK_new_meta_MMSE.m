@@ -11,13 +11,15 @@ count = Tx;
 result = [];
 Demo_symbol = [];
 Error_Limit = 10^-5;
+S = 2;
 
 for SNR = 0:5:60
-    N = 10^(-0.1*SNR);
+    N = 10^(-0.1*SNR) * S;
     error = zeros(1,1);
     trial = 0;
     while error < 1000      
         trial= trial + 1;
+        sizeEye = Tx;
         
         % creat bit
         bit = randi([0,1],Tx,2);
@@ -36,11 +38,12 @@ for SNR = 0:5:60
         
         % modulation
         for i = 1:1:count
-            r_result = ZF_Modulation(r, h);
+            r_result = MMSE_Modulation(sizeEye, N, r, h);
             Demo_symbol = [Demo_symbol; r_result(1,:)];
             if i ~= count
                 [r,h] = SIC(r_result,h,r,i);
-            end    
+            end
+            sizeEye = sizeEye - 1;
         end
 
         
@@ -68,13 +71,18 @@ end
 
 % save mat file
 SIC_result = result;
+MMSE_SIC_result_4x4 = SIC_resultl;
+
+% set result
+fileName = 'QPSK_new_meta_MMSE_SIC.mat';
+fileResult = 'MMSE_SIC_result_4x4';
 
 cd mat_folder % 폴더명
 
-if (exist('QPSK_new_meta_SIC.mat', 'file') > 0) 
-    save('QPSK_new_meta_SIC.mat', 'SIC_result_4x4', '-append'); 
+if (exist(fileName, 'file') > 0) 
+    save(fileName, fileResult, '-append'); 
 else
-    save('QPSK_new_meta_SIC.mat', 'SIC_result_4x4');
+    save(fileName, fileResult);
 end
 
 cd ..
