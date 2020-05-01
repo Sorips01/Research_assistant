@@ -71,7 +71,7 @@ end
 
 % save mat file
 SIC_result = result;
-MMSE_SIC_result_4x4 = SIC_resultl;
+MMSE_SIC_result_4x4 = SIC_result;
 
 % set result
 fileName = 'QPSK_new_meta_MMSE_SIC.mat';
