@@ -79,14 +79,18 @@ for SNR = 0:5:60
 end
 
 % save mat file
-OSIC_result_3x3 = result;
+OSIC_result = result;
+MMSE_OSIC_result_4x4 = OSIC_result;
+
+fileName = 'QPSK_new_meta_OSIC.mat';
+fileResult = 'MMSE_OSIC_result_3x3';
 
 cd mat_folder % 폴더명
 
-if (exist('QPSK_new_meta_OSIC.mat', 'file') > 0) 
-    save('QPSK_new_meta_OSIC.mat', 'OSIC_result_3x3', '-append'); 
+if (exist(fileName, 'file') > 0) 
+    save(fileName, fileResult, '-append'); 
 else
-    save('QPSK_new_meta_OSIC.mat', 'OSIC_result_3x3');
+    save(fileName, fileResult);
 end
 
 cd ..
