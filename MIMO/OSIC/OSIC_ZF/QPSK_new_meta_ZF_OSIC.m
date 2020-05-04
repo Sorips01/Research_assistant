@@ -72,14 +72,14 @@ for SNR = 0:5:60
 end
 
 % save mat file
-OSIC_ZF_result_2x2 = result;
+OSIC_ZF_result_4x4 = result;
 
 cd mat_folder % 폴더명
 
 if (exist('QPSK_new_meta_OSIC_ZF.mat', 'file') > 0) 
-    save('QPSK_new_meta_OSIC_ZF.mat', 'OSIC_ZF_result_2x2', '-append'); 
+    save('QPSK_new_meta_OSIC_ZF.mat', 'OSIC_ZF_result_4x4', '-append'); 
 else
-    save('QPSK_new_meta_OSIC_ZF.mat', 'OSIC_ZF_result_2x2');
+    save('QPSK_new_meta_OSIC_ZF.mat', 'OSIC_ZF_result_4x4');
 end
 
 cd ..
