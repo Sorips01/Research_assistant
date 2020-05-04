@@ -41,7 +41,7 @@ for SNR = 0:5:60
             r_result = MMSE_Modulation(sizeEye, N, r, h);
             Demo_symbol = [Demo_symbol; r_result(1,:)];
             if i ~= count
-                [r,h] = SIC(r_result,h,r,i);
+                [r,h] = SIC_MMSE(r_result,h,r,i);
             end
             sizeEye = sizeEye - 1;
         end
