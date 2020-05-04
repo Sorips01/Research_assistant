@@ -4,8 +4,8 @@ format shortE;
 tic
 
 
-Tx = 4;
-Rx = 4;
+Tx = 2;
+Rx = 2;
 count = Tx;
 
 result = [];
@@ -41,7 +41,7 @@ for SNR = 0:5:60
             r_result = MMSE_Modulation(sizeEye, N, r, h);
             Demo_symbol = [Demo_symbol; r_result(1,:)];
             if i ~= count
-                [r,h] = SIC_MMSE(r_result,h,r,i);
+                [r,h] = SIC_MMSE(r_result(1,:),h,r);
             end
             sizeEye = sizeEye - 1;
         end
@@ -71,11 +71,11 @@ end
 
 % save mat file
 SIC_result = result;
-MMSE_SIC_result_4x4 = SIC_result;
+MMSE_SIC_result_2x2 = SIC_result;
 
 % set result
 fileName = 'QPSK_new_meta_MMSE_SIC.mat';
-fileResult = 'MMSE_SIC_result_4x4';
+fileResult = 'MMSE_SIC_result_2x2';
 
 cd mat_folder % 폴더명
 
