@@ -2,8 +2,8 @@ clear all;
 close all;
 format shortE;
 tic
-Tx = 2;
-Rx = 2;
+Tx = 4;
+Rx = 4;
 count = Tx;
 result = [];
 Demo_symbol = [];
@@ -29,7 +29,7 @@ for SNR = 0:5:60
         r = h*symbol + noise;
         Demo_symbol = [];
 
-        [value index] =sort(sum(abs(h)),'descend');
+        [value, index] =sort(sum(abs(h)),'descend');
          
         
 
@@ -45,7 +45,7 @@ for SNR = 0:5:60
         end
         
         for v =1:1:count
-             osicResult(index(v)) = Demo_symbol(v);
+             osicResult(index(v)) = Demo_symbols(v);
         end
         
         
