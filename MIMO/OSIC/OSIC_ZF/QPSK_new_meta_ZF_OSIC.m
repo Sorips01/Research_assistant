@@ -2,8 +2,8 @@ clear all;
 close all;
 format shortE;
 tic
-Tx = 4;
-Rx = 4;
+Tx = 3;
+Rx = 3;
 count = Tx;
 result = [];
 Demo_symbol = [];
@@ -27,24 +27,26 @@ for SNR = 0:5:60
         h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
         r = h*symbol + noise;
-        Demo_symbol = [];
+        Demo_symbol = zeros(Tx,1);
 
-        [value, index] =sort(sum(abs(h)),'descend');
-         
+        [value, index] =sort(sum(abs(h)),'descend');    % 크기 순서대로 배열
+        
         % modulation
-        for i = 1:1:count
-           
+        for i = index
             r_result = ZF_Modulation(r, h);
-            Demo_symbol = [Demo_symbol; r_result(1,:)];
-            if i ~= count
+            [~,maxindex] = max(sum(abs(h)));    % 가장 큰 인덱스를 Demo_symbol에 저장
+            Demo_symbol(i,1) = r_result(maxindex,1);
+      
+            if i ~= Tx
                 [r,h] = OSIC_ZF(r_result,h,r);
-            end    
-                  
+            end
+   
         end
         
-        for v =1:1:count
-             osicResult(index(v)) = Demo_symbols(v);
-        end
+        
+%         for v =1:1:count
+%              osicResult(index(v)) = Demo_symbol(v);
+%         end
         
         
         
