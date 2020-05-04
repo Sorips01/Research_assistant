@@ -40,7 +40,7 @@ for SNR = 0:5:60
             r_result = ZF_Modulation(r, h);
             Demo_symbol = [Demo_symbol; r_result(1,:)];
             if i ~= count
-                [r,h] = SIC_ZF(r_result,h,r,i);
+                [r,h] = SIC_ZF(r_result,h,r);
             end    
         end
 
