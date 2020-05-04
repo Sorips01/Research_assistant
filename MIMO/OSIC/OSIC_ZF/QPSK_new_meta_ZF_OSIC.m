@@ -2,8 +2,8 @@ clear all;
 close all;
 format shortE;
 tic
-Tx = 3;
-Rx = 3;
+Tx = 4;
+Rx = 4;
 count = Tx;
 result = [];
 Demo_symbol = [];
@@ -37,7 +37,7 @@ for SNR = 0:5:60
             [~,maxindex] = max(sum(abs(h)));    % 가장 큰 인덱스를 Demo_symbol에 저장
             Demo_symbol(i,1) = r_result(maxindex,1);
       
-            if i ~= Tx
+            if i ~= index(end)
                 [r,h] = OSIC_ZF(r_result,h,r);
             end
    
