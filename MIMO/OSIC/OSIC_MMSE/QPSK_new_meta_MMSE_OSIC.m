@@ -30,7 +30,7 @@ for SNR = 0:5:60
         h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
         r = h*symbol + noise;
-        Demo_symbol = [];
+        Demo_symbol = zeros(Tx,1);
 
         [value index] =sort(sum(abs(h)),'descend');
          
@@ -52,9 +52,9 @@ for SNR = 0:5:60
           
         end
         
-        for v =1:1:count
-             osicResult(index(v)) = Demo_symbol(v);
-        end
+%         for v =1:1:count
+%              osicResult(index(v)) = Demo_symbol(v);
+%         end
         
         
         
@@ -81,10 +81,10 @@ end
 
 % save mat file
 OSIC_result = result;
-MMSE_OSIC_result_2x2 = OSIC_result;
+MMSE_OSIC_result_4x4 = OSIC_result;
 
 fileName = 'QPSK_new_meta_OSIC.mat';
-fileResult = 'MMSE_OSIC_result_2x2';
+fileResult = 'MMSE_OSIC_result_4x4';
 
 cd mat_folder % 폴더명
 
