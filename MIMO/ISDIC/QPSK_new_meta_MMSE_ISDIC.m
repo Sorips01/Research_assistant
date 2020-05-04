@@ -36,9 +36,9 @@ for SNR = 0:5:60
         
         while checkEscape == 0
             % loop start
-            rParallel(:,:,1) = r - (h(:,2) * s(2)) - (h(:,3) * s(3));
-            rParallel(:,:,2) = r - (h(:,1) * s(1)) - (h(:,3) * s(3));
-            rParallel(:,:,3) = r - (h(:,1) * s(1)) - (h(:,2) * s(2));
+            for i=1:1:Tx
+                rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
+            end
 
             for i = 1:1:Tx
                 D(:,:,i) = v(i) * eye(Tx);
@@ -76,7 +76,7 @@ for SNR = 0:5:60
             checkSymbol(:,1) = [];
             % loop end
         end
-        
+       
         
         Demo_symbol = checkSymbol;
                 
