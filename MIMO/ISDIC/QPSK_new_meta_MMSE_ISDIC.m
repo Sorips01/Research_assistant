@@ -7,6 +7,7 @@ Tx = 3;
 Rx = 3;
 result = [];
 Error_Limit = 10^-5;
+checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
 for SNR = 0:5:60
     N = 2*10^(-0.1*SNR);
@@ -29,47 +30,58 @@ for SNR = 0:5:60
         % create vector
         s = zeros(Tx,1);
         v = ones(Tx,1);
+        checkSymbol = zeros(Tx, checkNumber);
+        checkEscape = 0;
         
         
-        
-        % loop start
-        r_parallel(:,:,1) = r - (h(:,2) * s(2)) - (h(:,3) * s(3));
-        r_parallel(:,:,2) = r - (h(:,1) * s(1)) - (h(:,3) * s(3));
-        r_parallel(:,:,3) = r - (h(:,1) * s(1)) - (h(:,2) * s(2));
-        
-        for i = 1:1:Tx
-            D(:,:,i) = v(i) * eye(Tx);
+        while checkEscape == 0
+            % loop start
+            rParallel(:,:,1) = r - (h(:,2) * s(2)) - (h(:,3) * s(3));
+            rParallel(:,:,2) = r - (h(:,1) * s(1)) - (h(:,3) * s(3));
+            rParallel(:,:,3) = r - (h(:,1) * s(1)) - (h(:,2) * s(2));
+
+            for i = 1:1:Tx
+                D(:,:,i) = v(i) * eye(Tx);
+            end
+
+            for i = 1:1:Tx
+                f(:,:,i) = conj(h(:,i).') * (h * D(:,:,i) * conj(h.') + N * eye(Rx));
+            end
+
+            for i = 1:1:Tx
+                b(:,:,i) = f(:,:,1) * h(:,i);
+            end
+
+            a_q = [1+1i, 1-1i, -1+1i, -1-1i];
+
+            for i = 1:1:Tx
+                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i) ) / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+            end
+
+            for i = 1:1:Tx
+               s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
+            end
+
+            for i = 1:1:Tx
+                v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
+            end
+
+            % check loop
+            checkEscape = 1;
+            checkSymbol(:,checkNumber) = EstimatingX(s);
+
+            for i=1:1:checkNumber - 1
+                checkEscape = checkEscape * isequal(checkSymbol(:,i), checkSymbol(:,i+1));
+            end
+            checkSymbol(:,1) = [];
+            % loop end
         end
         
-        for i = 1:1:Tx
-            f(:,:,i) = conj(h(:,i).') * (h * D(:,:,i) * conj(h.') + N * eye(Rx));
-        end
         
-        for i = 1:1:Tx
-            b(:,:,i) = f(:,:,1) * h(:,i);
-        end
-        
-        a_q = [1+1i, 1-1i, -1+1i, -1-1i];
-        
-        for i = 1:1:Tx
-            p(:,:,i) = exp((-1 * abs(f(:,:,i) * r_parallel(:,:,i) - a_q * b(:,:,i) ) / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
-        end
-        
-        for i = 1:1:Tx
-           s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-        end
-        
-        for i = 1:1:Tx
-            v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
-        end
-        
-        
-        
-        
-        Demo_symbol = [];
+        Demo_symbol = checkSymbol;
                 
         % modulation
-        Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
+%         Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
         % ZF(Rx,Tx,N,symbol)
         % MMSE(Rx,Tx,N,symbol)
         
