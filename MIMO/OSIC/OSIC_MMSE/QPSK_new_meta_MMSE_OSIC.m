@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 3;
-Rx = 3;
+Tx = 4;
+Rx = 4;
 count = Tx;
 
 result = [];
@@ -37,13 +37,14 @@ for SNR = 0:5:60
         
 
         % modulation
-        for i = 1:1:count
+        for i = index
 
             r_result = MMSE_Modulation(N,sizeEye,r, h);
-            Demo_symbol = [Demo_symbol; r_result(1,:)];
-            if i ~= count  
-               
-                [r,h] = OSIC(r_result,h,r);
+            [~,maxindex] = max(sum(abs(h)));    % 가장 큰 인덱스를 Demo_symbol에 저장
+            Demo_symbol(i,1) = r_result(maxindex,1);
+            
+            if i ~= index(end)
+                [r,h] = OSIC_MMSE(r_result,h,r);
 
             end
             
@@ -80,10 +81,10 @@ end
 
 % save mat file
 OSIC_result = result;
-MMSE_OSIC_result_4x4 = OSIC_result;
+MMSE_OSIC_result_2x2 = OSIC_result;
 
 fileName = 'QPSK_new_meta_OSIC.mat';
-fileResult = 'MMSE_OSIC_result_3x3';
+fileResult = 'MMSE_OSIC_result_2x2';
 
 cd mat_folder % 폴더명
 

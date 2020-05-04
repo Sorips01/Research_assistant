@@ -1,6 +1,8 @@
 function [result,h] = OSIC_MMSE(r_result,h,r)
-r=r-h(:,1)*r_result(1,1);
-result = r;
-h(:,1) = [];
+[~,index] = max(sum(abs(h)));
+estimatedResult = EstimatingX_OSIC(r_result,index);
 
+r=r-h(:,index)*estimatedResult(1,1);
+result = r;
+h(:,index) = [];
 end

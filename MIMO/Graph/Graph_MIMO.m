@@ -22,7 +22,7 @@ load(fullfile(pwd, '\mat_folder\QPSK_new_meta_ZF_SIC.mat'));
 load(fullfile(pwd, '\mat_folder\QPSK_new_meta_MMSE_SIC.mat'));
 
 load(fullfile(pwd, '\mat_folder\QPSK_new_meta_OSIC_ZF.mat'));
-load(fullfile(pwd, '\mat_folder\QPSK_new_meta_MMSE_OSIC.mat'));
+load(fullfile(pwd, '\mat_folder\QPSK_new_meta_OSIC.mat'));
 
 % length of result normalize
 ZF_result_2x2 = length_normalize(x, ZF_result_2x2);
@@ -38,8 +38,8 @@ MMSE_SIC_result_2x2 = length_normalize(x, MMSE_SIC_result_2x2);
 MMSE_SIC_result_4x4 = length_normalize(x, MMSE_SIC_result_4x4);
 
 % MMSE-OSIC
-OSIC_result_2x2 = length_normalize(x, OSIC_result_2x2); 
-OSIC_result_4x4 = length_normalize(x, OSIC_result_4x4);
+MMSE_OSIC_result_2x2 = length_normalize(x, MMSE_OSIC_result_2x2); 
+MMSE_OSIC_result_4x4 = length_normalize(x, MMSE_OSIC_result_4x4);
 
 OSIC_ZF_result_2x2 = length_normalize(x, OSIC_ZF_result_2x2); 
 OSIC_ZF_result_4x4 = length_normalize(x, OSIC_ZF_result_4x4);
@@ -63,7 +63,7 @@ hold on;
 % ZF-OSIC / MMSE-OSIC 2x2
 semilogy(x, ZF_SIC_result_2x2, 'LineWidth', LineWidth);
 hold on;
-semilogy(x, MMSE_SIC_result_2x2, 'LineWidth', LineWidth);
+semilogy(x, MMSE_OSIC_result_2x2, 'LineWidth', LineWidth);
 hold on;
 
 % xlim([0 60]);
@@ -91,7 +91,7 @@ hold on;
 % ZF-OSIC / MMSE-OSIC 4x4
 semilogy(x, OSIC_ZF_result_4x4, 'LineWidth', LineWidth);
 hold on;
-semilogy(x, OSIC_result_4x4, 'LineWidth', LineWidth);
+semilogy(x, MMSE_OSIC_result_4x4, 'LineWidth', LineWidth);
 hold on;
 
 ylim([lim_y 1]);
