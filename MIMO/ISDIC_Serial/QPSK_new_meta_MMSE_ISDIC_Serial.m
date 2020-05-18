@@ -7,7 +7,7 @@ Tx = 3;
 Rx = 3;
 result = [];
 Error_Limit = 10^-5;
-checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
+checkNumber = 5;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
 for SNR = 0:5:60
     N = 2*10^(-0.1*SNR);
@@ -33,11 +33,16 @@ for SNR = 0:5:60
         checkSymbol = zeros(Tx, checkNumber);
         checkEscape = 0;
         
+        escapeTrial = 0;
+        
+        for i=1:1:Tx
+            rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
+        end
         
         while checkEscape == 0
             % loop start
             for i=1:1:Tx
-                rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
+                rParallel(:,:,i) = rParallel(:,:,i) - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
             end
 
             for i = 1:1:Tx
@@ -55,7 +60,7 @@ for SNR = 0:5:60
             a_q = [1+1i, 1-1i, -1+1i, -1-1i];
 
             for i = 1:1:Tx
-                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i) ) / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i).^2 ) / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
             end
 
             for i = 1:1:Tx
@@ -65,7 +70,8 @@ for SNR = 0:5:60
             for i = 1:1:Tx
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
             end
-
+            
+            s = EstimatingX(s);
             % check loop
             checkEscape = 1;
             checkSymbol(:,checkNumber) = EstimatingX(s);
@@ -74,11 +80,17 @@ for SNR = 0:5:60
                 checkEscape = checkEscape * isequal(checkSymbol(:,i), checkSymbol(:,i+1));
             end
             checkSymbol(:,1) = [];
+            
+            escapeTrial = escapeTrial+1;
+            if escapeTrial > 1000
+                break
+            end
+            
             % loop end
         end
        
         
-        Demo_symbol = checkSymbol;
+        Demo_symbol = checkSymbol(:,end);
                 
         % modulation
 %         Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
