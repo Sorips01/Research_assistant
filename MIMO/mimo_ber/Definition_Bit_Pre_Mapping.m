@@ -2,7 +2,7 @@ function [bitset, symset] = Definition_Bit_Pre_Mapping(M, Q, QAM)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 for i=1:Q-1
-    bitset_temp(i,:) = dec2bin(i,M);
+    bitset_temp(i,:) = dec2bin(i,M); % dec2bin : 십진수를 이진수로 표현한 문자형 배열로 변환
 end
 bitset_temp(Q,:) = dec2bin(0,M);
 for i=1:M
