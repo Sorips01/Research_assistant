@@ -35,7 +35,7 @@ for SNR = 0:5:60
         
         escapeTrial = 0;
         
-        while (checkEscape == 0 || escapeTrial<1000) 
+        while (checkEscape == 0) 
             escapeTrial = escapeTrial+1;
             
             % loop start
@@ -78,6 +78,10 @@ for SNR = 0:5:60
             end
             checkSymbol(:,1) = [];
             % loop end
+            
+            if escapeTrial == 1000
+                break;
+            end
             
         end
        
