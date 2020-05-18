@@ -35,7 +35,9 @@ for SNR = 0:5:60
         
         escapeTrial = 0;
         
-        while checkEscape == 0 || escapeTrial <1000
+        while (checkEscape == 0 || escapeTrial<1000) 
+            escapeTrial = escapeTrial+1;
+            
             % loop start
             for i=1:1:Tx
                 rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
@@ -76,6 +78,7 @@ for SNR = 0:5:60
             end
             checkSymbol(:,1) = [];
             % loop end
+            
         end
        
         
