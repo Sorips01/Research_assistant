@@ -15,7 +15,7 @@ for i=1:Tx
     if ordering == 1
         value_for_ordering = current_Tx:-1:1;
     elseif ordering == 2
-        value_for_ordering = diag(real(ch_product));
+        value_for_ordering = diag(real(ch_product));    % diag : 대각 행렬을 생성하거나 행렬의 대각선 요소 가져오기
     elseif ordering == 3
         value_for_ordering = 1./diag(real(inv(ch_product)));
     end
