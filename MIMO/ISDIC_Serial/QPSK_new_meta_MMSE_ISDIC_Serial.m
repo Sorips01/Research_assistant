@@ -10,7 +10,7 @@ Error_Limit = 10^-5;
 checkNumber = 50;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
 for SNR = 0:5:60
-    N = 2*10^(-0.1*SNR);
+    N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
     while error < 1000      
@@ -21,7 +21,7 @@ for SNR = 0:5:60
         
         % creat symbol
         symbol = 2 * bit - 1;
-        symbol = symbol(:,1) + symbol(:,2) * 1j;
+        symbol = (symbol(:,1) + symbol(:,2) * 1j)/sqrt(2);
         
         h = (randn(Rx,Tx) + 1j * randn(Rx,Tx))/sqrt(2);
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
@@ -45,16 +45,17 @@ for SNR = 0:5:60
                 rSerial(:,:,i) = rSerial(:,:,i) - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
             end
 
+            DTemp = v * eye(Tx);
             for i = 1:1:Tx
                 D(:,:,i) = v(i) * eye(Tx);
             end
 
             for i = 1:1:Tx
-                f(:,:,i) = conj(h(:,i).') * (h * D(:,:,i) * conj(h.') + N * eye(Rx));
+                f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
             end
 
             for i = 1:1:Tx
-                b(:,:,i) = f(:,:,1) * h(:,i);
+                b(:,:,i) = f(:,:,i) * h(:,i);
             end
 
             a_q = [1+1i, 1-1i, -1+1i, -1-1i];
