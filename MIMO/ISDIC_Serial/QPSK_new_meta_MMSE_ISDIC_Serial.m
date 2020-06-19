@@ -47,10 +47,11 @@ for SNR = 0:5:60
 
             for i = 1:1:Tx
                 D(:,:,i) = v(i) * eye(Tx);
+                
             end
 
             for i = 1:1:Tx
-                f(:,:,i) = conj(h(:,i).') * (h * D(:,:,i) * conj(h.') + N * eye(Rx));
+                f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
             end
 
             for i = 1:1:Tx
