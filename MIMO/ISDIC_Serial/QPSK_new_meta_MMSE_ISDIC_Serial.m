@@ -46,7 +46,8 @@ for SNR = 0:5:60
             end
 
             for i = 1:1:Tx
-                D(:,:,i) = v(i) * eye(Tx);
+                D(:,:,i) = v .* eye(Tx);
+                D(i,i,i) = 1;
             end
 
             for i = 1:1:Tx
