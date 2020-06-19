@@ -9,7 +9,7 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 50;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
-for SNR = 0:5:60
+for SNR = 20:5:60
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
@@ -58,6 +58,9 @@ for SNR = 0:5:60
 
             for i = 1:1:Tx
                 p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+                if isnan(p(:,:,i)) 
+                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
+                end
             end
 
             for i = 1:1:Tx
