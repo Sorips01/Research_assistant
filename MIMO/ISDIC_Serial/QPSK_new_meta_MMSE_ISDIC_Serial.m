@@ -36,13 +36,13 @@ for SNR = 0:5:60
         escapeTrial = 0;
         
         for i=1:1:Tx
-            rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
+            rSerial(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
         end
         
         while checkEscape == 0
             % loop start
             for i=1:1:Tx
-                rParallel(:,:,i) = rParallel(:,:,i) - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
+                rSerial(:,:,i) = rSerial(:,:,i) - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
             end
 
             for i = 1:1:Tx
@@ -60,7 +60,7 @@ for SNR = 0:5:60
             a_q = [1+1i, 1-1i, -1+1i, -1-1i];
 
             for i = 1:1:Tx
-                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i).^2 ) / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i).^2 ) / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
             end
 
             for i = 1:1:Tx
