@@ -39,32 +39,32 @@ for SNR = 0:5:60
             % loop start
             for i=1:1:Tx
                 rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
-            end
+%             end
 
-            for i = 1:1:Tx
+%             for i = 1:1:Tx
                 D(:,:,i) = v .* eye(Tx);
                 D(i,i,i) = 1;
-            end
+%             end
 
-            for i = 1:1:Tx
+%             for i = 1:1:Tx
                 f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
-            end
+%             end
 
-            for i = 1:1:Tx
+%             for i = 1:1:Tx
                 b(:,:,i) = f(:,:,i) * h(:,i);
-            end
+%             end
 
             a_q = [1+1i, 1-1i, -1+1i, -1-1i];
 
-            for i = 1:1:Tx
+%             for i = 1:1:Tx
                 p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
-            end
+%             end
 
-            for i = 1:1:Tx
+%             for i = 1:1:Tx
                s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-            end
+%             end
 
-            for i = 1:1:Tx
+%             for i = 1:1:Tx
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
             end
             
