@@ -9,7 +9,7 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 50;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
-for SNR = 20:5:60
+for SNR = 0:5:60
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
