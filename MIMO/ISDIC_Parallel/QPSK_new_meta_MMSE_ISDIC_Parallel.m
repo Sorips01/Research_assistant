@@ -62,6 +62,9 @@ for SNR = 0:5:60
                     p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
                 end
             end
+            o = p == 0;
+            p(o) = p(o) + 10^-300;
+            
 
             for i = 1:1:Tx
                s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
