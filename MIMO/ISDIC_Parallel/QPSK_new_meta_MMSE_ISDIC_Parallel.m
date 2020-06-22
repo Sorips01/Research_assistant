@@ -118,10 +118,10 @@ for SNR = 0:5:60
 end
 
 % save mat file
-MMSE_result4x4 = result;
+MMSE_ISDIC_Parallel_result3x3 = result;
 
-folderName = 'QPSK_new_meta_MMSE.mat'
-fileName = 'MMSE_result4x4'
+folderName = 'QPSK_new_meta_MMSE_ISDIC_Parallel_3x3.mat'
+fileName = 'MMSE_ISDIC_Parallel_result3x3'
 cd mat_folder % 폴더명
 
 if (exist(folderName, 'file') > 0) 
