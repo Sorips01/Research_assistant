@@ -85,7 +85,7 @@ for SNR = 0:5:60
             checkSymbol(:,1) = [];
             
             escapeTrial = escapeTrial+1;
-            if escapeTrial > 1000
+            if escapeTrial > 5
                 break
             end
             
@@ -120,8 +120,8 @@ end
 % save mat file
 MMSE_ISDIC_Parallel_result3x3 = result;
 
-folderName = 'QPSK_new_meta_MMSE_ISDIC_Parallel_3x3.mat'
-fileName = 'MMSE_ISDIC_Parallel_result3x3'
+folderName = 'QPSK_new_meta_MMSE_ISDIC_Parallel_2x2.mat'
+fileName = 'MMSE_ISDIC_Parallel_result2x2'
 cd mat_folder % 폴더명
 
 if (exist(folderName, 'file') > 0) 
