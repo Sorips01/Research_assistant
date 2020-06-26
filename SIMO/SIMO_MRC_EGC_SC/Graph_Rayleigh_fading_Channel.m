@@ -8,17 +8,17 @@ close all;
 %     %run(sprintf('RX_%d_SC_Rayleigh_fading_Channel_QPSK.m',a));
 % end
 
-run('RX_2_MRC_Rayleigh_fading_Channel_QPSK.m');
-run('RX_2_EGC_Rayleigh_fading_Channel_QPSK.m');
-run('RX_2_SC_Rayleigh_fading_Channel_QPSK.m');
-
-run('RX_3_MRC_Rayleigh_fading_Channel_QPSK.m');
-run('RX_3_EGC_Rayleigh_fading_Channel_QPSK.m');
-run('RX_3_SC_Rayleigh_fading_Channel_QPSK.m');
-
-run('RX_4_MRC_Rayleigh_fading_Channel_QPSK.m');
-run('RX_4_EGC_Rayleigh_fading_Channel_QPSK.m');
-run('RX_4_SC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_2_MRC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_2_EGC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_2_SC_Rayleigh_fading_Channel_QPSK.m');
+% 
+% run('RX_3_MRC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_3_EGC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_3_SC_Rayleigh_fading_Channel_QPSK.m');
+% 
+% run('RX_4_MRC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_4_EGC_Rayleigh_fading_Channel_QPSK.m');
+% run('RX_4_SC_Rayleigh_fading_Channel_QPSK.m');
 
 clear all;
 
