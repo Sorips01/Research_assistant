@@ -125,8 +125,8 @@ end
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
-varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-
+% varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
+varName = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0) 
