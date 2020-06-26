@@ -7,7 +7,7 @@ Tx = 3;
 Rx = 3;
 result = [];
 Error_Limit = 10^-5;
-checkNumber = 50;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
+checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
 for SNR = 0:5:60
     N = 1*10^(-0.1*SNR);
@@ -37,8 +37,12 @@ for SNR = 0:5:60
         
         while checkEscape == 0
             % loop start
+            h_Dot_s_Sum = 0;
             for i=1:1:Tx
-                rParallel(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
+               h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
+            end
+            for i=1:1:Tx
+                rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
             end
 
             for i = 1:1:Tx
@@ -85,7 +89,7 @@ for SNR = 0:5:60
             checkSymbol(:,1) = [];
             
             escapeTrial = escapeTrial+1;
-            if escapeTrial > 1000
+            if escapeTrial > 5
                 break
             end
             
@@ -118,16 +122,17 @@ for SNR = 0:5:60
 end
 
 % save mat file
-MMSE_ISDIC_Parallel_result3x3 = result;
+[~, currentFileName,~] = fileparts(mfilename('fullpath'));
 
-folderName = 'QPSK_new_meta_MMSE_ISDIC_Parallel_3x3.mat'
-fileName = 'MMSE_ISDIC_Parallel_result3x3'
+fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
+varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
+
 cd mat_folder % 폴더명
 
-if (exist(folderName, 'file') > 0) 
-    save(folderName, fileName, '-append'); 
+if (exist(fileName, 'file') > 0) 
+    save(fileName, varName, '-append'); 
 else
-    save(folderName, fileName);
+    save(fileName, varName);
 end
 
 cd ..
