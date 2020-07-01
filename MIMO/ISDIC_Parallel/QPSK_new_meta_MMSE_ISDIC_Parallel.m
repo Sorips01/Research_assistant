@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 3;
-Rx = 3;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
@@ -126,13 +126,13 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-varName = result;
+QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8 = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0) 
-    save(fileName, varName, '-append'); 
+    save(fileName, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8, '-append'); 
 else
-    save(fileName, varName);
+    save(fileName, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8);
 end
 
 cd ..

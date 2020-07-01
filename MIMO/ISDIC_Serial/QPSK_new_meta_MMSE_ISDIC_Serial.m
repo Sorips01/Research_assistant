@@ -3,11 +3,11 @@ close all;
 format shortE;
 tic
 
-Tx = 3;
-Rx = 3;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-5;
-checkNumber = 50;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
+checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
 for SNR = 0:5:60
     N = 1*10^(-0.1*SNR);
@@ -37,34 +37,40 @@ for SNR = 0:5:60
         
         while checkEscape == 0
             % loop start
+            h_Dot_s_Sum = 0;
             for i=1:1:Tx
-                rSerial(:,:,i) = r - (h(:,1) * s(1)) - (h(:,2) * s(2)) - (h(:,3) * s(3)) + (h(:,i) * s(i));
-%             end
-
-%             for i = 1:1:Tx
+               h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
+            
+            
+                rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
+            
                 D(:,:,i) = v .* eye(Tx);
                 D(i,i,i) = 1;
-%             end
+            
 
-%             for i = 1:1:Tx
+            
                 f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
-%             end
-
-%             for i = 1:1:Tx
+            
                 b(:,:,i) = f(:,:,i) * h(:,i);
-%             end
+            
 
-            a_q = [1+1i, 1-1i, -1+1i, -1-1i];
+                a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
 
-%             for i = 1:1:Tx
-                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
-%             end
+            
+                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+                if isnan(p(:,:,i)) 
+                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
+                end
+            
+                o = p == 0;
+                p(o) = p(o) + 10^-300;
+            
 
-%             for i = 1:1:Tx
+            
                s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-%             end
+            
 
-%             for i = 1:1:Tx
+            
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
             end
             
@@ -79,7 +85,7 @@ for SNR = 0:5:60
             checkSymbol(:,1) = [];
             
             escapeTrial = escapeTrial+1;
-            if escapeTrial > 1000
+            if escapeTrial > 5
                 break
             end
             
@@ -112,16 +118,17 @@ for SNR = 0:5:60
 end
 
 % save mat file
-MMSE_result4x4 = result;
+[~, currentFileName,~] = fileparts(mfilename('fullpath'));
 
-folderName = 'QPSK_new_meta_MMSE.mat'
-fileName = 'MMSE_result4x4'
+fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
+% varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
+QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8 = result;
 cd mat_folder % 폴더명
 
-if (exist(folderName, 'file') > 0) 
-    save(folderName, fileName, '-append'); 
+if (exist(fileName, 'file') > 0) 
+    save(fileName, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8, '-append'); 
 else
-    save(folderName, fileName);
+    save(fileName, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8);
 end
 
 cd ..
