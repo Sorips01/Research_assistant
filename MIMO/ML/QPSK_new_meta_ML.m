@@ -3,36 +3,21 @@ close all;
 format shortE;
 tic
 
-
 Tx = 2;
 Rx = 2;
-
 result = [];
 Error_Limit = 10^-5;
 
-% Make data X
-x = zeros(Tx,4^Tx);
-for i=0:4^Tx-1
-    share = fix(i/4);
-    remainder = rem(i,4);
-    for j = Tx:-1:1
-        x(j,i+1) = remainder;
-        remainder = rem(share,4);
-        share = fix(share/4);
+% data X
+symbolSet = [1+1i 1-1i -1+1i -1-1i];
+x = [];
+for i = symbolSet
+    for j = symbolSet
+        temp = [i j];
+        x = [x; temp];
     end
 end
-
-for k=1:1:length(x)*Tx
-    if x(k) == 0
-        x(k) = -1-1i;
-    elseif x(k) == 1
-        x(k) = -1+1i;
-    elseif x(k) == 2
-        x(k) = 1-1i;
-    elseif x(k) == 3
-        x(k) = 1+1i;
-    end
-end
+x = x.';
 
 for SNR = 0:5:60
     N = 10^(-0.1*SNR);
@@ -56,8 +41,8 @@ for SNR = 0:5:60
         % demodulation
         % Demo_result(:,1) = real(Demo_symbol)>0; 
         % Demo_result(:,2) = imag(Demo_symbol)>0;
-        [~,index] = min(sum(abs(Demo_symbol - (h * x))),[],2); 
-        Demo_symbol = x(:,index);
+        [~,index] = min(abs(Demo_symbol - h * x),[],2); 
+        Demo_symbol = [x(1,index(1)); x(2,index(2))];
         
         Demo_result(:,1) = real(Demo_symbol)>0; 
         Demo_result(:,2) = imag(Demo_symbol)>0;
@@ -69,25 +54,21 @@ for SNR = 0:5:60
     
     error = error / (trial * 2 * Tx);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
-    result = [result error];
     if Error_Limit > error
         break;
     end
+    result = [result error];
 end
 
 % save mat file
-
-ML_result_2x2 = result;
-
+ML_result = result;
 
 cd mat_folder % 폴더명
 
 if (exist('QPSK_new_meta_ML.mat', 'file') > 0) 
-
-    save('QPSK_new_meta_ML.mat', 'ML_result_2x2', '-append'); 
+    save('QPSK_new_meta_ML.mat', 'ML_result', '-append'); 
 else
-    save('QPSK_new_meta_ML.mat', 'ML_result_2x2');
-
+    save('QPSK_new_meta_ML.mat', 'ML_result');
 end
 
 cd ..
