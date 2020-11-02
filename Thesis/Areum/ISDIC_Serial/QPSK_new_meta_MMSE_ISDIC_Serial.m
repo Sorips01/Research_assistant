@@ -40,36 +40,27 @@ for SNR = 0:5:60
             h_Dot_s_Sum = 0;
             for i=1:1:Tx
                h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
+               
+               rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
+               
+               D(:,:,i) = v .* eye(Tx);
+               D(i,i,i) = 1;
             
+               f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
             
-                rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
-            
-                D(:,:,i) = v .* eye(Tx);
-                D(i,i,i) = 1;
-            
+               b(:,:,i) = f(:,:,i) * h(:,i);
+               
+               a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
 
-            
-                f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
-            
-                b(:,:,i) = f(:,:,i) * h(:,i);
-            
-
-                a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
-
-            
                 p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
                 if isnan(p(:,:,i)) 
                     p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
                 end
             
-                o = p == 0;
+                o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
                 p(o) = p(o) + 10^-300;
-            
-
-            
-               s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-            
-
+                
+                s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
             
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
             end
