@@ -126,9 +126,9 @@ QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8 = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0) 
-    save(fileName, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8, '-append'); 
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_8x8', '-append'); 
 else
-    save(fileName, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8);
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_8x8');
 end
 
 cd ..
