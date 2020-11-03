@@ -39,8 +39,10 @@ for SNR = 0:5:60
             % loop start
             h_Dot_s_Sum = 0;
             for i=1:1:Tx
-               h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
-               
+                h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
+            end
+            
+            for i=1:1:Tx
                rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
                
                D(:,:,i) = v .* eye(Tx);
@@ -63,9 +65,10 @@ for SNR = 0:5:60
                 s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
             
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
+                estimateSymbol = EstimatingX(s);
             end
             
-            estimateSymbol = EstimatingX(s);
+           
             % check loop
             checkEscape = 1;
             checkSymbol(:,checkNumber) = estimateSymbol;
