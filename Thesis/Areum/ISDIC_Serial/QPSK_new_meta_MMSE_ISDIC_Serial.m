@@ -36,13 +36,14 @@ for SNR = 0:5:60
         escapeTrial = 0;
         
         while checkEscape == 0
-            % loop start
-            h_Dot_s_Sum = 0;
+           
+            % loop start  
             for i=1:1:Tx
-                h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
-            end
-            
-            for i=1:1:Tx
+               h_Dot_s_Sum = 0;
+               for j=1:1:Tx
+                   h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
+               end
+               
                rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
                
                D(:,:,i) = v .* eye(Tx);
