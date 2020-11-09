@@ -37,35 +37,56 @@ for SNR = 0:5:60
         
         while checkEscape == 0
            
+            bundle = 2;
+            count = 0;
             % loop start  
-            for i=1:1:Tx
+            for i=1:1:(Tx/2)
+   
                h_Dot_s_Sum = 0;
                for j=1:1:Tx
                    h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
                end
                
-               rParallel(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
+               for k= (count+1):1:bundle
+                   rParallel(:,:,k) = r - (h_Dot_s_Sum) + (h(:,k) * s(k));
+               end
                
-               D(:,:,i) = v .* eye(Tx);
-               D(i,i,i) = 1;
+               for k= (count+1):1:bundle
+                   D(:,:,k) = v .* eye(Tx);
+                   D(k,k,k) = 1;
+               end
+               
+               for k= (count+1):1:bundle
+                   f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
+               end
             
-               f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
-            
-               b(:,:,i) = f(:,:,i) * h(:,i);
+               for k= (count+1):1:bundle
+                   b(:,:,k) = f(:,:,k) * h(:,k);
+               end
+               
                
                a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
 
-                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
-                if isnan(p(:,:,i)) 
-                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
+               for k= (count+1):1:bundle
+                   p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ); % a_q 없음 추가해야됨
+                if isnan(p(:,:,k)) 
+                    p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ) * 10^300;
                 end
-            
+               end
+               
                 o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
                 p(o) = p(o) + 10^-300;
                 
-                s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-            
-                v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
+                for k= (count+1):1:bundle
+                   s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k)); 
+                end
+                
+                for k= (count+1):1:bundle
+                  v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
+                end
+                
+                bundle = bundle + 2;
+                count =+ 2;
                 estimateSymbol = EstimatingX(s);
             end
             
