@@ -1,4 +1,4 @@
-# OSIC-MMSE
+# OSIC-MMSE or ISDIC-MMSE
 Orderd SIC(Succesive Interference Cancellation)
 
 MMSE 기반의 반복 연판정 간섭 제거 기법
