@@ -90,7 +90,7 @@ for SNR = 0:5:60
             checkSymbol(:,1) = [];
             
             escapeTrial = escapeTrial+1;
-            if escapeTrial > 5
+            if escapeTrial > 7
                 break
             end
             
@@ -127,13 +127,13 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8 = result;
+QPSK_new_meta_MMSE_ISDIC_Serial_result_7 = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0) 
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_8x8', '-append'); 
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_7', '-append'); 
 else
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_8x8');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_7');
 end
 
 cd ..
