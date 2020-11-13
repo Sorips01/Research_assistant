@@ -37,10 +37,10 @@ for SNR = 0:5:60
         
         while checkEscape == 0
            
-            bundle = 2;
+            bundle = 4;
             count = 0;
             % loop start  
-            for i=1:1:(Tx/2)
+            for i=1:1:(Tx/bundle)
    
                h_Dot_s_Sum = 0;
                for j=1:1:Tx
@@ -85,8 +85,8 @@ for SNR = 0:5:60
                   v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
                 end
                 
-                bundle = bundle + 2;
-                count =+ 2;
+                bundle = bundle + 4;
+                count =+ 4;
                 estimateSymbol = EstimatingX(s);
             end
             
