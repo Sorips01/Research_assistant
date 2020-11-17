@@ -8,10 +8,10 @@ lim_y = 1E-8;
 % loading mat file
 load(fullfile(pwd, '\result\ISDIC_8x8_original.mat'));
 % ISDIC = length_normalize(x, result);
-ISDIC = length_normalize(x, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8);
+ISDIC = length_normalize(x, result);
 
 load(fullfile(pwd, '\result\ISDIC_8x8_QR.mat'));
-QR_ISDIC = length_normalize(x, QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8);
+QR_ISDIC = length_normalize(x, result);
 
 % ZF / MMSE / ML : 2x2
 f1 = figure;
