@@ -72,7 +72,7 @@ for SNR = 0:5:60
             % loop end
         end
        
-        omiited_counter / (Tx * total_iteration)
+        omiited_counter / (Tx * total_iteration) 
         Demo_symbol = checkSymbol(:,end);
                 
         % modulation

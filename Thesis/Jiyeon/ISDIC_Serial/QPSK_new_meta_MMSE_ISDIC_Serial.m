@@ -9,7 +9,7 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 3;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
-for SNR = 0:5:60
+for SNR = 0:2:12
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
@@ -17,6 +17,7 @@ for SNR = 0:5:60
         trial= trial + 1;
         
         % creat bit
+        %% Making Symbol
         bit = randi([0,1],Tx,2);
         
         % creat symbol
@@ -27,7 +28,7 @@ for SNR = 0:5:60
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
         r = h * symbol + noise;
         
-        % create vector
+        %% Create Vector
         s = zeros(Tx,1);
         v = ones(Tx,1);
         checkSymbol = zeros(Tx, checkNumber);
@@ -37,6 +38,7 @@ for SNR = 0:5:60
         h_Dot_s_Sum = 0;
         
         
+        %% ISDIC
         for i=1:1:Tx
             h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
         end
@@ -80,7 +82,7 @@ for SNR = 0:5:60
             end
             
            
-            % check loop
+            %% Check Loop
             checkEscape = 1;
             checkSymbol(:,checkNumber) = estimateSymbol;
 
@@ -98,6 +100,7 @@ for SNR = 0:5:60
         end
        
         
+        %% Demodulation
         Demo_symbol = checkSymbol(:,end);
                 
         % modulation
@@ -106,7 +109,7 @@ for SNR = 0:5:60
         % MMSE(Rx,Tx,N,symbol)
         
         % demodulation
-        Demo_result(:,1) = real(Demo_symbol)>0; % MRC는 추후 변경하기
+        Demo_result(:,1) = real(Demo_symbol)>0;
         Demo_result(:,2) = imag(Demo_symbol)>0;
         
         % count error
@@ -114,6 +117,7 @@ for SNR = 0:5:60
         
     end
     
+    %% Print BER
     error = error / (trial * 2 * Tx);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
     if Error_Limit > error
@@ -122,18 +126,18 @@ for SNR = 0:5:60
     result = [result error];
 end
 
-% save mat file
+%% Save Files
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Serial_result_7 = result;
+QPSK_new_meta_MMSE_ISDIC_Serial_result = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0) 
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_7', '-append'); 
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result', '-append'); 
 else
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_7');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result');
 end
 
 cd ..
