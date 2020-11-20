@@ -45,6 +45,9 @@ for SNR = 0:2:12
             h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
         end
         
+        ISDIC_disabled = zeros(Tx,1);
+        omiited_counter = 0;
+        
         while checkEscape == 0
             % loop start
             temp = zeros(Tx,1);
@@ -91,10 +94,15 @@ for SNR = 0:2:12
 %                     checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
 %                 end
 %                 
-                for k = 1:1:checkNumber - 1
-                    if(checkSymbol(:,k) == checkSymbol(:,k+1))
+                for i=1:1:Tx
+                    if ISDIC_disabled(i) ==0
                         
+                    else
+                        omiited_counter = omiited_counter + 1;
                     end
+                end
+
+                ISDIC_disabled(i) = isequal(checkSymbol(:,it), checkSymbol(:,it+1));
                 end
                 checkSymbol(:,1) = [];
                 
@@ -108,6 +116,7 @@ for SNR = 0:2:12
             
             
             %% Demodulation
+            omiited_counter / (Tx * total_iteration);
             Demo_symbol = checkSymbol(:,end);
             
             % modulation
