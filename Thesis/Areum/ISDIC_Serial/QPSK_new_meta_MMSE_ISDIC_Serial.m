@@ -3,11 +3,15 @@ close all;
 format shortE;
 tic
 
-Tx = 8;
-Rx = 8;
+Tx = 4;
+Rx = 4;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
+bundle_initial = 2;
+bundle_count = Tx/bundle_initial;
+
+fprintf("============bundle = %d============ \n", bundle_initial);
 
 for SNR = 0:5:60
     N = 1*10^(-0.1*SNR);
@@ -36,11 +40,12 @@ for SNR = 0:5:60
         escapeTrial = 0;
         
         while checkEscape == 0
-           
-            bundle = 2;
+          
             count = 0;
+            bundle = bundle_initial;
+            
             % loop start  
-            for i=1:1:(Tx/2)
+            for i=1:1:bundle_count
    
                h_Dot_s_Sum = 0;
                for j=1:1:Tx
@@ -85,8 +90,8 @@ for SNR = 0:5:60
                   v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
                 end
                 
-                bundle = bundle + 2;
-                count =+ 2;
+                bundle = bundle + bundle_initial;
+                count =+ bundle_initial;
                 estimateSymbol = EstimatingX(s);
             end
             
