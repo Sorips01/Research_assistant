@@ -40,12 +40,13 @@ for SNR = 0:5:60
         escapeTrial = 0;
         
         while checkEscape == 0
-          
+
             count = 0;
             bundle = bundle_initial;
             
             % loop start  
             for i=1:1:bundle_count
+
    
                h_Dot_s_Sum = 0;
                for j=1:1:Tx
@@ -92,6 +93,7 @@ for SNR = 0:5:60
                 
                 bundle = bundle + bundle_initial;
                 count =+ bundle_initial;
+
                 estimateSymbol = EstimatingX(s);
             end
             
