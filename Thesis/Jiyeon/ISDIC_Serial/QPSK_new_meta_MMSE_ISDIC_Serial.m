@@ -90,19 +90,19 @@ for SNR = 0:2:12
                 checkEscape = 1;
                 checkSymbol(:,checkNumber) = estimateSymbol;
                 
-%                 for k = 1:1:checkNumber - 1
-%                     checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
-%                 end
-%                 
-                for i=1:1:Tx
-                    if ISDIC_disabled(i) ==0
-                        
-                    else
-                        omiited_counter = omiited_counter + 1;
-                    end
+                for k = 1:1:checkNumber - 1
+                    checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
                 end
+%                 
+%                 for i=1:1:Tx
+%                     if ISDIC_disabled(i) ==0
+%                         
+%                     else
+%                         omiited_counter = omiited_counter + 1;
+%                     end
+%                 end
 
-                ISDIC_disabled(i) = isequal(checkSymbol(:,it), checkSymbol(:,it+1));
+%                 ISDIC_disabled(i) = isequal(checkSymbol(:,it), checkSymbol(:,it+1));
                 end
                 checkSymbol(:,1) = [];
                 
@@ -116,7 +116,7 @@ for SNR = 0:2:12
             
             
             %% Demodulation
-            omiited_counter / (Tx * total_iteration);
+%             omiited_counter / (Tx * total_iteration);
             Demo_symbol = checkSymbol(:,end);
             
             % modulation
