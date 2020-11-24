@@ -48,10 +48,11 @@ for SNR = 0:2:12
         %         ISDIC_disabled = zeros(Tx,1);
         %         omiited_counter = 0;
         
-                
-        while length(temp) > 0 
-            
+        temp = 0; % 추정하려는 값
+        
+        while isempty(temp) ~= 1
             temp = s; % 추정하려는 값
+          
             % loop start
             iteration = 0;
             for i= 1:1:length(temp)
@@ -86,7 +87,7 @@ for SNR = 0:2:12
                 
                 estimateSymbol = EstimatingX(s); 
                
-                for k = temp
+                for k = 1:1:length(temp)
                     if temp(k) == estimateSymbol(k)
                         temp(k) = [];   %추정된 값이 temp에 있는 값과 같으면 삭제
                     else
@@ -94,7 +95,7 @@ for SNR = 0:2:12
                     end
                 end
                 
-                
+                disp(iteration)
                 
                 
                 %% Check Loop(삭제)
