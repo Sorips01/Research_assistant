@@ -48,14 +48,15 @@ for SNR = 0:2:12
         %         ISDIC_disabled = zeros(Tx,1);
         %         omiited_counter = 0;
         
-        temp = 0; % 추정하려는 값
+       
+
+        temp = ones(Tx,1); % 추정하려는 값
         
-        while isempty(temp) ~= 1
-            temp = s; % 추정하려는 값
-          
+        while isempty(temp) ~= 1 %temp 가 비어있지 않는 동안은 계속 실행
             % loop start
-            iteration = 0;
-            for i= 1:1:length(temp)
+            iteration = 1;
+        
+            for i= 1:1:Tx
                 
                 h_Dot_s_Sum = 0;
                 
@@ -85,29 +86,29 @@ for SNR = 0:2:12
                 s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                 
-                estimateSymbol = EstimatingX(s); 
-               
-                for k = 1:1:length(temp)
-                    if temp(k) == estimateSymbol(k)
-                        temp(k) = [];   %추정된 값이 temp에 있는 값과 같으면 삭제
-                    else
-                        iteration = iteration+1; %몇번째에 탈출했는지 알아보기 위한 변수
-                    end
-                end
-                
-                disp(iteration)
-                
-                
                 %% Check Loop(삭제)
 %                 checkEscape = 1;
-                checkSymbol(:,checkNumber) = estimateSymbol;
+%                 checkSymbol(:,checkNumber) = estimateSymbol;
                 
 %                 for k = 1:1:checkNumber - 1
 %                     checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
 %                 end
-                
-                            end
-            checkSymbol(:,1) = [];
+               
+            end
+            
+            for k = 1:1:length(temp)
+                if isequal(temp(k),s(k))
+                    temp(k) = [];   %추정된 값이 temp에 있는 값과 같으면 삭제
+                end
+            end
+            
+            iteration  = iteration+1;
+            
+            disp("for문 나왔음")
+            estimateSymbol = EstimatingX(s);
+            
+
+%             checkSymbol(:,1) = [];
             
             %                 escapeTrial = escapeTrial+1;
             %                 if escapeTrial > 7
@@ -116,11 +117,12 @@ for SNR = 0:2:12
             %
             % loop end
         end
+         disp(iteration)
         
         
         %% Demodulation
         %             omiitedAverage = omiited_counter / (Tx * total_iteration); % 평균 몇번째에 탈출하는지 계산
-        Demo_symbol = checkSymbol(:,end);
+%         Demo_symbol = checkSymbol(:,end);
         
         % modulation
         %         Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
@@ -128,8 +130,8 @@ for SNR = 0:2:12
         % MMSE(Rx,Tx,N,symbol)
         
         % demodulation
-        Demo_result(:,1) = real(Demo_symbol)>0;
-        Demo_result(:,2) = imag(Demo_symbol)>0;
+%         Demo_result(:,1) = real(Demo_symbol)>0;
+%         Demo_result(:,2) = imag(Demo_symbol)>0;
         %% Print BER
         % count error
         error = error + sum(abs(bit-Demo_result), 'all');
