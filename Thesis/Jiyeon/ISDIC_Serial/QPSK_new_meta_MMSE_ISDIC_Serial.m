@@ -48,14 +48,14 @@ for SNR = 0:2:12
         %         ISDIC_disabled = zeros(Tx,1);
         %         omiited_counter = 0;
         
-       
 
         temp = ones(Tx,1); % 추정하려는 값
-        
+        iteration = 1;
         while isempty(temp) ~= 1 %temp 가 비어있지 않는 동안은 계속 실행
             % loop start
-            iteration = 1;
-        
+
+            temp = h_Dot_s_Sum;
+            
             for i= 1:1:Tx
                 
                 h_Dot_s_Sum = 0;
@@ -104,7 +104,7 @@ for SNR = 0:2:12
             
             iteration  = iteration+1;
             
-            disp("for문 나왔음")
+%             disp("for문 나왔음")
             estimateSymbol = EstimatingX(s);
             
 
