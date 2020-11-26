@@ -9,11 +9,12 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 3;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
-for SNR = 0:2:12
+for SNR = 0:2:20
     
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
+    ommitCounter = [];
     
     while error < 1000
         trial= trial + 1;
@@ -35,6 +36,7 @@ for SNR = 0:2:12
         v = ones(Tx,1);
         checkSymbol = zeros(Tx, checkNumber);
         checkEscape = 0;
+
         
         escapeTrial = 0;
         h_Dot_s_Sum = 0;
@@ -51,63 +53,61 @@ for SNR = 0:2:12
         
         temp = ones(Tx,1); % 추정하려는 값
         iteration = 1;
+        txEnabled = ones(Tx,1);
+        counter = 0;
         
-        while isempty(temp) ~= 1 %temp 가 비어있지 않는 동안은 계속 실행
+        for iteration = 1:8  %8번의 iteration 동안만 실행
             % loop start
+            temp = s;
             
-            %             temp = h_Dot_s_Sum;
             for i= 1:1:Tx
-                temp= s;
-                h_Dot_s_Sum = 0;
                 
-                for j=1:1:Tx
-                    h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
+                if txEnabled(i) ==1
+                    
+                    counter = counter+1;
+                    h_Dot_s_Sum = 0;
+                    
+                    for j=1:1:Tx
+                        h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
+                    end
+                    
+                    rSerial(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
+                    
+                    D(:,:,i) = v .* eye(Tx);
+                    D(i,i,i) = 1;
+                    
+                    f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
+                    
+                    b(:,:,i) = f(:,:,i) * h(:,i);
+                    
+                    a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
+                    
+                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+                    if isnan(p(:,:,i))
+                        p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
+                    end
+                    
+                    o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
+                    p(o) = p(o) + 10^-300;
+                    
+                    s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
+                    v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
+                    
+                    if (abs(temp(i)-s(i))<v(i))
+                        %abs(temp(i)-s(i))<noise_variance
+                        %old_p(:,:,i) - p_(:,:,i)
+                        %max(p(:,:,i)) > 0.9
+                        txEnabled(i) = 0;
+                    end
                 end
+                estimateSymbol = EstimatingX(s);
                 
-                rSerial(:,:,i) = r - (h_Dot_s_Sum) + (h(:,i) * s(i));
-                
-                D(:,:,i) = v .* eye(Tx);
-                D(i,i,i) = 1;
-                
-                f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
-                
-                b(:,:,i) = f(:,:,i) * h(:,i);
-                
-                a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
-                
-                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
-                if isnan(p(:,:,i))
-                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
-                end
-                
-                o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
-                p(o) = p(o) + 10^-300;
-                
-                s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-                v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
-                
-                if isequal(temp(i),s(i))
-                    temp(i) = [];   %추정된 값이 temp에 있는 값과 같으면 삭제
-                else
-                    iteration = iteration + 1;
-                end
-                %% Check Loop(삭제)
-                %                 checkEscape = 1;
-                %                 checkSymbol(:,checkNumber) = estimateSymbol;
-                
-                %                 for k = 1:1:checkNumber - 1
-                %                     checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
-                %                 end
+                checkSymbol(:,checkNumber) = estimateSymbol;
                 
             end
-            %
-            %             for k = 1:1:length(temp)
-            %                 if isequal(temp(k),s(k))
-            %                     temp(k) = [];   %추정된 값이 temp에 있는 값과 같으면 삭제
-            %                 end
-            %             end
             
-            estimateSymbol = EstimatingX(s);
+            ommitCounter = [ommitCounter, counter];
+            
             
             
             %             checkSymbol(:,1) = [];
@@ -120,27 +120,30 @@ for SNR = 0:2:12
             % loop end
         end
         
+ 
         
         %% Demodulation
-        %             omiitedAverage = omiited_counter / (Tx * total_iteration); % 평균 몇번째에 탈출하는지 계산
-        %         Demo_symbol = checkSymbol(:,end);
+        Demo_symbol = checkSymbol(:,end);
         
-        % modulation
+        %         modulation
         %         Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
-        % ZF(Rx,Tx,N,symbol)
-        % MMSE(Rx,Tx,N,symbol)
+        %         ZF(Rx,Tx,N,symbol)
+        %         MMSE(Rx,Tx,N,symbol)
+        %
+        %         demodulation
+        Demo_result(:,1) = real(Demo_symbol)>0;
+        Demo_result(:,2) = imag(Demo_symbol)>0;
         
-        % demodulation
-        %         Demo_result(:,1) = real(Demo_symbol)>0;
-        %         Demo_result(:,2) = imag(Demo_symbol)>0;
-        %% Print BER
-        % count error
-%         error = error + sum(abs(bit-Demo_result), 'all');
+        % Print BER
+        %         count error
+        error = error + sum(abs(bit-Demo_result), 'all');
+        averageCounter = sum(ommitCounter)/length(ommitCounter);
         
     end
     %     end
     error = error / (trial * 2 * Tx);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
+    fprintf("OmmitCounter = %d \n",averageCounter);
     if Error_Limit > error
         break;
     end
