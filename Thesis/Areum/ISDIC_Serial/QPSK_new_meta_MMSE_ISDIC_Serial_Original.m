@@ -3,13 +3,13 @@ close all;
 format shortE;
 tic
 
-Tx = 3;
-Rx = 3;
+Tx = 4;
+Rx = 4;
 result = [];
 Error_Limit = 10^-5;
-checkNumber = 3;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
+checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
-for SNR = 0:2:12
+for SNR = 0:2:20
     
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
@@ -50,12 +50,9 @@ for SNR = 0:2:12
         
         while checkEscape == 0
             % loop start
-            temp = zeros(Tx,1);
-            
             for i=1:1:Tx
                 
-                h_Dot_s_Sum = 0;
-                
+                h_Dot_s_Sum = 0;      
                 for j=1:1:Tx
                     h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
                 end
@@ -93,21 +90,12 @@ for SNR = 0:2:12
                 for k = 1:1:checkNumber - 1
                     checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
                 end
-%                 
-%                 for i=1:1:Tx
-%                     if ISDIC_disabled(i) ==0
-%                         
-%                     else
-%                         omiited_counter = omiited_counter + 1;
-%                     end
-%                 end
 
-%                 ISDIC_disabled(i) = isequal(checkSymbol(:,it), checkSymbol(:,it+1));
                 end
                 checkSymbol(:,1) = [];
                 
                 escapeTrial = escapeTrial+1;
-                if escapeTrial > 7
+                if escapeTrial > 5
                     break
                 end
                 
@@ -131,7 +119,6 @@ for SNR = 0:2:12
             % count error
             error = error + sum(abs(bit-Demo_result), 'all');
             
-        end
     end
         error = error / (trial * 2 * Tx);
         fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
@@ -139,8 +126,7 @@ for SNR = 0:2:12
             break;
         end
         result = [result error];
-    end
-    
+end
 
     %% Save Files
     [~, currentFileName,~] = fileparts(mfilename('fullpath'));

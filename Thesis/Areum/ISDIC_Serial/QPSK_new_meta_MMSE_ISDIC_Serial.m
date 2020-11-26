@@ -8,12 +8,12 @@ Rx = 4;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
-bundle_initial = 2;
-bundle_count = Tx/bundle_initial;
+Grouping_initial = 4;
+Grouping_count = Tx/Grouping_initial;
 
-fprintf("============bundle = %d============ \n", bundle_initial);
+fprintf("============ Grouping = %d============ \n", Grouping_initial);
 
-for SNR = 0:5:60
+for SNR = 0:2:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
@@ -42,10 +42,10 @@ for SNR = 0:5:60
         while checkEscape == 0
 
             count = 0;
-            bundle = bundle_initial;
+            Grouping = Grouping_initial;
             
             % loop start  
-            for i=1:1:bundle_count
+            for i=1:1:Grouping_count
 
    
                h_Dot_s_Sum = 0;
@@ -53,27 +53,27 @@ for SNR = 0:5:60
                    h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
                end
                
-               for k= (count+1):1:bundle
+               for k= (count+1):1:Grouping
                    rParallel(:,:,k) = r - (h_Dot_s_Sum) + (h(:,k) * s(k));
                end
                
-               for k= (count+1):1:bundle
+               for k= (count+1):1:Grouping
                    D(:,:,k) = v .* eye(Tx);
                    D(k,k,k) = 1;
                end
                
-               for k= (count+1):1:bundle
+               for k= (count+1):1:Grouping
                    f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
                end
             
-               for k= (count+1):1:bundle
+               for k= (count+1):1:Grouping
                    b(:,:,k) = f(:,:,k) * h(:,k);
                end
                
                
                a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
 
-               for k= (count+1):1:bundle
+               for k= (count+1):1:Grouping
                    p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ); % a_q 없음 추가해야됨
                 if isnan(p(:,:,k)) 
                     p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ) * 10^300;
@@ -83,16 +83,16 @@ for SNR = 0:5:60
                 o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
                 p(o) = p(o) + 10^-300;
                 
-                for k= (count+1):1:bundle
+                for k= (count+1):1:Grouping
                    s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k)); 
                 end
                 
-                for k= (count+1):1:bundle
+                for k= (count+1):1:Grouping
                   v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
                 end
                 
-                bundle = bundle + bundle_initial;
-                count =+ bundle_initial;
+                Grouping = Grouping + Grouping_initial;
+                count =+ Grouping_initial;
 
                 estimateSymbol = EstimatingX(s);
             end
@@ -145,13 +145,13 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Parallel_result_8x8 = result;
+QPSK_new_meta_MMSE_ISDIC_Parallel_result_4x4 = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0) 
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_8x8', '-append'); 
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_4x4', '-append'); 
 else
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_8x8');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_4x4');
 end
 
 cd ..
