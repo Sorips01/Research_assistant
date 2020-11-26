@@ -57,7 +57,7 @@ for SNR = 0:2:12
             
             %             temp = h_Dot_s_Sum;
             for i= 1:1:Tx
-                temp(i-1) = s(i) ;
+                temp= s;
                 h_Dot_s_Sum = 0;
                 
                 for j=1:1:Tx
@@ -91,7 +91,6 @@ for SNR = 0:2:12
                 else
                     iteration = iteration + 1;
                 end
-                temp(i) = s(i);
                 %% Check Loop(삭제)
                 %                 checkEscape = 1;
                 %                 checkSymbol(:,checkNumber) = estimateSymbol;
