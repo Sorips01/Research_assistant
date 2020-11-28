@@ -145,7 +145,7 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Serial_absOfSubstraction = result;
+QPSK_new_meta_MMSE_ISDIC_Serial_result_absOfSubstraction = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0)
