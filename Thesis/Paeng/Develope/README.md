@@ -1,3 +1,167 @@
+# Overview
+ISDIC-MMSE 기법의 성능 향상을 목적으로 한 연구
+## You should know
+- QPSK
+- Rayleigh fading
+- BER
+- MMSE
+- SIC
+- OSIC
+
+# SISO
+
+- **Single Input Single Output**
+- 단일 송신 안테나, 단일 수신 안테나
+- 안테나 diversity 효과 없음
+
+-  MISO 시스템에서 Transmit Diversity를 달성하기 위한 송신 방법 중 하나 
+
+-  SIMO의 SC와 동일한 원리 
+
+-  동일한 성능 
+
+-  SISO 환경과 동일한 신호 파워로 전송
+## QPSK
+
+- 2진 PSK(BPSK) 방식과 달리, 위상을 90˚씩 변화함
+- **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
+
+
+![QPSK](./_img/QPSK.PNG)
+## Rayleigh fading
+
+- 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
+- 건물이 많이 세워진 도심지에서 유용한 모델
+
+
+![Rayleigh fading](./_img/Rayleigh_fading.PNG)
+
+
+
+
+## BER
+
+- Bit Error Ratio (비트 오류율)<br>
+  ![BER](./_img
+/BER.PNG)
+# MIMO
+
+![MIMO-antennas](./_img/MIMO-antennas.PNG)
+- **Multiple-Input and Multiple-Output**
+- 다수의 송신 안테와 다수의 수신 안테나 시스템
+- Spatially multiplexing (공간 다중화) 개념과 Spatial Diversity (공간 다이버시티) 개념이 포함됨
+
+<img src="https://latex.codecogs.com/gif.latex?y%20%3D%20Hx%20&plus;%20n">
+
+보통 MIMO System Model은 N개의 TX, M개의 RX를 가진다.
+
+- y : M x 1 receive signal vector
+- H : M x N **MIMO** channel matrix
+- x : N x 1 transmitted signal vector
+- n : M x 1 AWGN (Additive white Gaussian noise) vector
+
+
+
+## ZF (Zero-Forcing)
+
+### ZF Filter
+
+<img src="https://latex.codecogs.com/gif.latex?G_%7BZF%7D%20%3D%20%5Cbegin%7Bcases%7D%20H%5E%7B-1%7D%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%20M%20%3D%20N%20%5C%5C%20H%5E%7B%5Cdagger%7D%20%3D%20%28H%5EH%20H%29%5E%7B-1%7DH%5EH%20%5Cquad%5C%2C%5C%2C%20M%3EN%20%5Cend%7Bcases%7D">
+
+
+### Output of the ZF receiver
+<img src="https://latex.codecogs.com/gif.latex?G_%7BZF%7D%20%5C%2C%5C%2C%20y%20%3D%20%5Cbegin%7Bcases%7D%20H%5E%7B-1%7D%28Hx%20&plus;%20n%29%20%3D%20x%20&plus;%20H%5E%7B-1%7Dn%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5Cquad%5C%2C%5C%2C%20M%20%3D%20N%20%5C%5C%20%28H%5EH%20H%29%5E%7B-1%7DH%5EH%28Hx%20&plus;%20n%29%20%3D%20x%20&plus;%20%28H%5EH%20H%29%5E%7B-1%7DH%5EHn%20%5Cquad%5C%2C%5C%2C%20M%3EN%20%5Cend%7Bcases%7D">
+
+
+- M < N 인 시스템에서는 사용할 수 없다.
+- Diversity order가 ![m_n+1](./_img/m_n+1.PNG)이다.
+- Linear receivers 이다.
+
+송수신 수식에서 H를 이용해 H의 **에르미트 행렬**을 구하고 이를 이용해 **ZF Filter**를 구한다. <br>
+
+구한 **ZF Filter**를 수식에 곱하여 수신 심벌 x + N(이외의 수) 꼴로 보상해준다.
+
+
+
+## MMSE (Minimum Mean Square Error)
+
+![MMSE](./_img/MMSE.PNG)
+
+<img src="https://latex.codecogs.com/gif.latex?%5Cbegin%7Bmatrix%7D%20G_%7BMMSE%7D%20%26%3D%26%20H%5EH%28HH%5EH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%5C%5C%20%26%3D%26%28H%5EHH%20&plus;%20%5Csigma_n%5E2%20I%29%5E%7B-1%7D%20H%5EH%20%5Cend%7Bmatrix%7D">
+
+- 여기서 ![sigma_square](./_img/sigma_square.PNG)는 잡음 전력의 분산의 제곱이다.
+- M < N 인 시스템에서는 사용할 수 없다.
+- Diversity order 는 ![m_n+1](./_img/m_n+1.PNG) 로  ZF 와 같다.
+- Error Performance는 ZF 보다 좋다.
+- Linear receivers 이다.
+
+
+
+## ML (Maximum-likelihood)
+
+![arg_min](./_img/arg_min.PNG)를 만족하는 X를 찾는 알고리즘이다. 
+
+즉, x에 들어갈 수 있는 모든 조합을 구하여 H를 곱한 후, 수신 심벌 y에서 뺀 값이 최소인 x가 Demodulation한 값이 된다. 
+
+![ML](./_img/ML.PNG)
+
+- Optimal performance를 가지고 있다. (즉 최적화가 잘 되어 있다.)
+- 하지만 복잡하고 연산 시 시간이 많이 필요하다.
+- Non-Linear receivers 이다.
+
+
+
+### Diversity order 비교 (ZF, MMSE, ML)
+
+![diversityOrder](./_img/diversityOrder.PNG)
+
+## SIC (Successive Interference Cancellation)
+
+- **Based on the Linear Receiver (MMSE, ZF)**
+- **Serial IC** 라고도 부른다.
+- 자료에 있는 설명
+  - First, Estimate ont of TX symbols using Linear Filter
+  - Second, Cancel it from the RX vectors, as if the TX symbol was no actually transmitted -> Go to First
+- 해석
+  1. 선행 필터(MMSE, ZF)를 통해 송신부에서 온 symbol을 복조한다.
+  2. 수신부에 섞인 간섭을 제거하여 다시 선행 필터를 통해 필터링한다. 아직 남은 송신 심벌이 남아 있다면 1.번을 반복한다.
+
+
+
+### Example
+
+![sic-example_1](./_img/sic-example_1.PNG) 
+![sic-example_2](./_img/sic-example_2.PNG)
+![sic-example_3](./_img/sic-example_3.PNG)
+
+- ZF, MMSE 기법만 사용한 것 보다 성능이 좋다.
+- ZF, MMSE 보다 복잡도가 증가된다.
+- 하지만 ML 보다는 복잡도가 낮다.
+- 주의점 Error Propagation(오류 전파)
+  - 첫 심벌이 오류가 일어난 것이었다면 이 오류성은 후에 일어나는 일련의 과정들 모두에게 전파된다. 따라서 오류가 커질 수도 있다.
+
+
+
+## OSIC (Ordered Successive Interference Cancellation)
+
+- To minimize the occurence of error propagations in SIC
+- SIC에서 Error Propagation을 최소화 하기 위해 고안된 방법
+- TX에서 보낸 심벌의 SNR을 측정하여, 최대인 것을 SIC 연산식에서 우선순위를 둔다.(먼저 뺀다)
+- SNR이 최대라는 것은 송신 및 수신과정에서 오류가 일어났을 확률이 최소이기 때문에, 우선순위를 둔다. 이에 따라 오류가 일어날 확률이 큰, 즉 SNR이 제일 작은 송신 심벌은 간섭이 제거되기 때문에 전체적으로 오류의 확률이 적어지게 된다.
+- SNR을 구하기(구현과정이) 힘들기 때문에 행렬 $$H$$에서 열 순서로 $$h1, h2, h3, ...$$ 중 크기가 가장 큰 것으로 우선순위를 두어도 크게 상관은 없다. (정확한 OSIC는 아니지만, 연산 결과도 크게 차이나지 않는다.)
+
+
+
+### SNR 구하는 과정 (어려움)
+![OSIC_receiver](./_img/OSIC_receiver.PNG)
+
+
+
+###  Diversity order 비교 (Normal, SIC, OSIC)
+
+![diversity-OSIC](./_img/diversity-OSIC.PNG)
+
+
 # OSIC-MMSE or ISDIC-MMSE
 Orderd SIC(Succesive Interference Cancellation)
 
