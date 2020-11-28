@@ -16,7 +16,7 @@ for SNR = 0:2:20
     trial = 0;
     ommitCounter = [];
     
-    while error < 1000
+    while error < 700
         trial= trial + 1;
         
         % creat bit
@@ -82,7 +82,8 @@ for SNR = 0:2:20
                     
                     a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
                     
-                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
+                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) );
+                    
                     if isnan(p(:,:,i))
                         p(:,:,i) = exp((-1 * abs(f(:,:,i) * rSerial(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
                     end
@@ -93,13 +94,14 @@ for SNR = 0:2:20
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (abs(temp(i)-s(i))<v(i))
-                        %abs(temp(i)-s(i))<noise_variance
+                    if (max(p(:,:,i)) > 0.9)
+                        %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
                         txEnabled(i) = 0;
                     end
                 end
+                
                 estimateSymbol = EstimatingX(s);
                 
                 checkSymbol(:,checkNumber) = estimateSymbol;
@@ -108,15 +110,7 @@ for SNR = 0:2:20
             
             ommitCounter = [ommitCounter, counter];
             
-            
-            
-            %             checkSymbol(:,1) = [];
-            
-            %                 escapeTrial = escapeTrial+1;
-            %                 if escapeTrial > 7
-            %                     break
-            %                 end
-            %
+               %             checkSymbol(:,1) = [];
             % loop end
         end
         
@@ -124,18 +118,13 @@ for SNR = 0:2:20
         
         %% Demodulation
         Demo_symbol = checkSymbol(:,end);
-        
-        %         modulation
-        %         Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
-        %         ZF(Rx,Tx,N,symbol)
-        %         MMSE(Rx,Tx,N,symbol)
-        %
+
         %         demodulation
         Demo_result(:,1) = real(Demo_symbol)>0;
         Demo_result(:,2) = imag(Demo_symbol)>0;
         
-        % Print BER
-        %         count error
+       %% Print BER
+        %count error
         error = error + sum(abs(bit-Demo_result), 'all');
         averageCounter = sum(ommitCounter)/length(ommitCounter);
         
