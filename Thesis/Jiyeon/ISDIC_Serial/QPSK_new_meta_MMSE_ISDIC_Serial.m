@@ -94,7 +94,7 @@ for SNR = 0:2:20
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (max(p(:,:,i)) > 0.9)
+                    if (abs(temp(i)-s(i))<v(i))
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
@@ -145,13 +145,13 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Serial_result = result;
+QPSK_new_meta_MMSE_ISDIC_Serial_absOfSubstraction = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0)
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result', '-append');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_absOfSubstraction', '-append');
 else
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_absOfSubstraction');
 end
 
 cd ..
