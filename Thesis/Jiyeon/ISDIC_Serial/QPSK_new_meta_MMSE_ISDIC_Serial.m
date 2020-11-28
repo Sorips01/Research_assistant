@@ -145,13 +145,13 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Serial_result = result;
+QPSK_new_meta_MMSE_ISDIC_Serial_maxP = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0)
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result', '-append');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP', '-append');
 else
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP');
 end
 
 cd ..
