@@ -4,15 +4,16 @@ format shortE;
 warning('off','all');
 tic
 
-% QPSK MMSE ISDIC Serial 
-% QR Algorithm 추가
-Tx = 3;
-Rx = 3;
-result = [];
+% QPSK MMSE ISDIC Serial
+Tx = 8;
+Rx = 8;
 Error_Limit = 10^-5;
+
+result = [];
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 
-for SNR = 0:5:60
+% for SNR = 0:5:60
+for SNR = 0:2:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
@@ -30,12 +31,12 @@ for SNR = 0:5:60
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
         r = h * symbol + noise;
         
-        %% QR Analysis
-        Q_H = QR(h);        % Q_H is Hermitian Q
-        r = Q_H * r;
-        h = Q_H * h;
-        n = Q_H * noise;
-         
+%         %% QR Analysis
+%         Q_H = QR(h);        % Q_H is Hermitian Q
+%         r = Q_H * r;
+%         h = Q_H * h;
+%         n = Q_H * noise;
+        
         %% create vector
         s = zeros(Tx,1);
         v = ones(Tx,1);
@@ -111,8 +112,9 @@ end
 
 % save mat file
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
+   
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '.mat');
 
-fileName = strcat(pwd,'\result\', 'QR_','ISDIC_', string(Tx), 'x', string(Rx), '.mat');
 
 if (exist(fileName, 'file') > 0) 
     save(fileName, 'result', '-append'); 
