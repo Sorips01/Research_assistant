@@ -15,8 +15,8 @@ load(fullfile(pwd, '\mat_folder\QPSK_new_meta_MMSE_ISDIC_Serial_3x3.mat'));
 % 
 % length of result normalize
 % ISDIC_Serial_result_1 = length_normalize(x, ISDIC_Serial_result_1);
-ISDIC_Serial_result = length_normalize(x, QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP);
-
+ISDIC_Serial_result_maxP = length_normalize(x, QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP);
+ISDIC_Serial_result_absOfSubstraction = length_normalize(x, ISDIC_Serial_result_absOfSubstraction);
 
 % ZF / MMSE / ML : 2x2
 f1 = figure;
@@ -24,8 +24,8 @@ f1 = figure;
 % hold on;
 semilogy(x,ISDIC_Serial_result_maxP, 'LineWidth', LineWidth);
 hold on;
-% semilogy(x,ISDIC_Serial_result_4, 'LineWidth', LineWidth);
-% hold on;
+semilogy(x,ISDIC_Serial_result_absOfSubstraction, 'LineWidth', LineWidth);
+hold on;
 % semilogy(x,ISDIC_Serial_result_5, 'LineWidth', LineWidth);
 % hold on;
 
@@ -33,5 +33,5 @@ hold on;
 ylim([lim_y 1]);
 ylabel('BER ---->');
 xlabel('SNR ---->');
-legend('Iteration 3','Iteration 4','Iteration 5');
+legend('maxP','absOfSubstraction','Iteration 5');
 title('ISDIC Serial 3x3');
