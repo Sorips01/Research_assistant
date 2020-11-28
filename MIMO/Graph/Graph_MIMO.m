@@ -1,9 +1,3 @@
-clear all;
-close all;
-
-% cd ZF
-% run('QPSK_new_meta_ZF.m');
-% cd ..
 % cd MMSE
 % run('QPSK_new_meta_MMSE.m');
 % cd ..
