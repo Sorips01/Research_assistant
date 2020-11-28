@@ -1,3 +1,49 @@
+# Overview
+ISDIC-MMSE 기법의 성능 향상을 목적으로 한 연구
+## You should know
+- QPSK
+- Rayleigh fading
+- BER
+- MMSE
+- SIC
+- OSIC
+
+# SISO
+
+- **Single Input Single Output**
+- 단일 송신 안테나, 단일 수신 안테나
+- 안테나 diversity 효과 없음
+
+-  MISO 시스템에서 Transmit Diversity를 달성하기 위한 송신 방법 중 하나 
+
+-  SIMO의 SC와 동일한 원리 
+
+-  동일한 성능 
+
+-  SISO 환경과 동일한 신호 파워로 전송
+## QPSK
+
+- 2진 PSK(BPSK) 방식과 달리, 위상을 90˚씩 변화함
+- **4개 종류의 디지털 심볼(00, 01, 10, 11)**로 전송하는 4진 PSK 방식
+
+
+![QPSK](./_img/QPSK.PNG)
+## Rayleigh fading
+
+- 신호가 많은 **물체와 빌딩사이에 가려 잘 도달하지 않고**, 주로 반사파들이 여러 다중 경로에 의해 수신측에 도달하여 합성하는데, 이때 신호 강도가 빠르게 요동치며 생기는 현상을 말한다.
+- 건물이 많이 세워진 도심지에서 유용한 모델
+
+
+![Rayleigh fading](./_img/Rayleigh_fading.PNG)
+
+
+
+
+## BER
+
+- Bit Error Ratio (비트 오류율)<br>
+  ![BER](./_img
+/BER.PNG)
 # MIMO
 
 ![MIMO-antennas](./_img/MIMO-antennas.PNG)
