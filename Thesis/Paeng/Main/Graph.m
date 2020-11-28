@@ -48,9 +48,14 @@ semilogy(x, ISDIC_8x8, 'LineWidth', LineWidth);
 hold on;
 semilogy(x, QR_ISDIC_8x8, 'LineWidth', LineWidth);
 hold on;
+semilogy(x, ISDIC_16x16, 'LineWidth', LineWidth);
+hold on;
+semilogy(x, QR_ISDIC_16x16, 'LineWidth', LineWidth);
+hold on;
+
 
 ylim([lim_y 1]);
 ylabel('BER ---->');
 xlabel('SNR ---->');
-legend('Origin','QR');
+legend('Origin 4x4','QR 4x4', 'Origin 8x8','QR 8x8', 'Origin 16x16','QR 16x16');
 title('QR Algorithm');
