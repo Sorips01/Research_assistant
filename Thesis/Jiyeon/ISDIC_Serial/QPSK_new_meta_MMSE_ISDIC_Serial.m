@@ -59,7 +59,7 @@ for SNR = 0:2:20
         for iteration = 1:8  %8번의 iteration 동안만 실행
             % loop start
             temp = s;
-            
+            old_p = ones(Tx,1);
             for i= 1:1:Tx
                 
                 if txEnabled(i) ==1
@@ -94,7 +94,7 @@ for SNR = 0:2:20
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (abs(temp(i)-s(i))<v(i))
+                    if (old_p(:,:,i) - p(:,:,i))
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
@@ -102,6 +102,7 @@ for SNR = 0:2:20
                     end
                 end
                 
+                old_p = p;
                 estimateSymbol = EstimatingX(s);
                 
                 checkSymbol(:,checkNumber) = estimateSymbol;
