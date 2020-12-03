@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 4;
-Rx = 4;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
@@ -37,18 +37,8 @@ for SNR = 0:2:20
         checkEscape = 0;
         
         escapeTrial = 0;
-        h_Dot_s_Sum = 0;
         
-        
-        %% ISDIC
-        for i=1:1:Tx
-            h_Dot_s_Sum = h_Dot_s_Sum + h(:,i)*s(i);
-        end
-        
-        ISDIC_disabled = zeros(Tx,1);
-        omiited_counter = 0;
-        
-        while checkEscape == 0
+      while checkEscape == 0
             % loop start
             for i=1:1:Tx
                 
@@ -82,15 +72,13 @@ for SNR = 0:2:20
                 estimateSymbol = EstimatingX(s);
                 
                 
-                
+            end
                 %% Check Loop
                 checkEscape = 1;
                 checkSymbol(:,checkNumber) = estimateSymbol;
                 
                 for k = 1:1:checkNumber - 1
                     checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
-                end
-
                 end
                 checkSymbol(:,1) = [];
                 
@@ -103,8 +91,7 @@ for SNR = 0:2:20
             end
             
             
-            %% Demodulation
-%             omiited_counter / (Tx * total_iteration);
+           %% Demodulation
             Demo_symbol = checkSymbol(:,end);
             
             % modulation
