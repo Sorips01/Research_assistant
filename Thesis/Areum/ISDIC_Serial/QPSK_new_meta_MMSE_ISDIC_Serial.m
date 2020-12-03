@@ -8,7 +8,7 @@ Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
-Grouping_initial = 1;
+Grouping_initial = 2;
 Grouping_count = Tx/Grouping_initial;
 
 fprintf("============ Grouping = %d============ \n", Grouping_initial);
@@ -92,7 +92,7 @@ for SNR = 0:2:20
                 end
                 
                 Grouping = Grouping + Grouping_initial;
-                count =+ Grouping_initial;
+                count = count + Grouping_initial;
 
                 estimateSymbol = EstimatingX(s);
             end
