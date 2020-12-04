@@ -3,8 +3,8 @@ close all;
 format shortE;
 tic
 
-Tx = 3;
-Rx = 3;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 3;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
@@ -59,8 +59,9 @@ for SNR = 0:2:20
         for iteration = 1:8  %8번의 iteration 동안만 실행
             % loop start
             temp = s;
-            old_p = ones(Tx,1);
+
             for i= 1:1:Tx
+
                 
                 if txEnabled(i) ==1
                     
@@ -94,7 +95,7 @@ for SNR = 0:2:20
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (old_p(:,:,i) - p(:,:,i))
+                    if (max(p(:,:,i)) > 0.9)
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
@@ -146,13 +147,13 @@ end
 
 fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-QPSK_new_meta_MMSE_ISDIC_Serial_result_absOfSubstraction = result;
+QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP = result;
 cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0)
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_absOfSubstraction', '-append');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP', '-append');
 else
-    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_absOfSubstraction');
+    save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP');
 end
 
 cd ..
