@@ -41,11 +41,11 @@ for SNR = 0:4:8
         checkEscape = 0;
         
         %% Ordering
-        if ordering == 1 %% TX ?닚?꽌 湲곕컲 ordering
+        if ordering == 1 
             order = 1:Tx; 
-        elseif ordering == 2 %% 梨꾨꼸 ?겕湲? 湲곕컲 ordering
+        elseif ordering == 2 
             [~, order] = sort(sum(abs(h).^2),'descend');
-        elseif ordering == 3 %% MMSE SINR 湲곕컲 ordering
+        elseif ordering == 3 
             G_mmse = ((h*h'+N * eye(Rx))\h)';
             for i=1:Tx
                 ordermean(i) = real(G_mmse(i,:)*h(:,i));
@@ -89,13 +89,16 @@ for SNR = 0:4:8
       end
         %% demodulation
         for iteration=1:max_iteration            
-            Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC?뒗 異뷀썑 蹂?寃쏀븯湲?
+            Demo_result(:,1) = real(final_symbols(:, iteration))>0; 
             Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
             error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
         end      
     end
-    error = error / (trial * 2 * Tx)
+    error = error / (trial * 2 * Tx);
     %fprintf("Tx 媛쒖닔 : %d / Rx 媛쒖닔 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
+    fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : ", Tx, Rx, SNR);
+    fprintf("%g /",  error);
+    fprintf("\n");
     if Error_Limit > error
         break;
     end
