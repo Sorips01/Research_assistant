@@ -95,7 +95,7 @@ for SNR = 0:2:20
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (max(p(:,:,i)) > 0.9)
+                    if (max(p(:,:,i)) > 0.8)
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
@@ -103,7 +103,6 @@ for SNR = 0:2:20
                     end
                 end
                 
-                old_p = p;
                 estimateSymbol = EstimatingX(s);
                 
                 checkSymbol(:,checkNumber) = estimateSymbol;
