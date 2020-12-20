@@ -9,11 +9,11 @@ lim_y = 1E-8;
 
 % loading mat file
 % load(fullfile(pwd, '\mat_folder\QPSK_new_meta_MMSE_ISDIC_Serial_3x3.mat'));
-load(fullfile(pwd, '\mat_folder\QPSK_new_meta_MMSE_ISDIC_Serial_8x8.mat'));
+load(fullfile(pwd, '\mat_folder\ISDIC_Serial_8x8.mat'));
 
 % length of result normalize
 % ISDIC_Serial_result_1 = length_normalize(x, ISDIC_Serial_result_1);
-ISDIC_Serial_result_maxP = length_normalize(x, QPSK_new_meta_MMSE_ISDIC_Serial_result_maxP);
+ISDIC_Serial_result_maxP = length_normalize(x, ISDIC_Serial_result_maxP93);
 % ISDIC_Serial_result_absOfSubstraction = length_normalize(x, ISDIC_Serial_result_absOfSubstraction);
 
 % % ISDIC 3x3
