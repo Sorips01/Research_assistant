@@ -12,6 +12,7 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
 max_iteration = 5;
+maxP = 0.93;
 
 for SNR = 0:2:12
     N = 1*10^(-0.1*SNR);
@@ -97,7 +98,7 @@ for SNR = 0:2:12
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (max(p(:,:,i)) > 0.93)
+                    if (max(p(:,:,i)) > maxP )
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
@@ -119,11 +120,11 @@ for SNR = 0:2:12
             end
         end
     end
-    SNR
-    error = error / (trial * 2 * Tx)
-%     averageCounter
-%     fprintf("SNR : %d / BER :%d / averageCounter : %d \n", SNR,error,averageCounter);
-    %fprintf("Tx 媛쒖닔 : %d / Rx 媛쒖닔 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
+   
+    error = error / (trial * 2 * Tx);
+    fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : ", Tx, Rx, SNR);
+    fprintf("%g /",  error);
+    fprintf("\n");
     if Error_Limit > error
         break;
     end
@@ -134,15 +135,16 @@ result.'
 %% Save Files
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
 
-fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
+% fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Iteration_',string(maxP ), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-ISDIC_Serial_result_maxP93_iteration1 = result(1);
-cd mat_folder % 폴더명
+
+ cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0)
-    save(fileName, 'ISDIC_Serial_result_maxP93', '-append');
+    save(fileName, 'result', '-append');
 else
-    save(fileName, 'ISDIC_Serial_result_maxP93');
+    save(fileName, 'result');
 end
 
 cd ..
