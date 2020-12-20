@@ -1,21 +1,25 @@
 clear all;
 close all;
 format shortE;
+warning('off','all');
 tic
 
+% QPSK MMSE ISDIC Serial
+ordering = 3;
 Tx = 8;
 Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
+max_iteration = 5;
 
-for SNR = 0:2:20
-    
+for SNR = 0:4:8
     N = 1*10^(-0.1*SNR);
-    error = zeros(1,1);
+    error = zeros(1,max_iteration);
     trial = 0;
+    final_symbols = zeros(Tx, 5);
     
-    while error < 1000
+    while min(error) < 500
         trial= trial + 1;
         
         % creat bit
@@ -36,12 +40,26 @@ for SNR = 0:2:20
         checkSymbol = zeros(Tx, checkNumber);
         checkEscape = 0;
         
-        escapeTrial = 0;
+        %% Ordering
+        if ordering == 1 
+            order = 1:Tx; 
+        elseif ordering == 2 
+            [~, order] = sort(sum(abs(h).^2),'descend');
+        elseif ordering == 3 
+            G_mmse = ((h*h'+N * eye(Rx))\h)';
+            for i=1:Tx
+                ordermean(i) = real(G_mmse(i,:)*h(:,i));
+            end
+            snr_value = ordermean./(1-ordermean);
+            [~, order] = sort(snr_value,'descend');
+        end
         
-      while checkEscape == 0
-            % loop start
-            for i=1:1:Tx
+        %escapeTrial = 0;
+        a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
                 
+      %%  ISDIC Start 
+      for iteration=1:5
+            for i=1:1:Tx
                 h_Dot_s_Sum = 0;      
                 for j=1:1:Tx
                     h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
@@ -54,81 +72,68 @@ for SNR = 0:2:20
                 
                 f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
                 
-                b(:,:,i) = f(:,:,i) * h(:,i);
+                b(:,:,i) = real(f(:,:,i) * h(:,i));
                 
-                a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
+%                 a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
                 
-                p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q 없음 추가해야됨
-                if isnan(p(:,:,i))
-                    p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
-                end
-                
-                o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
-                p(o) = p(o) + 10^-300;
+                p(:,:,i) = (-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) );
+                p(:,:,i) = exp(p(:,:,i) + (700-max(p(:,:,i))));
                 
                 s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                 v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                 
                 estimateSymbol = EstimatingX(s);
-                
-                
+             
             end
-                %% Check Loop
-                checkEscape = 1;
-                checkSymbol(:,checkNumber) = estimateSymbol;
-                
-                for k = 1:1:checkNumber - 1
-                    checkEscape = checkEscape * isequal(checkSymbol(:,k), checkSymbol(:,k+1)); % 하나라도 같으면 CheckEscape==0 이므로 끝
-                end
-                checkSymbol(:,1) = [];
-                
-                escapeTrial = escapeTrial+1;
-                if escapeTrial > 5
-                    break
-                end
-                
-                % loop end
-            end
-            
-            
-           %% Demodulation
-            Demo_symbol = checkSymbol(:,end);
-            
-            % modulation
-            %         Demo_symbol = MMSE_Modulation(Tx, Rx, N, symbol);
-            % ZF(Rx,Tx,N,symbol)
-            % MMSE(Rx,Tx,N,symbol)
-            
-            % demodulation
-            Demo_result(:,1) = real(Demo_symbol)>0;
-            Demo_result(:,2) = imag(Demo_symbol)>0;
-            %% Print BER
-            % count error
-            error = error + sum(abs(bit-Demo_result), 'all');
-            
+            final_symbols(:, iteration) = estimateSymbol;             
+      end
+        %% demodulation
+        for iteration=1:max_iteration            
+            Demo_result(:,1) = real(final_symbols(:, iteration))>0; 
+            Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
+            error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
+        end      
     end
-        error = error / (trial * 2 * Tx);
-        fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
-        if Error_Limit > error
-            break;
-        end
-        result = [result error];
+    error = error / (trial * 2 * Tx);
+    %fprintf("Tx 媛쒖닔 : %d / Rx 媛쒖닔 : %d / dB : %d / BER : %g \n", Tx, Rx, SNR, error);
+    fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : ", Tx, Rx, SNR);
+    fprintf("%g /",  error);
+    fprintf("\n");
+    if Error_Limit > error
+        break;
+    end
+    result = [result error];
+end
+    %% Save Files
+    result.'
+% save mat file
+[~, currentFileName,~] = fileparts(mfilename('fullpath'));
+   
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '.mat');
+
+
+if (exist(fileName, 'file') > 0) 
+    save(fileName, 'result', '-append'); 
+else
+    save(fileName, 'result');
 end
 
-    %% Save Files
-    [~, currentFileName,~] = fileparts(mfilename('fullpath'));
-    
-    fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
-    % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
-    QPSK_new_meta_MMSE_ISDIC_Serial_result = result;
-    cd mat_folder % 폴더명
-    
-    if (exist(fileName, 'file') > 0)
-        save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result', '-append');
-    else
-        save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result');
-    end
-    
-    cd ..
-    
-    toc
+% cd ..
+
+toc
+%     [~, currentFileName,~] = fileparts(mfilename('fullpath'));
+%     
+%     fileName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '.mat');
+%     % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
+%     QPSK_new_meta_MMSE_ISDIC_Serial_result = result;
+%     cd mat_folder % 폴더명
+%     
+%     if (exist(fileName, 'file') > 0)
+%         save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result', '-append');
+%     else
+%         save(fileName, 'QPSK_new_meta_MMSE_ISDIC_Serial_result');
+%     end
+%     
+%     cd ..
+%     
+%     toc
