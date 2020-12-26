@@ -12,7 +12,7 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
 max_iteration = 5;
-maxP = 0.93;
+maxP = 0.99;
 
 for SNR = 0:2:12
     N = 1*10^(-0.1*SNR);
@@ -139,7 +139,7 @@ result.'
 fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Iteration_',string(maxP ), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
 
- cd mat_folder % 폴더명
+%  cd mat_folder % 폴더명
 
 if (exist(fileName, 'file') > 0)
     save(fileName, 'result', '-append');
