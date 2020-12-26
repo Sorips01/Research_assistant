@@ -13,9 +13,9 @@ Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자 // 미사용
 max_iteration = 5;
 
-for SNR = 0:5:5
+for SNR = 0:5:60
     N = 1*10^(-0.1*SNR);
-    error = zeros(1,max_iteration);a
+    error = zeros(1,max_iteration);
     trial = 0;
     final_symbols = zeros(Tx, 5);
     while error < 1000      
@@ -111,7 +111,7 @@ end
 % save mat file
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
    
-fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '.mat');
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_QR', '.mat');
 
 
 if (exist(fileName, 'file') > 0) 
