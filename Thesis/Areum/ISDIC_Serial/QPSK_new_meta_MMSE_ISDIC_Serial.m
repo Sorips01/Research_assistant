@@ -5,19 +5,19 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial with Grouping
-ordering = 3;
+ordering = 2;
 Tx = 8;
 Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
-Grouping_initial = 1;
+Grouping_initial = 8;
 Grouping_count = Tx/Grouping_initial;
 
 fprintf("============ Grouping = %d============ \n", Grouping_initial);
 
-for SNR = 0:4:16
+for SNR = 0:4:8
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;

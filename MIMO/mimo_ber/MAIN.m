@@ -1,12 +1,12 @@
 clear; close all; clc;
 format short e;
-Start_dB=0; dB_step=2; End_dB=100;
+Start_dB=0; dB_step=4; End_dB=8;
 
 M = 2; % Modulation Order
 Q = 2^M; % Total elements in Constellation Set
 QAM = 1; %QAM Modulation is used. If PSK, value should be 0. Until M=2, QAM & PSK modulations are identical.
 [bitset, symset] = Definition_Bit_Pre_Mapping(M, Q, QAM);
-Tx=4; Rx=4;
+Tx=8; Rx=8;
 number_of_bits_per_transmission = Tx * M;
 va = 1 / sqrt(2);
 BER_threshold = 0.001; % the scheme having a lower average BER in the previous simulations will not be executed.
