@@ -12,13 +12,13 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
 max_iteration = 5;
-maxP = 0.99;
+maxP = 0.92;
 
-for SNR = 0:2:12
+
+for SNR = 0:2:16
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;
-    ommitCounter = [];
     final_symbols = zeros(Tx, 5);
     
     while min(error) < 500
@@ -35,11 +35,6 @@ for SNR = 0:2:12
         noise = (randn(Rx,1) + 1j * randn(Rx,1)) * sqrt(N/2);
         r = h * symbol + noise;
         
-        %         %% QR Analysis
-        %         Q_H = QR(h);        % Q_H is Hermitian Q
-        %         r = Q_H * r;
-        %         h = Q_H * h;
-        %         n = Q_H * noise;
         
         %% create vector
         s = zeros(Tx,1);
@@ -61,7 +56,7 @@ for SNR = 0:2:12
             [~, order] = sort(snr_value,'descend');
         end
         
-        escapeTrial = 0;
+        %         escapeTrial = 0;
         a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
         
         %% ISDIC Start
@@ -69,10 +64,10 @@ for SNR = 0:2:12
         iteration = 1;
         txEnabled = ones(Tx,1);
         counter = 0;
-        
         for iteration=1:max_iteration
             temp = s;
-            
+             txEnabled = ones(Tx,1);
+             
             for i=order
                 h_Dot_s_Sum = 0;
                 
@@ -91,10 +86,16 @@ for SNR = 0:2:12
                     %201204
                     b(:,:,i) = real(f(:,:,i) * h(:,i));
                     
-                    %201204
+                    %                     %201204
                     p(:,:,i) = (-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) );
+                    %                     p(:,:,i) = exp(p(:,:,i) + (1+max(p(:,:,i))));
                     p(:,:,i) = exp(p(:,:,i) + (700-max(p(:,:,i))));
                     
+                    %                     p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q ?뾾?쓬 異붽??빐?빞?맖
+                    
+                    %                     if isnan(p(:,:,i))
+                    %                         p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
+                    %                     end
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
@@ -104,23 +105,23 @@ for SNR = 0:2:12
                         %max(p(:,:,i)) > 0.9
                         txEnabled(i) = 0;
                     end
-                    
                     estimateSymbol = EstimatingX(s);
+                    
                 end
-                final_symbols(:, iteration) = estimateSymbol;
             end
-            ommitCounter = [ommitCounter, counter];
-            
-            for iteration=1:max_iteration
-                %% demodulation
-                Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC?뒗 異뷀썑 蹂?寃쏀븯湲?
-                Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
-                error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
-                averageCounter = sum(ommitCounter)/length(ommitCounter);
-            end
+            final_symbols(:, iteration) = estimateSymbol;
         end
+        
+        for iteration=1:max_iteration
+            %% demodulation
+            Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC?뒗 異뷀썑 蹂?寃쏀븯湲?
+            Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
+            error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
+            %                 averageCounter = sum(ommitCounter)/length(ommitCounter);
+        end
+        
     end
-   
+    
     error = error / (trial * 2 * Tx);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : ", Tx, Rx, SNR);
     fprintf("%g /",  error);
