@@ -13,7 +13,7 @@ Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
 
-for SNR = 0:4:8
+for SNR = 0:4:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;
