@@ -5,7 +5,7 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial
-ordering = 3;
+ordering = 2;
 Tx = 8;
 Rx = 8;
 result = [];
@@ -59,7 +59,7 @@ for SNR = 0:4:8
                 
       %%  ISDIC Start 
       for iteration=1:5
-            for i=1:1:Tx
+            for i=order
                 h_Dot_s_Sum = 0;      
                 for j=1:1:Tx
                     h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);

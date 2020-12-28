@@ -5,7 +5,7 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial
-ordering = 3; %201204 - 1: Tx ?àú?Ñú Í∏∞Î∞ò, 2: Channel ?Å¨Í∏? Í∏∞Î∞ò, 3: MMSE SINR
+ordering = 2; %201204 - 1: Tx ?àú?Ñú Í∏∞Î∞ò, 2: Channel ?Å¨Í∏? Í∏∞Î∞ò, 3: MMSE SINR
 Tx = 8;
 Rx = 8;
 result = [];

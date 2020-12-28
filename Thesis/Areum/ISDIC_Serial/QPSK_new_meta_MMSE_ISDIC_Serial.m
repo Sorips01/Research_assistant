@@ -12,12 +12,15 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
-Grouping_initial = 8;
-Grouping_count = Tx/Grouping_initial;
 
-fprintf("============ Grouping = %d============ \n", Grouping_initial);
+element_count = 8;
+group_count = Tx/element_count;
+% Grouping_initial = 1;
+% Grouping_count = Tx/Grouping_initial;
 
-for SNR = 0:4:8
+fprintf("============ 그룹 당 원소 개수 = %d============ \n", element_count);
+
+for SNR = 0:4:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;
@@ -61,33 +64,45 @@ for SNR = 0:4:8
         
         %% ISDIC Start
         for iteration=1:5
-            
             count = 0;
-            Grouping = Grouping_initial;
+            Grouping = element_count;
             
             % loop start  
-            for i=1:1:Grouping_count
-               h_Dot_s_Sum = 0;
-               for j=1:1:Tx
-                   h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
-               end
+            for i=1:1:group_count
+               for k= order((count+1):1:Grouping)
+                   h_Dot_s_Sum = 0;
                
-               for k= (count+1):1:Grouping
+                   for j=1:1:Tx
+                       h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
+                   end
+               
+                  
                    rParallel(:,:,k) = r - (h_Dot_s_Sum) + (h(:,k) * s(k));
-               end
                
-               for k= (count+1):1:Grouping
+               
+               
                    D(:,:,k) = v .* eye(Tx);
                    D(k,k,k) = 1;
+                   f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
+                   b(:,:,k) = real(f(:,:,k) * h(:,k));
+                   p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
+                   p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
+                   s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k)); 
+                   v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
                end
                
-               for k= (count+1):1:Grouping
-                   f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
-               end
-            
-               for k= (count+1):1:Grouping
-                   b(:,:,k) = real(f(:,:,k) * h(:,k));
-               end
+%                for k= order((count+1):1:Grouping)
+%                    D(:,:,k) = v .* eye(Tx);
+%                    D(k,k,k) = 1;
+%                end
+%                
+%                for k= order((count+1):1:Grouping)
+%                    f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
+%                end
+%             
+%                for k= order((count+1):1:Grouping)
+%                    b(:,:,k) = real(f(:,:,k) * h(:,k));
+%                end
 
 %                for k= (count+1):1:Grouping
 %                    p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ); % a_q 없음 추가해야됨
@@ -95,45 +110,30 @@ for SNR = 0:4:8
 %                     p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ) * 10^300;
 %                 end
 %                end
-               for k= (count+1):1:Grouping
-                   p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
-                   p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
-               end
+%                for k= order((count+1):1:Grouping)
+%                    p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
+%                    p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
+%                end
                
                
 %                 o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
 %                 p(o) = p(o) + 10^-300;
                 
-                for k= (count+1):1:Grouping
-                   s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k)); 
-                end
+%                 for k= order((count+1):1:Grouping)
+%                    s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k)); 
+%                 end
+%                 
+%                 for k= order((count+1):1:Grouping)
+%                   v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
+%                 end
                 
-                for k= (count+1):1:Grouping
-                  v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
-                end
-                
-                Grouping = Grouping + Grouping_initial;
-                count = count + Grouping_initial;
+                Grouping = Grouping + element_count;
+                count = count + element_count;
 
                 estimateSymbol = EstimatingX(s);
             end
             
             final_symbols(:, iteration) = estimateSymbol; 
-           
-%             % check loop
-%             checkEscape = 1;
-%             checkSymbol(:,checkNumber) = estimateSymbol;
-% 
-%             for i=1:1:checkNumber - 1
-%                 checkEscape = checkEscape * isequal(checkSymbol(:,i), checkSymbol(:,i+1));
-%             end
-%             checkSymbol(:,1) = [];
-%             
-%             escapeTrial = escapeTrial+1;
-%             if escapeTrial > 5
-%                 break
-%             end
-%             
             % loop end
         end
        
@@ -143,13 +143,6 @@ for SNR = 0:4:8
             Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
             error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
         end   
-%         Demo_symbol = checkSymbol(:,end);
-%                 
-%         Demo_result(:,1) = real(Demo_symbol)>0; % MRC는 추후 변경하기
-%         Demo_result(:,2) = imag(Demo_symbol)>0;
-%         
-%         % count error
-%         error = error + sum(abs(bit-Demo_result), 'all');
         
     end
     
@@ -167,7 +160,7 @@ end
     result.'
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
    
-fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Grouping_',string(Grouping_initial), '.mat');
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Grouping_',string(element_count), '.mat');
 
 
 if (exist(fileName, 'file') > 0) 
