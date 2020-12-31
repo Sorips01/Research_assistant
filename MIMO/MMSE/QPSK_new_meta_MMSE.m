@@ -3,16 +3,16 @@ close all;
 format shortE;
 tic
 
-Tx = 4;
-Rx = 4;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 
-for SNR = 0:5:60
+for SNR = 0:4:8
     N = 2*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
-    while error < 1000      
+    while error < 500   
         trial= trial + 1;
         
         % creat bit
@@ -45,10 +45,10 @@ for SNR = 0:5:60
 end
 
 % save mat file
-MMSE_result4x4 = result;
+MMSE_result8x8 = result;
 
 folderName = 'QPSK_new_meta_MMSE.mat'
-fileName = 'MMSE_result4x4'
+fileName = 'MMSE_result8x8'
 cd mat_folder % 폴더명
 
 if (exist(folderName, 'file') > 0) 
