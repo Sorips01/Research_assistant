@@ -13,7 +13,7 @@ Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
 
-element_count = 1;
+element_count = 8;
 group_count = Tx/element_count;
 
 fprintf("============ 그룹 당 원소 개수 = %d============ \n", element_count);
