@@ -13,7 +13,7 @@ Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
 
-element_count = 2;
+element_count = 1;
 group_count = Tx/element_count;
 % Grouping_initial = 1;
 % Grouping_count = Tx/Grouping_initial;
@@ -94,6 +94,42 @@ for SNR = 0:4:20
                    v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
                end
                
+%                for k= order((count+1):1:Grouping)
+%                    D(:,:,k) = v .* eye(Tx);
+%                    D(k,k,k) = 1;
+%                end
+%                
+%                for k= order((count+1):1:Grouping)
+%                    f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
+%                end
+%             
+%                for k= order((count+1):1:Grouping)
+%                    b(:,:,k) = real(f(:,:,k) * h(:,k));
+%                end
+
+%                for k= (count+1):1:Grouping
+%                    p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ); % a_q 없음 추가해야됨
+%                 if isnan(p(:,:,k)) 
+%                     p(:,:,k) = exp((-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) ) ) * 10^300;
+%                 end
+%                end
+%                for k= order((count+1):1:Grouping)
+%                    p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
+%                    p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
+%                end
+               
+               
+%                 o = p == 0;     % p가 0에 너무 가까워졌을 경우 1을 o에 저장
+%                 p(o) = p(o) + 10^-300;
+                
+%                 for k= order((count+1):1:Grouping)
+%                    s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k)); 
+%                 end
+%                 
+%                 for k= order((count+1):1:Grouping)
+%                   v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
+%                 end
+                
                 Grouping = Grouping + element_count;
                 count = count + element_count;
 
