@@ -5,14 +5,16 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial
+
 ordering = 3; %201204 - 1: Tx ?닚?꽌 湲곕컲, 2: Channel ?겕湲? 湲곕컲, 3: MMSE SINR
-Tx = 8;
-Rx = 8;
+Tx = 4;
+Rx = 4;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
-max_iteration = 5;
-maxP = 0.92;
+max_iteration = 8;
+maxP = 0.98;
+escape_iteration = [];
 
 
 for SNR = 0:2:16
@@ -64,12 +66,18 @@ for SNR = 0:2:16
         iteration = 1;
         txEnabled = ones(Tx,1);
         counter = 0;
+         escape_iteration = [];
         for iteration=1:max_iteration
-            temp = s;
-             txEnabled = ones(Tx,1);
-             
+            
+             if(sum(txEnabled) == 0)
+                    escape_iteration = [escape_iteration iteration];
+                    break;
+                 end
+                 
             for i=order
                 h_Dot_s_Sum = 0;
+                
+                
                 
                 if txEnabled(i) ==1
                     for j=1:1:Tx
@@ -87,15 +95,8 @@ for SNR = 0:2:16
                     b(:,:,i) = real(f(:,:,i) * h(:,i));
                     
                     %                     %201204
-                    p(:,:,i) = (-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) );
-                    %                     p(:,:,i) = exp(p(:,:,i) + (1+max(p(:,:,i))));
-                    p(:,:,i) = exp(p(:,:,i) + (700-max(p(:,:,i))));
+                    p(:,:,i) = exp(-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) );
                     
-                    %                     p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ); % a_q ?뾾?쓬 異붽??빐?빞?맖
-                    
-                    %                     if isnan(p(:,:,i))
-                    %                         p(:,:,i) = exp((-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) ) ) * 10^300;
-                    %                     end
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
@@ -105,11 +106,16 @@ for SNR = 0:2:16
                         %max(p(:,:,i)) > 0.9
                         txEnabled(i) = 0;
                     end
+                    
+                    
                     estimateSymbol = EstimatingX(s);
                     
                 end
+               
             end
             final_symbols(:, iteration) = estimateSymbol;
+            averageEscape = sum(escape_iteration)/length(escape_iteration);
+            
         end
         
         for iteration=1:max_iteration
@@ -117,21 +123,23 @@ for SNR = 0:2:16
             Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC?뒗 異뷀썑 蹂?寃쏀븯湲?
             Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
             error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
+            
             %                 averageCounter = sum(ommitCounter)/length(ommitCounter);
         end
         
     end
     
     error = error / (trial * 2 * Tx);
-    fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / BER : ", Tx, Rx, SNR);
-    fprintf("%g /",  error);
+    fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / ", Tx, Rx, SNR);
+    fprintf("Average Escape Iteration : %g / BER :",averageEscape);
+    fprintf(" %g ",  error);
     fprintf("\n");
     if Error_Limit > error
         break;
     end
     result = [result error];
 end
-result.'
+result.';
 
 %% Save Files
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
