@@ -1,6 +1,6 @@
 clear; close all; clc;
 format short e;
-Start_dB=0; dB_step=4; End_dB=8;
+Start_dB=0; dB_step=4; End_dB=20;
 
 M = 2; % Modulation Order
 Q = 2^M; % Total elements in Constellation Set

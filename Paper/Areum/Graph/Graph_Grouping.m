@@ -11,6 +11,7 @@ result_e = [];
 result_f = [];
 result_g = [];
 result_h = [];
+result_i = [];
 
 a = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_1.mat'));
 b = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_2.mat'));
@@ -21,6 +22,7 @@ e = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_1.mat'));
 f = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_2.mat'));
 g = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_4.mat'));
 h = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_8.mat'));
+i = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_16.mat'));
 
 for i = 1:5:25
     result_a = [result_a a.result(1,i)];
@@ -43,6 +45,7 @@ for i = 1:5:30
     result_f = [result_f f.result(1,i)];
     result_g = [result_g g.result(1,i)];
     result_h = [result_h h.result(1,i)];
+    result_i = [result_i h.result(1,i)];
 end
 figure(1);
 semilogy(x,result_a); hold on;
@@ -62,8 +65,9 @@ semilogy(x,result_e); hold on;
 semilogy(x,result_f); hold on;
 semilogy(x,result_g); hold on;
 semilogy(x,result_h); hold on;
+semilogy(x,result_i); hold on;
 ylabel('BER ---->');
 xlabel('SNR ---->');
 title('ISDIC Serial 16x16');
 
-legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8'},'Location','southwest')
+legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8','Grouping 16'},'Location','southwest')
