@@ -13,8 +13,9 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
 max_iteration = 8;
-maxP = 0.98;
-escape_iteration = [];
+maxP = 0.9;
+ommitCounter = [];
+escapeIteration = [];
 
 
 for SNR = 0:2:16
@@ -65,19 +66,14 @@ for SNR = 0:2:16
         temp = ones(Tx,1); % 추정하려는 값
         iteration = 1;
         txEnabled = ones(Tx,1);
-        counter = 0;
-         escape_iteration = [];
+        
+        
+        
         for iteration=1:max_iteration
             
-             if(sum(txEnabled) == 0)
-                    escape_iteration = [escape_iteration iteration];
-                    break;
-                 end
-                 
             for i=order
+                
                 h_Dot_s_Sum = 0;
-                
-                
                 
                 if txEnabled(i) ==1
                     for j=1:1:Tx
@@ -100,38 +96,45 @@ for SNR = 0:2:16
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    if (max(p(:,:,i)) > maxP )
+                    comP = sum(p(:,:,i));
+                    if (comP > maxP )
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
                         %max(p(:,:,i)) > 0.9
                         txEnabled(i) = 0;
+                        comP;
+                        txEnabled;
                     end
                     
                     
                     estimateSymbol = EstimatingX(s);
-                    
+                    if(sum(txEnabled) == 0)
+                        escapeIteration =[escapeIteration iteration];
+                        %                     break;
+                    end
                 end
-               
+                
+                final_symbols(:, iteration) = estimateSymbol;
+                
+                
             end
-            final_symbols(:, iteration) = estimateSymbol;
-            averageEscape = sum(escape_iteration)/length(escape_iteration);
+            
             
         end
+        
         
         for iteration=1:max_iteration
             %% demodulation
             Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC?뒗 異뷀썑 蹂?寃쏀븯湲?
             Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
             error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
-            
-            %                 averageCounter = sum(ommitCounter)/length(ommitCounter);
         end
         
     end
     
     error = error / (trial * 2 * Tx);
     fprintf("Tx 개수 : %d / Rx 개수 : %d / dB : %d / ", Tx, Rx, SNR);
-    fprintf("Average Escape Iteration : %g / BER :",averageEscape);
+    %     fprintf("Average Escape Iteration : %g / BER :",averageEscape);
     fprintf(" %g ",  error);
     fprintf("\n");
     if Error_Limit > error
