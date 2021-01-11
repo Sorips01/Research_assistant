@@ -5,14 +5,14 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial with Grouping
-ordering = 2;
-Tx = 16;
-Rx = 16;
+ordering = 3;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
-element_count = 16;
+element_count = 1;
 group_count = Tx/element_count;
 % Grouping_initial = 16;
 % Grouping_count = Tx/Grouping_initial;
@@ -125,7 +125,7 @@ end
     result.'
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
    
-fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Grouping_',string(Grouping_initial), '.mat');
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Grouping_',string(element_count),'_ordering_',string(ordering),'.mat');
 
 
 if (exist(fileName, 'file') > 0) 
