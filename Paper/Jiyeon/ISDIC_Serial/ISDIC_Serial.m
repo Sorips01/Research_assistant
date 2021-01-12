@@ -25,6 +25,7 @@ for SNR = 0:2:16
     trial = 0;
     final_symbols = zeros(Tx, 5);
     
+    
     while min(error) < 500
         trial= trial + 1;
         
@@ -69,14 +70,18 @@ for SNR = 0:2:16
         txEnabled = ones(Tx,1);
         
         
+        counter = 0;
         
         for iteration=1:max_iteration
-            
+%             counter = counter +1;
             for i=order
-                
+               
                 h_Dot_s_Sum = 0;
                 
                 if txEnabled(i) ==1
+                    
+                    counter = counter +1;
+                    
                     for j=1:1:Tx
                         h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
                     end
@@ -109,8 +114,9 @@ for SNR = 0:2:16
                     
                     
                     estimateSymbol = EstimatingX(s);
+                    
                     if(sum(txEnabled) == 0)
-                        escapeIteration =[escapeIteration iteration];
+                        
                         %                     break;
                     end
                 end
@@ -121,8 +127,9 @@ for SNR = 0:2:16
             end
             
             
+            
         end
-        
+        ommitCounter = [ommitCounter counter];
         
         for iteration=1:max_iteration
             %% demodulation
