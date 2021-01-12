@@ -13,10 +13,11 @@ result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
 max_iteration = 8;
-maxP = 0.5;
+maxP = 0.75;
 ommitCounter = [];
 escapeIteration = [];
 
+disp(maxP)
 
 for SNR = 0:2:16
     N = 1*10^(-0.1*SNR);
