@@ -59,7 +59,7 @@ for SNR = -4:4:20
                 
       %%  ISDIC Start 
       for iteration=1:5
-            for i=1:1:Tx
+            for i=order
                 h_Dot_s_Sum = 0;      
                 for j=1:1:Tx
                     h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
