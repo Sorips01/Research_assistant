@@ -19,12 +19,13 @@ b = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_2_ordering_2.mat'));
 c = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_4_ordering_2.mat'));
 d = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_8_ordering_2.mat'));
 serial_8 = load(fullfile(pwd, '\result\ISDIC_8x8.mat'));
+MMSE_8x8 = load(fullfile(pwd, '\result\QPSK_new_meta_MMSE.mat'));
 
 e = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_1.mat'));
-f = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_2.mat'));
-g = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_4.mat'));
-h = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_8.mat'));
-i = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_16.mat'));
+f = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_2_ordering_2.mat'));
+g = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_4_ordering_2.mat'));
+h = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_8_ordering_2.mat'));
+i = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_16_ordering_2.mat'));
 
 for z = 1:5:35
     result_a = [result_a a.result(1,z)];
@@ -55,12 +56,13 @@ semilogy(x,result_b); hold on;
 semilogy(x,result_c); hold on;
 semilogy(x,result_d); hold on;
 semilogy(x,result_serial_8); hold on;
+semilogy(x,MMSE_8x8.MMSE_result8x8); hold on;
 
 ylabel('BER ---->');
 xlabel('SNR ---->');
 title('ISDIC Serial 8x8');
 
-legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8','ISDIC serial'},'Location','southwest')
+legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8','ISDIC serial','MMSE'},'Location','southwest')
 
 x=0:4:20;
 figure(2);

@@ -8,7 +8,7 @@ Rx = 8;
 result = [];
 Error_Limit = 10^-5;
 
-for SNR = 0:4:8
+for SNR = -4:4:20
     N = 2*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
