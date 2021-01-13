@@ -71,8 +71,9 @@ semilogy(x,result_f); hold on;
 semilogy(x,result_g); hold on;
 semilogy(x,result_h); hold on;
 semilogy(x,result_i); hold on;
+semilogy(x,MMSE_8x8.MMSE_result16x16); hold on;
 ylabel('BER ---->');
 xlabel('SNR ---->');
 title('ISDIC Serial 16x16');
 
-legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8','Grouping 16'},'Location','southwest')
+legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8','Grouping 16','MMSE'},'Location','southwest')
