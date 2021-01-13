@@ -6,14 +6,14 @@ tic
 
 % QPSK MMSE ISDIC Serial
 ordering = 2;
-Tx = 8;
-Rx = 8;
+Tx = 16;
+Rx = 16;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
 
-for SNR = -4:4:20
+for SNR = -8:4:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;
