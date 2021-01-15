@@ -5,9 +5,9 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial with Grouping
-ordering = 3;
-Tx = 8;
-Rx = 8;
+ordering = 2;
+Tx = 16;
+Rx = 16;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
@@ -19,7 +19,7 @@ group_count = Tx/element_count;
 
 fprintf("============그룹 당 원소 개수 = %d============ \n", element_count);
 
-for SNR = 0:4:20
+for SNR = -8:4:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;

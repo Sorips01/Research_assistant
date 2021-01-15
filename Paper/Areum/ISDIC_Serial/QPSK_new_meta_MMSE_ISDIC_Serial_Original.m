@@ -5,15 +5,15 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial
-ordering = 3;
-Tx = 8;
-Rx = 8;
+ordering = 2;
+Tx = 16;
+Rx = 16;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
 
-for SNR = 0:4:8
+for SNR = -8:4:20
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;
@@ -59,7 +59,7 @@ for SNR = 0:4:8
                 
       %%  ISDIC Start 
       for iteration=1:5
-            for i=1:1:Tx
+            for i=order
                 h_Dot_s_Sum = 0;      
                 for j=1:1:Tx
                     h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
