@@ -7,15 +7,14 @@ tic
 % QPSK MMSE ISDIC Serial
 
 ordering = 3; %201204 - 1: Tx ?닚?꽌 湲곕컲, 2: Channel ?겕湲? 湲곕컲, 3: MMSE SINR
-Tx = 16;
-Rx = 16;
+Tx = 4;
+Rx = 4;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
-max_iteration = 8;
-maxP = 0.7;
+max_iteration = 5;
+maxP = 0.5;
 ommitCounter = [];
-escapeIteration = [];
 
 disp(maxP)
 
@@ -102,7 +101,7 @@ for SNR = 0:2:16
                     s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
                     v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
                     
-                    comP = sum(p(:,:,i));
+                    comP = max(p(:,:,i)/sum(p(:,:,i)));
                     if (comP > maxP )
                         %abs(temp(i)-s(i))<v(i)
                         %old_p(:,:,i) - p_(:,:,i)
