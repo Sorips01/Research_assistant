@@ -1,4 +1,4 @@
-clear all;
+ clear all;
 close all;
 format short e;
 warning('off','all');
@@ -10,10 +10,10 @@ ordering = 3; %201204 - 1: Tx ?닚?꽌 湲곕컲, 2: Channel ?겕湲? 湲곕컲,
 Tx = 8;
 Rx = 8;
 result = [];
-Error_Limit = 10^-5;
+Error_Limit = 5*10^-5;
 checkNumber = 2;            % 紐? 踰? 媛숈쓣 ?븣 ?떎?뻾?븷 寃껋씤吏? 寃곗젙?븯?뒗 ?닽?옄
 max_iteration = 5;
-maxP = 0.6;
+maxP = 0.5;
 ommitCounter = [];
 
 disp(maxP)
@@ -72,51 +72,53 @@ for SNR = 0:2:16
         counter = 0;
         
         for iteration=1:max_iteration
-%             counter = counter +1;
-            for i=order
-               
-                h_Dot_s_Sum = 0;
+            %             counter = counter +1;
+            if(sum(txEnabled) == 0)
                 
-                if txEnabled(i) ==1
+                break;
+            else
+                for i=order
                     
-                    counter = counter +1;
+                    h_Dot_s_Sum = 0;
                     
-                    for j=1:1:Tx
-                        h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
-                    end
-                    
-                    rParallel(:,:,i) = r - (h_Dot_s_Sum) + h(:,i)*s(i);
-                    
-                    D(:,:,i) = v .* eye(Tx);
-                    D(i,i,i) = 1;
-                    
-                    f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
-                    
-                    %201204
-                    b(:,:,i) = real(f(:,:,i) * h(:,i));
-                    
-                    %                     %201204
-                    p(:,:,i) = exp(-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) );
-                    
-                    s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
-                    v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
-                    
-                    comP = max(p(:,:,i)/sum(p(:,:,i)));
-                    if (comP > maxP )
-                        %abs(temp(i)-s(i))<v(i)
-                        %old_p(:,:,i) - p_(:,:,i)
-                        %max(p(:,:,i)) > 0.9
-                        txEnabled(i) = 0;
-                        comP;
-                        txEnabled;
-                    end
-                    
-                    
-                    estimateSymbol = EstimatingX(s);
-                    
-                    if(sum(txEnabled) == 0)
+                    if txEnabled(i) ==1
                         
-                        %                     break;
+                        counter = counter +1;
+                        
+                        for j=1:1:Tx
+                            h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
+                        end
+                        
+                        rParallel(:,:,i) = r - (h_Dot_s_Sum) + h(:,i)*s(i);
+                        
+                        D(:,:,i) = v .* eye(Tx);
+                        D(i,i,i) = 1;
+                        
+                        f(:,:,i) = conj(h(:,i).') * inv(h * D(:,:,i) * conj(h.') + N * eye(Rx));
+                        
+                        %201204
+                        b(:,:,i) = real(f(:,:,i) * h(:,i));
+                        
+                        %                     %201204
+                        p(:,:,i) = exp(-1 * abs(f(:,:,i) * rParallel(:,:,i) - a_q * b(:,:,i)).^2 / (b(:,:,i) * (1 - b(:,:,i)) ) );
+                        
+                        s(i) = sum(a_q .* p(:,:,i)) / sum(p(:,:,i));
+                        v(i) = sum(abs(a_q - s(i)).^2 .* p(:,:,i)) / sum(p(:,:,i));
+                        
+                        comP = max(p(:,:,i)/sum(p(:,:,i)));
+                        if (comP > maxP )
+                            %abs(temp(i)-s(i))<v(i)
+                            %old_p(:,:,i) - p_(:,:,i)
+                            %max(p(:,:,i)) > 0.9
+                            txEnabled(i) = 0;
+                            comP;
+                            txEnabled;
+                        end
+                        
+                        
+                        estimateSymbol = EstimatingX(s);
+                        
+                        
                     end
                 end
                 
