@@ -6,14 +6,14 @@ tic
 
 % QPSK MMSE ISDIC Serial
 
-ordering = 3; %201204 - 1: Tx ?ë‹š?ê½Œ æ¹²ê³•ì»², 2: Channel ?ê²•æ¹²? æ¹²ê³•ì»², 3: MMSE SINR
+ordering = 3; %201204 - 1: Tx ??‹š?ê½? æ¹²ê³•ì»?, 2: Channel ?ê²•æ¹²? æ¹²ê³•ì»?, 3: MMSE SINR
 Tx = 8;
 Rx = 8;
 result = [];
 Error_Limit = 5*10^-5;
-checkNumber = 2;            % ï§? è¸°? åª›ìˆˆì“£ ?ë¸£ ?ë–Ž?ë»¾?ë¸· å¯ƒê»‹ì”¤ï§ž? å¯ƒê³—ì ™?ë¸¯?ë’— ?ë‹½?ì˜„
+checkNumber = 2;            % ï§?? è¸?? åª›ìˆˆ?“£ ?ë¸? ??–Ž?ë»??ë¸? å¯ƒê»‹?”¤ï§?? å¯ƒê³—? ™?ë¸???’— ??‹½??˜„
 max_iteration = 5;
-maxP = 0.8;
+maxP =0.9;
 ommitCounter = [];
 
 disp(maxP)
@@ -21,6 +21,8 @@ disp(maxP)
 for SNR = 0:2:16
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
+    tx_enabled_sum = zeros(1,max_iteration);
+    tx_enabled_sum_final = zeros(1,max_iteration);
     trial = 0;
     final_symbols = zeros(Tx, 5);
     
@@ -47,11 +49,11 @@ for SNR = 0:2:16
         checkEscape = 0;
         
         %201204
-        if ordering == 1 %% TX ?ë‹š?ê½Œ æ¹²ê³•ì»² ordering
+        if ordering == 1 %% TX ??‹š?ê½? æ¹²ê³•ì»? ordering
             order = 1:Tx;
-        elseif ordering == 2 %% ï§¢ê¾¨ê¼¸ ?ê²•æ¹²? æ¹²ê³•ì»² ordering
+        elseif ordering == 2 %% ï§?ê¾¨ê¼¸ ?ê²•æ¹²? æ¹²ê³•ì»? ordering
             [~, order] = sort(sum(abs(h).^2),'descend');
-        elseif ordering == 3 %% MMSE SINR æ¹²ê³•ì»² ordering
+        elseif ordering == 3 %% MMSE SINR æ¹²ê³•ì»? ordering
             G_mmse = ((h*h'+N * eye(Rx))\h)';
             for i=1:Tx
                 ordermean(i) = real(G_mmse(i,:)*h(:,i));
@@ -64,7 +66,7 @@ for SNR = 0:2:16
         a_q = [1+1i, 1-1i, -1+1i, -1-1i] / sqrt(2);
         
         %% ISDIC Start
-        temp = ones(Tx,1); % ì¶”ì •í•˜ë ¤ëŠ” ê°’
+        temp = ones(Tx,1); % ì¶”ì •?•˜? ¤?Š” ê°?
         iteration = 1;
         txEnabled = ones(Tx,1);
         
@@ -72,10 +74,15 @@ for SNR = 0:2:16
         counter = 0;
         
         for iteration=1:max_iteration
-            escape = 0;
+            tx_enabled_sum(iteration) = tx_enabled_sum(iteration)+sum(txEnabled);
+%             escape = iteration;
             %             counter = counter +1;
             if(sum(txEnabled) == 0)
-                escape = iteration;
+                for k=iteration:max_iteration
+                    final_symbols(:, k) = final_symbols(:,iteration-1);
+                end
+%                 escape = iteration;
+                
                 break;
             else
                 for i=order
@@ -133,19 +140,30 @@ for SNR = 0:2:16
         end
         ommitCounter = [ommitCounter counter];
         
-        for iteration=1:escape
+        tx_enabled_sum_final(1) = tx_enabled_sum(1);
+        for iteration=2:max_iteration
+            tx_enabled_sum_final(iteration) = tx_enabled_sum_final(iteration-1) + tx_enabled_sum(iteration);
+        end
+        
+        for iteration=1:max_iteration
             %% demodulation
-            Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC?ë’— ç•°ë·€ì‘ è¹‚?å¯ƒì€ë¸¯æ¹²?
+            Demo_result(:,1) = real(final_symbols(:, iteration))>0; % MRC??’— ?•°ë·??‘ è¹??å¯ƒì?ë¸?æ¹??
             Demo_result(:,2) = imag(final_symbols(:, iteration))>0;
             error(iteration) = error(iteration) + sum(abs(bit-Demo_result), 'all');
         end
         
+        if min(error)>100
+            error = error;
+        end
     end
     
     error = error / (trial * 2 * Tx);
     fprintf("Tx ê°œìˆ˜ : %d / Rx ê°œìˆ˜ : %d / dB : %d / ", Tx, Rx, SNR);
     %     fprintf("Average Escape Iteration : %g / BER :",averageEscape);
+    fprintf("\n");
     fprintf(" %g ",  error);
+    fprintf("\n");
+    fprintf(" %g ",  tx_enabled_sum_final./(trial*Tx*(1:max_iteration)));
     fprintf("\n");
     if Error_Limit > error
         break;
@@ -161,7 +179,7 @@ result.';
 fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Iteration_',string(maxP ), '.mat');
 % varName = strcat(currentFileName, '_', string(Tx), 'x', string(Rx), '_result');
 
-%  cd mat_folder % í´ë”ëª…
+%  cd mat_folder % ?´?”ëª?
 
 if (exist(fileName, 'file') > 0)
     save(fileName, 'result', '-append');
