@@ -21,42 +21,42 @@ lim_y = 1E-6;
 % w5 = reshape(w5.result,5,10);
 
 %% Tx x Rx = 8 x 8
-% %
-% x = -2:2:8;
-% 
-% w0 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_1.mat'));
-% w1 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.5.mat'));
-% w2 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.6.mat'));
-% w3 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.7.mat'));
-% w4 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.8.mat'));
-% w5 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.9.mat'));
-% %
-% %
-% w0 = reshape(w0.result,5,6);
-% w1 = reshape(w1.result,5,6);
-% w2 = reshape(w2.result,5,6);
-% w3 = reshape(w3.result,5,6);
-% w4 = reshape(w4.result,5,6);
-% w5 = reshape(w5.result,5,6);
+%
+x = -2:2:8;
+
+w0 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_1.mat'));
+w1 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.5.mat'));
+w2 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.6.mat'));
+w3 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.7.mat'));
+w4 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.8.mat'));
+w5 = load(fullfile(pwd, '\matFolder\ISDIC_8x8_Iteration_0.9.mat'));
+%
+%
+w0 = reshape(w0.result,5,6);
+w1 = reshape(w1.result,5,6);
+w2 = reshape(w2.result,5,6);
+w3 = reshape(w3.result,5,6);
+w4 = reshape(w4.result,5,6);
+w5 = reshape(w5.result,5,6);
 
 %% Tx x Rx = 16 x 16
-%
-x = -2:2:4;
-
-% w0 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_1.mat'));
-w1 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.5.mat'));
-w2 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.6.mat'));
-w3 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.7.mat'));
-w4 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.8.mat'));
-w5 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.9.mat'));
-%
-%
-% w0 = reshape(w0.result,5,4);
-w1 = reshape(w1.result,5,4);
-w2 = reshape(w2.result,5,4);
-w3 = reshape(w3.result,5,4);
-w4 = reshape(w4.result,5,4);
-w5 = reshape(w5.result,5,4);
+% %
+% x = -2:2:4;
+% 
+% % w0 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_1.mat'));
+% w1 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.5.mat'));
+% w2 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.6.mat'));
+% w3 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.7.mat'));
+% w4 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.8.mat'));
+% w5 = load(fullfile(pwd, '\matFolder\ISDIC_16x16_Iteration_0.9.mat'));
+% %
+% %
+% % w0 = reshape(w0.result,5,4);
+% w1 = reshape(w1.result,5,4);
+% w2 = reshape(w2.result,5,4);
+% w3 = reshape(w3.result,5,4);
+% w4 = reshape(w4.result,5,4);
+% w5 = reshape(w5.result,5,4);
 %% cross-platform
 
 
