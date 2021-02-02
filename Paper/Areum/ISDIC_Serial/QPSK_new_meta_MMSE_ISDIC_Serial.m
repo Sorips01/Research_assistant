@@ -5,14 +5,14 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial with Grouping
-ordering = 2;
+ordering = 3;
 Tx = 8;
 Rx = 8;
 result = [];
 Error_Limit = 10^-4;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
-element_count = 1;
+element_count = 2;
 group_count = Tx/element_count;
 % Grouping_initial = 16;
 % Grouping_count = Tx/Grouping_initial;
@@ -63,7 +63,6 @@ for SNR = -8:4:20
         
         %% ISDIC Start
         for iteration=1:5
-            
             count = 0;
             Grouping = element_count;
             
@@ -76,8 +75,15 @@ for SNR = -8:4:20
                        h_Dot_s_Sum = h_Dot_s_Sum + h(:,j)*s(j);
                    end
                
-                   for k= order((count+1):1:Grouping)
-                       rParallel(:,:,k) = r - (h_Dot_s_Sum) + (h(:,k) * s(k));
+%                    for k= order((count+1):1:Grouping)
+%                        rParallel(:,:,k) = r - (h_Dot_s_Sum);
+%                        for a= order((count+1):1:Grouping)
+%                             rParallel(:,:,k) = rParallel(:,:,k) + (h(:,a) * s(a));
+%                        end
+%                    end
+                   rParallel(:,:,i) = r - (h_Dot_s_Sum);
+                   for a= order((count+1):1:Grouping)
+                        rParallel(:,:,i) = rParallel(:,:,i) + (h(:,a) * s(a));
                    end
                
                    for k= order((count+1):1:Grouping)
@@ -88,7 +94,7 @@ for SNR = -8:4:20
                    for k= order((count+1):1:Grouping)
                        f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
                        b(:,:,k) = real(f(:,:,k) * h(:,k));
-                       p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,k) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
+                       p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,i) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
                        p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
                        s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k));
                        v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
