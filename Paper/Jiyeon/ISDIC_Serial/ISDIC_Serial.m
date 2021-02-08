@@ -7,13 +7,13 @@ tic
 % QPSK MMSE ISDIC Serial
 
 ordering = 3; %201204 - 1: Tx ??‹š?ê½? æ¹²ê³•ì»?, 2: Channel ?ê²•æ¹²? æ¹²ê³•ì»?, 3: MMSE SINR
-Tx = 8;
-Rx = 8;
+Tx = 16;
+Rx = 16;
 result = [];
 Error_Limit = 5*10^-5;
 checkNumber = 2;            % ï§?? è¸?? åª›ìˆˆ?“£ ?ë¸? ??–Ž?ë»??ë¸? å¯ƒê»‹?”¤ï§?? å¯ƒê³—? ™?ë¸???’— ??‹½??˜„
 max_iteration = 5;
-maxP =0.99;
+maxP =1;
 ommitCounter = [];
 
 disp(maxP)
