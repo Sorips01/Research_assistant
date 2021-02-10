@@ -12,7 +12,7 @@ result = [];
 Error_Limit = 10^-4;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
-element_count = 8;
+element_count = 2;
 group_count = Tx/element_count;
 % Grouping_initial = 16;
 % Grouping_count = Tx/Grouping_initial;
@@ -79,36 +79,21 @@ for SNR = -8:4:20
                    for a= order((count+1):1:Grouping)
                         rParallel(:,:,i) = rParallel(:,:,i) + (h(:,a) * s(a));
                    end
-               
+                   
+                   D = diag(v);
                    for k= order((count+1):1:Grouping)
-                       D(:,:,k) = v .* eye(Tx);
-                       D(k,k,k) = 1;
+                       D(k,k) = 1;
                    end
-               
+                   
+                   temp = inv(h * D * conj(h.') + N * eye(Rx));
                    for k= order((count+1):1:Grouping)
-                       f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
+                       f(:,:,k) = conj(h(:,k).') * temp;
                        b(:,:,k) = real(f(:,:,k) * h(:,k));
                        p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,i) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
                        p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
                        s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k));
                        v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
                    end
-%                    for k= order((count+1):1:Grouping)
-%                         f(:,:,k) = conj(h(:,k).') * inv(h * D(:,:,k) * conj(h.') + N * eye(Rx));
-%                    end
-%                    for k= order((count+1):1:Grouping)
-%                         b(:,:,k) = real(f(:,:,k) * h(:,k));
-%                    end
-%                    for k= order((count+1):1:Grouping)
-%                        p(:,:,k) = (-1 * abs(f(:,:,k) * rParallel(:,:,i) - a_q * b(:,:,k)).^2 / (b(:,:,k) * (1 - b(:,:,k)) ) );
-%                        p(:,:,k) = exp(p(:,:,k) + (700-max(p(:,:,k))));
-%                    end
-%                    for k= order((count+1):1:Grouping)
-%                         s(k) = sum(a_q .* p(:,:,k)) / sum(p(:,:,k));
-%                    end
-%                    for k= order((count+1):1:Grouping)
-%                        v(k) = sum(abs(a_q - s(k)).^2 .* p(:,:,k)) / sum(p(:,:,k));
-%                    end
 
                Grouping = Grouping + element_count;
                count = count + element_count;
