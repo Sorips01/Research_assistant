@@ -1,6 +1,6 @@
 clear all;
 
-x=-4:4:20;
+x=-8:4:12;
 LineWidth = 1;
 lim_y = 1E-8;
 result_a = [];
@@ -29,31 +29,27 @@ h = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_8_ordering_2.mat'));
 i = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_16_ordering_2.mat'));
 serial_16 = load(fullfile(pwd, '\result\ISDIC_16x16.mat'));
 
-for z = 1:5:35
+for z = 5:5:30
     result_a = [result_a a.result(1,z)];
     result_b = [result_b b.result(1,z)];
     result_c = [result_c c.result(1,z)];
     result_d = [result_d d.result(1,z)];
     result_serial_8 = [result_serial_8 serial_8.result(1,z)];
 end
-for z = 1:5:25
+MMSE_8x8.MMSE_result8x8(:,7)=[];
+MMSE_8x8.MMSE_result16x16(:,6:8)=[];
+for z = 5:5:25
     result_serial_16 = [result_serial_16 serial_16.result(1,z)];
     result_f = [result_f f.result(1,z)];
-end
-% for z = 1:2
-%    % result_d = [result_d 0];
-%     result_serial_8 = [result_serial_8 0];
-% end
-for z = 1:5:30
     result_e = [result_e e.result(1,z)];
-    
-end
-result_e = [result_e 0 0];
-result_f = [result_f 0 0 0];
-result_serial_16 = [result_serial_16 0 0 0];
-for z = 1:5:40 
     result_g = [result_g g.result(1,z)];
     result_h = [result_h h.result(1,z)];
+end
+
+% result_e = [result_e 0 0];
+% result_f = [result_f 0 0 0];
+% result_serial_16 = [result_serial_16 0 0 0];
+for z = 5:5:25 
     result_i = [result_i i.result(1,z)];
 end
 
@@ -71,7 +67,7 @@ title('ISDIC Serial 8x8');
 
 legend({'Grouping 1','Grouping 2','Grouping 4','Grouping 8','ISDIC serial','MMSE'},'Location','southwest')
 
-x=-8:4:20;
+x=-8:4:8;
 figure(2);
 semilogy(x,result_e); hold on;
 semilogy(x,result_f); hold on;
