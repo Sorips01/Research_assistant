@@ -7,13 +7,14 @@ tic
 % QPSK MMSE ISDIC Serial
 
 ordering = 3; %201204 - 1: Tx ??‹š?ê½? æ¹²ê³•ì»?, 2: Channel ?ê²•æ¹²? æ¹²ê³•ì»?, 3: MMSE SINR
-Tx = 16;
-Rx = 16;
+Tx = 8;
+Rx = 8;
 result = [];
+cal = [];
 Error_Limit = 5*10^-5;
 checkNumber = 2;            % ï§?? è¸?? åª›ìˆˆ?“£ ?ë¸? ??–Ž?ë»??ë¸? å¯ƒê»‹?”¤ï§?? å¯ƒê³—? ™?ë¸???’— ??‹½??˜„
 max_iteration = 5;
-maxP =1;
+maxP =0.99;
 ommitCounter = [];
 
 disp(maxP)
@@ -158,19 +159,22 @@ for SNR = -2:2:20
     end
     
     error = error / (trial * 2 * Tx);
+    calculation = tx_enabled_sum_final./(trial*Tx*(1:max_iteration));
     fprintf("Tx : %d / Rx : %d / dB : %d / ", Tx, Rx, SNR);
     %     fprintf("Average Escape Iteration : %g / BER :",averageEscape);
     fprintf("\n");
     fprintf(" %g ",  error);
     fprintf("\n");
-    fprintf(" %g ",  tx_enabled_sum_final./(trial*Tx*(1:max_iteration)));
+    fprintf(" %g ", calculation);
     fprintf("\n");
     if Error_Limit > error
         break;
     end
     result = [result error];
+    cal = [cal calculation];
 end
 result.';
+cal.';
 
 %% Save Files
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
@@ -182,9 +186,9 @@ fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '_Itera
 %  cd mat_folder % ?´?”ëª?
 
 if (exist(fileName, 'file') > 0)
-    save(fileName, 'result', '-append');
+    save(fileName, 'result','cal','-append');
 else
-    save(fileName, 'result');
+    save(fileName, 'result','cal');
 end
 
 cd ..

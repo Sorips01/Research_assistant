@@ -69,37 +69,127 @@ ISDIC_Serial_result_1 = length_normalize(x, w0);
 ISDIC_Serial_result_099 = length_normalize(x, w6);
 
 %% iteration
-% f1 = figure;
-% semilogy(x,ISDIC_Serial_result_05(1,:), 'LineWidth', LineWidth);
+f1 = figure;
+semilogy(x,ISDIC_Serial_result_05(1,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_05(4,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_06(1,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_06(4,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_07(1,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_07(4,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_08(1,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_08(4,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_09(1,:), 'LineWidth', LineWidth);
+hold on;
+semilogy(x,ISDIC_Serial_result_09(4,:), 'LineWidth', LineWidth);
+hold on;
+% semilogy(x,ISDIC_Serial_result_1(1,:), 'LineWidth', LineWidth);
 % hold on;
-% semilogy(x,ISDIC_Serial_result_06(1,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_07(1,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_08(1,:), 'LineWidth', LineWidth);
-% hold on;
+
+
+ylim([lim_y 1]);
+ylabel('BER ---->');
+xlabel('SNR ---->');
+legend('maxP = 0.5 it = 1','maxP = 0.5 it = 4','maxP = 0.6 it = 1','maxP = 0.6 it = 1','maxP = 0.7 it = 1','maxP = 0.7 it = 1','maxP = 0.8 it = 1','maxP = 0.8 it = 4','maxP = 0.9 it = 1' ,'maxP = 0.9 it = 4')
+title('iteration = 1');
+
+% % f2 = figure;
+% % semilogy(x,ISDIC_Serial_result_05(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_06(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_07(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_08(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_09(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_1(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % 
+% % ylim([lim_y 1]);
+% % ylabel('BER ---->');
+% % xlabel('SNR ---->');
+% % legend('maxP = 0.5','maxP = 0.6','maxP = 0.7','maxP = 0.8','maxP = 0.9','maxP = 1')
+% % title('iteration = 4');
+% % %
+% 
+% 
+% %% Threshold  
+% % f1 = figure;
+% % semilogy(x,ISDIC_Serial_result_05(1,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_05(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% 
+% % ylim([lim_y 1]);
+% % ylabel('BER ---->');
+% % xlabel('SNR ---->');
+% % legend('iteration = 1','iteration = 4','iteration = 8')
+% % title('maxP = 0.5');
+% % 
+% % f2 = figure;
+% % semilogy(x,ISDIC_Serial_result_06(1,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_06(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % 
+% % 
+% % ylim([lim_y 1]);
+% % ylabel('BER ---->');
+% % xlabel('SNR ---->');
+% % legend('iteration = 1','iteration = 4','iteration = 8')
+% % title('maxP = 0.6');
+% % %
+% % 
+% % f3 = figure;
+% % semilogy(x,ISDIC_Serial_result_07(1,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_07(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % 
+% % ylim([lim_y 1]);
+% % ylabel('BER ---->');
+% % xlabel('SNR ---->');
+% % legend('iteration = 1','iteration = 4','iteration = 8')
+% % title('maxP = 0.7');
+% % 
+% % 
+% % f4 = figure;
+% % semilogy(x,ISDIC_Serial_result_08(1,:), 'LineWidth', LineWidth);
+% % hold on;
+% % semilogy(x,ISDIC_Serial_result_08(4,:), 'LineWidth', LineWidth);
+% % hold on;
+% % 
+% % ylim([lim_y 1]);
+% % ylabel('BER ---->');
+% % xlabel('SNR ---->');
+% % legend('iteration = 1','iteration = 4','iteration = 8');
+% % title('maxP = 0.8');
+% % %
+% % % 
+% f5 = figure;
 % semilogy(x,ISDIC_Serial_result_09(1,:), 'LineWidth', LineWidth);
 % hold on;
-% semilogy(x,ISDIC_Serial_result_1(1,:), 'LineWidth', LineWidth);
+% semilogy(x,ISDIC_Serial_result_09(4,:), 'LineWidth', LineWidth);
 % hold on;
 % 
 % 
 % ylim([lim_y 1]);
 % ylabel('BER ---->');
 % xlabel('SNR ---->');
-% legend('maxP = 0.5','maxP = 0.6','maxP = 0.7','maxP = 0.8','maxP = 0.9','maxP = 1')
-% title('iteration = 1');
-% 
-% f2 = figure;
-% semilogy(x,ISDIC_Serial_result_05(4,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_06(4,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_07(4,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_08(4,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_09(4,:), 'LineWidth', LineWidth);
+% legend('iteration = 1','iteration = 4','iteration = 8');
+% title('maxP = 0.9');
+% % 
+% f1 = figure;
+% semilogy(x,ISDIC_Serial_result_1(1,:), 'LineWidth', LineWidth);
 % hold on;
 % semilogy(x,ISDIC_Serial_result_1(4,:), 'LineWidth', LineWidth);
 % hold on;
@@ -107,98 +197,18 @@ ISDIC_Serial_result_099 = length_normalize(x, w6);
 % ylim([lim_y 1]);
 % ylabel('BER ---->');
 % xlabel('SNR ---->');
-% legend('maxP = 0.5','maxP = 0.6','maxP = 0.7','maxP = 0.8','maxP = 0.9','maxP = 1')
-% title('iteration = 4');
-% %
-
-
-%% Threshold  
+% legend('iteration = 1','iteration = 4','iteration = 8')
+% title('maxP = 1');
+% 
 % f1 = figure;
-% semilogy(x,ISDIC_Serial_result_05(1,:), 'LineWidth', LineWidth);
+% semilogy(x,ISDIC_Serial_result_099(1,:), 'LineWidth', LineWidth);
 % hold on;
-% semilogy(x,ISDIC_Serial_result_05(4,:), 'LineWidth', LineWidth);
-% hold on;
-
-% ylim([lim_y 1]);
-% ylabel('BER ---->');
-% xlabel('SNR ---->');
-% legend('iteration = 1','iteration = 4','iteration = 8')
-% title('maxP = 0.5');
-% 
-% f2 = figure;
-% semilogy(x,ISDIC_Serial_result_06(1,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_06(4,:), 'LineWidth', LineWidth);
-% hold on;
-% 
-% 
-% ylim([lim_y 1]);
-% ylabel('BER ---->');
-% xlabel('SNR ---->');
-% legend('iteration = 1','iteration = 4','iteration = 8')
-% title('maxP = 0.6');
-% %
-% 
-% f3 = figure;
-% semilogy(x,ISDIC_Serial_result_07(1,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_07(4,:), 'LineWidth', LineWidth);
+% semilogy(x,ISDIC_Serial_result_099(4,:), 'LineWidth', LineWidth);
 % hold on;
 % 
 % ylim([lim_y 1]);
 % ylabel('BER ---->');
 % xlabel('SNR ---->');
 % legend('iteration = 1','iteration = 4','iteration = 8')
-% title('maxP = 0.7');
+% title('maxP = 0.99');
 % 
-% 
-% f4 = figure;
-% semilogy(x,ISDIC_Serial_result_08(1,:), 'LineWidth', LineWidth);
-% hold on;
-% semilogy(x,ISDIC_Serial_result_08(4,:), 'LineWidth', LineWidth);
-% hold on;
-% 
-% ylim([lim_y 1]);
-% ylabel('BER ---->');
-% xlabel('SNR ---->');
-% legend('iteration = 1','iteration = 4','iteration = 8');
-% title('maxP = 0.8');
-% %
-% % 
-f5 = figure;
-semilogy(x,ISDIC_Serial_result_09(1,:), 'LineWidth', LineWidth);
-hold on;
-semilogy(x,ISDIC_Serial_result_09(4,:), 'LineWidth', LineWidth);
-hold on;
-
-
-ylim([lim_y 1]);
-ylabel('BER ---->');
-xlabel('SNR ---->');
-legend('iteration = 1','iteration = 4','iteration = 8');
-title('maxP = 0.9');
-% 
-f1 = figure;
-semilogy(x,ISDIC_Serial_result_1(1,:), 'LineWidth', LineWidth);
-hold on;
-semilogy(x,ISDIC_Serial_result_1(4,:), 'LineWidth', LineWidth);
-hold on;
-
-ylim([lim_y 1]);
-ylabel('BER ---->');
-xlabel('SNR ---->');
-legend('iteration = 1','iteration = 4','iteration = 8')
-title('maxP = 1');
-
-f1 = figure;
-semilogy(x,ISDIC_Serial_result_099(1,:), 'LineWidth', LineWidth);
-hold on;
-semilogy(x,ISDIC_Serial_result_099(4,:), 'LineWidth', LineWidth);
-hold on;
-
-ylim([lim_y 1]);
-ylabel('BER ---->');
-xlabel('SNR ---->');
-legend('iteration = 1','iteration = 4','iteration = 8')
-title('maxP = 0.99');
-
