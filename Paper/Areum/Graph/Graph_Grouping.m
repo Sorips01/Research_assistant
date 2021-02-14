@@ -19,7 +19,7 @@ a = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_1_ordering_2.mat'));
 b = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_2_ordering_2.mat'));
 c = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_4_ordering_2.mat'));
 d = load(fullfile(pwd, '\result\ISDIC_8x8_Grouping_8_ordering_2.mat'));
-serial_8 = load(fullfile(pwd, '\result\ISDIC_8x8.mat'));
+serial_8 = load(fullfile(pwd, '\result\ISDIC_8x8_ordering_2_original.mat'));
 MMSE_8x8 = load(fullfile(pwd, '\result\QPSK_new_meta_MMSE.mat'));
 
 e = load(fullfile(pwd, '\result\ISDIC_16x16_Grouping_1_ordering_2.mat'));
@@ -36,7 +36,7 @@ for z = 5:5:30
     result_d = [result_d d.result(1,z)];
     result_serial_8 = [result_serial_8 serial_8.result(1,z)];
 end
-MMSE_8x8.MMSE_result8x8(:,7)=[];
+% MMSE_8x8.MMSE_result8x8(:,7)=[];
 MMSE_8x8.MMSE_result16x16(:,6:8)=[];
 for z = 5:5:25
     result_serial_16 = [result_serial_16 serial_16.result(1,z)];
