@@ -5,15 +5,15 @@ warning('off','all');
 tic
 
 % QPSK MMSE ISDIC Serial
-ordering = 2;
+ordering = 3;
 Tx = 16;
 Rx = 16;
 result = [];
-Error_Limit = 10^-5;
+Error_Limit = 10^-4;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
 
-for SNR = -8:4:20
+for SNR = -8:4:16
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     trial = 0;
@@ -109,7 +109,7 @@ end
 % save mat file
 [~, currentFileName,~] = fileparts(mfilename('fullpath'));
    
-fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx), '.mat');
+fileName = strcat(pwd,'\result\', 'ISDIC_', string(Tx), 'x', string(Rx),'_ordering_',string(ordering),'_original.mat');
 
 
 if (exist(fileName, 'file') > 0) 
