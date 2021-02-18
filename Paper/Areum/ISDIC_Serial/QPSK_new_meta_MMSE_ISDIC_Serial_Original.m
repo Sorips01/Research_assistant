@@ -6,12 +6,13 @@ tic
 
 % QPSK MMSE ISDIC Serial
 ordering = 3;
-Tx = 16;
-Rx = 16;
+Tx = 8;
+Rx = 8;
 result = [];
 Error_Limit = 10^-4;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
+rng(1,'twister');
 
 for SNR = -8:4:16
     N = 1*10^(-0.1*SNR);
@@ -24,6 +25,7 @@ for SNR = -8:4:16
         
         % creat bit
         %% Making Symbol
+%         rng(1,'twister');
         bit = randi([0,1],Tx,2);
         
         % creat symbol
