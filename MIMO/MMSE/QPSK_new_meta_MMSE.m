@@ -9,7 +9,7 @@ result = [];
 Error_Limit = 10^-4;
 rng(1,'twister');
 
-for SNR = -8:4:12
+for SNR = -6:2:10
     N = 2*10^(-0.1*SNR);
     error = zeros(1,1);
     trial = 0;
