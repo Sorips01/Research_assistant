@@ -61,19 +61,15 @@ legend('conventional','p* = 0.5','p* = 0.7' ,'p* = 0.9');
 f2 = figure;
 semilogy(it,cal0(:,1), 'LineWidth', LineWidth);
 hold on;
+semilogy(it,cal1(:,1), 'LineWidth', LineWidth);
+hold on;
 semilogy(it,cal3(:,1), 'LineWidth', LineWidth);
 hold on;
-semilogy(it,cal3(:,2), 'LineWidth', LineWidth);
-hold on;
-semilogy(it,cal3(:,3), 'LineWidth', LineWidth);
-hold on;
-semilogy(it,cal3(:,4), 'LineWidth', LineWidth);
-hold on;
-semilogy(it,cal3(:,5), 'LineWidth', LineWidth);
+semilogy(it,cal5(:,1), 'LineWidth', LineWidth);
 hold on;
 
 
 % ylim([lim_y 1]);
 ylabel('calculation');
 xlabel('Iteration');
-legend('conventional','iteration = 1','iteration = 2','iteration = 3','iteration = 4', 'iteration = 5');
+legend('conventional','P* = 0.5','p* = 0.7','p* = 0.9');
