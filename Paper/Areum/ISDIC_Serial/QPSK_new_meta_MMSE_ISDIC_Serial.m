@@ -6,13 +6,13 @@ tic
 
 % QPSK MMSE ISDIC Serial with Grouping
 ordering = 3;
-Tx = 8;
-Rx = 8;
+Tx = 16;
+Rx = 16;
 result = [];
 Error_Limit = 10^-5;
 checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자
 max_iteration = 5;
-element_count = 4;
+element_count = 16;
 group_count = Tx/element_count;
 rng(1,'twister');
 
