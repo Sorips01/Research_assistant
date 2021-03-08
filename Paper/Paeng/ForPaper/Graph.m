@@ -87,5 +87,5 @@ hold on;
 ylim([lim_y 1]);
 ylabel('BER ---->');
 xlabel('SNR ---->');
-legend('Original 4x4','QR 4x4', 'Original 8x8','QR 8x8', 'Original 16x16','QR 16x16');
+legend('Original 4x4','QR 4x4','Original 4x8','QR 4x8', 'Original 8x8','QR 8x8', 'Original 8x16','QR 8x16', 'Original 16x16','QR 16x16');
 title('QR Algorithm');
