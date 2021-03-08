@@ -13,6 +13,7 @@ function result = ISDIC_Serial_func(Tx, Rx)
     max_iteration = 5;
 
     for SNR = 0:2:20
+        RandStream.setGlobalStream(RandStream('mt19937ar','seed',333));
         N = 1*10^(-0.1*SNR);
         error = zeros(1,max_iteration);
         trial = 0;
