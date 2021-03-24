@@ -53,7 +53,7 @@ if (level >= 1)
     
     % We append as many bits as necessary to make this a multiple of
     % nfft
-    bits = [bits, zeros(1, mod(-length(bits), nfft))]; % Optimize length of bits to 64
+    bits = [bits, zeros(1, mod(-length(bits), nfft))];
     
     % Next, we apply the turbo coder
     output = convenc(bits, Trellis);
@@ -96,7 +96,7 @@ if (level >= 4)
         symbol = output((ii-1)*nfft+1:ii*nfft);
         
         % Run an FFT on the symbol
-        output((ii-1)*nfft+1:ii*nfft) = fft(symbol);
+        output((ii-1)*nfft+1:ii*nfft) = ifft(symbol);
     end
 end
 
