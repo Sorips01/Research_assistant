@@ -12,7 +12,7 @@ function result = ISDIC_Serial_func(Tx, Rx)
     checkNumber = 2;            % 몇 번 같을 때 실행할 것인지 결정하는 숫자 // 미사용
     max_iteration = 5;
 
-    for SNR = 0:2:20
+    for SNR = -14:2:14
         RandStream.setGlobalStream(RandStream('mt19937ar','seed',333));
         N = 1*10^(-0.1*SNR);
         error = zeros(1,max_iteration);
