@@ -51,15 +51,25 @@ if (level >= 1)
     % This basically converts the message into a sequence of bits
     bits = reshape(dec2bin(double(message).', 8).', 1, [])-'0';
     
+    % dec2bin : message를 10진수에서 2진수 형식으로 바꿈, 8자리수로 지정(필요한 자리수보다 더 많이 지정하면 출력값을 0으로 채움
+    % reshape(A,sz1,...,szN) : A를 sz1x...xsxN 배열로 형태 변경
+    % reshape : 2진수 형식으로 바꾼 상태에서 전치 -> 1x(차원의 크기) 행렬 형태로 변경 ([ ]로 지정한 경우)
+    
     % We append as many bits as necessary to make this a multiple of
     % nfft
     bits = [bits, zeros(1, mod(-length(bits), nfft))];
     
+    % bits의 길이를 nfft로 나눈 나머지만큼 bits 뒤에 0을 붙임 -> 128
+    
     % Next, we apply the turbo coder
     output = convenc(bits, Trellis);
     
+    % convenc : 2진수를 컨볼루션 방식으로 encoding -> 256
+    
     % Finally, let's pre-pend the length to the message
     output = [dec2bin(len, nfft)-'0', output];
+    
+    % message길이(11)을 nfft(64) 길이로 지정하여 2진수로 바꿔서 앞에 붙임 -> 64 + 256 = 320
 end
 
 
