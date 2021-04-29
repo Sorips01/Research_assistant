@@ -1,4 +1,4 @@
- clear all;
+clear all;
 close all;
 format short e;
 warning('off','all');
@@ -7,19 +7,19 @@ tic
 % QPSK MMSE ISDIC Serial
 
 ordering = 3; %201204 - 1: Tx ??‹š?ê½? æ¹²ê³•ì»?, 2: Channel ?ê²•æ¹²? æ¹²ê³•ì»?, 3: MMSE SINR
-Tx = 8;
-Rx = 8;
+Tx = 16;
+Rx = 16;
 result = [];
 cal = [];
 Error_Limit = 5*10^-5;
 checkNumber = 2;            % ï§?? è¸?? åª›ìˆˆ?“£ ?ë¸? ??–Ž?ë»??ë¸? å¯ƒê»‹?”¤ï§?? å¯ƒê³—? ™?ë¸???’— ??‹½??˜„
 max_iteration = 5;
-maxP =1.5;
+maxP =0.9;
 ommitCounter = [];
 
 disp(maxP)
 
-for SNR = -2:2:20
+for SNR = -2:2:10
     N = 1*10^(-0.1*SNR);
     error = zeros(1,max_iteration);
     tx_enabled_sum = zeros(1,max_iteration);
@@ -28,7 +28,8 @@ for SNR = -2:2:20
     final_symbols = zeros(Tx, 5);
     
     
-    while min(error) < 500
+    %     while min(error) < 500
+    while trial<=10000
         trial= trial + 1;
         
         %% Create bit
@@ -76,13 +77,13 @@ for SNR = -2:2:20
         
         for iteration=1:max_iteration
             tx_enabled_sum(iteration) = tx_enabled_sum(iteration)+sum(txEnabled);
-%             escape = iteration;
+            %             escape = iteration;
             %             counter = counter +1;
             if(sum(txEnabled) == 0)
                 for k=iteration:max_iteration
                     final_symbols(:, k) = final_symbols(:,iteration-1);
                 end
-%                 escape = iteration;
+                %                 escape = iteration;
                 
                 break;
             else
