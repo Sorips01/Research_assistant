@@ -108,7 +108,7 @@ if (level >= 5)
     
     length(noise_pad_begin)
     
-    output = [noise_pad_begin, output, noise_pad_end];
+%     output = [noise_pad_begin, output, noise_pad_end];
     % This adds random numbers to the output.
     
     % Let's add additive white gaussian noise
