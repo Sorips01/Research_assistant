@@ -67,18 +67,6 @@ f1 = figure;
 % semilogy(x, QR_4x4, 'LineWidth', LineWidth);
 % hold on;
 
-%% iteration 5
-
-semilogy(x, Original_4x8, 'LineWidth', LineWidth);
-hold on;
-semilogy(x, QR_4x8, 'LineWidth', LineWidth);
-hold on;
-
-semilogy(x, Original_8x8, 'LineWidth', LineWidth);
-hold on;
-semilogy(x, QR_8x8, 'LineWidth', LineWidth);
-hold on;
-
 %% iteration 1
 
 semilogy(x, Original_4x8_iter_1, 'LineWidth', LineWidth);
@@ -101,10 +89,25 @@ hold on;
 % semilogy(x, QR_16x16, 'LineWidth', LineWidth);
 % hold on;
 
+
+%% iteration 5
+
+semilogy(x, Original_4x8, 'LineWidth', LineWidth);
+hold on;
+semilogy(x, QR_4x8, 'LineWidth', LineWidth);
+hold on;
+
+semilogy(x, Original_8x8, 'LineWidth', LineWidth);
+hold on;
+semilogy(x, QR_8x8, 'LineWidth', LineWidth);
+hold on;
+
+
+
 xlim([-14 10]);
 ylim([lim_y 1]);
 ylabel('Average BER');
 xlabel('SNR');
 % legend('Original 4x4','QR 4x4','Original 4x8','QR 4x8', 'Original 8x8','QR 8x8', 'Original 8x16','QR 8x16', 'Original 16x16','QR 16x16');
-legend('Original 4x8','Proposed 4x8', 'Original 8x8','Proposed 8x8', 'Original 4x8 iter:1','Proposed 4x8 iter:1', 'Original 8x8 iter:1','Proposed 8x8 iter:1');
+legend('Original 4x8 Iter:1','Proposed 4x8 Iter:1', 'Original 8x8 Iter:1','Proposed 8x8 Iter:1', 'Original 4x8 Iter:5','Proposed 4x8 Iter:5', 'Original 8x8 Iter:5','Proposed 8x8 Iter:5');
 title('QR Algorithm');
