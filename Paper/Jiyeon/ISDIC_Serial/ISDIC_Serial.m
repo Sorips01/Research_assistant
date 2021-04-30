@@ -14,7 +14,7 @@ cal = [];
 Error_Limit = 5*10^-5;
 checkNumber = 2;            % ï§?? è¸?? åª›ìˆˆ?“£ ?ë¸? ??–Ž?ë»??ë¸? å¯ƒê»‹?”¤ï§?? å¯ƒê³—? ™?ë¸???’— ??‹½??˜„
 max_iteration = 5;
-maxP =0.9;
+maxP =0.5;
 ommitCounter = [];
 
 disp(maxP)
@@ -28,8 +28,8 @@ for SNR = -2:2:10
     final_symbols = zeros(Tx, 5);
     
     
-    %     while min(error) < 500
-    while trial<=10000
+        while min(error) < 500
+%     while trial<=10000
         trial= trial + 1;
         
         %% Create bit
