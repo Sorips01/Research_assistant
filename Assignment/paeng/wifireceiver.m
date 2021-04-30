@@ -1,19 +1,34 @@
-function [message,length, start] = wifireceiver(txsignal,level)
+function [message,len, start] = wifireceiver(txsignal,level)
     
     %% Some Constants
     Trellis = poly2trellis(7,[133 171]);
 
     nfft = 64;
-    lenMessage = bi2de(txsignal(1:nfft), 'left-msb');
+    
     
     tbdepth = 34;
-
+    decodeSignal = txsignal;
+    %% decode Level 3
+    preamble = decodeSignal(1:64);
+    decodeSignal = decodeSignal(65:end);
+    decodeSignal = decodeSignal > 0;
+    
+    %% decode Level 2
+    nsym = length(decodeSignal)/nfft;
+    
+    for ii = 1:nsym
+        decodeSymbol = decodeSignal(((ii-1)*nfft)+1:ii*nfft);
+        decodeSignal(((ii-1)*nfft)+1:ii*nfft) = reshape(reshape(decodeSymbol, [], 4).', 1, []);
+    end
+    
     %% decode Level 1
     % eliminate pre-pend
-    txsignal = txsignal(nfft + 1:end);
+    lenMessage = bi2de(decodeSignal(1:nfft), 'left-msb');
+    
+    decodeSignal = decodeSignal(nfft + 1:end);
     
     % we apply the turbod decoder
-    decodeSignal = vitdec(txsignal, Trellis, tbdepth, 'trunc','hard');
+    decodeSignal = vitdec(decodeSignal, Trellis, tbdepth, 'trunc','hard');
     
     % we eliminate multifple of nfft
     decodeSignal = decodeSignal(1:end - mod(-(lenMessage * 8), nfft));
@@ -25,7 +40,7 @@ function [message,length, start] = wifireceiver(txsignal,level)
     decodeOutput = char(bin2dec(num2str(decodeSignal))).';
     
     message = decodeOutput;
-    length = lenMessage;
+    len = lenMessage;
     start = 0;
 end
 
