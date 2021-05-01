@@ -6,9 +6,12 @@ tbdepth = 34;
 invInterleave = reshape(reshape([1:nfft], [], 4).', 1, []);
 
 %% level #5
+if(level>=5)
+    rSignal = awgn(rSignal,0);
+    
 
-
-
+% 384개의 지멋대로임 ,,,, 복소수로 끝나게
+end
 %% level #4
 if(level>=4)
     nsym = length(rSignal)/nfft;
@@ -22,7 +25,8 @@ end
 %% level #3
 if(level>=3)
     rSignal(1:nfft) = [];
-    rSignal = rSignal>0;
+    rSymbol = pskdemod(rSignal,2,0,'bin');
+
 end
 %% level #2
 if(level>=2)
