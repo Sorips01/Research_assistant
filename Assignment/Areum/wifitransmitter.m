@@ -54,6 +54,7 @@ if (level >= 1)
     % dec2bin : message를 10진수에서 2진수 형식으로 바꿈, 8자리수로 지정(필요한 자리수보다 더 많이 지정하면 출력값을 0으로 채움
     % reshape(A,sz1,...,szN) : A를 sz1x...xsxN 배열로 형태 변경
     % reshape : 2진수 형식으로 바꾼 상태에서 전치 -> 1x(차원의 크기) 행렬 형태로 변경 ([ ]로 지정한 경우)
+    % 11x8 = 88
     
     % We append as many bits as necessary to make this a multiple of
     % nfft
