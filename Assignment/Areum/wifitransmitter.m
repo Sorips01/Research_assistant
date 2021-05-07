@@ -79,11 +79,13 @@ if (level >= 2)
     % Number of symbols in message
     nsym = length(output)/nfft;
     
+    % 64개씩 Interleave에 맞춰서 output을 섞음
     for ii = 1:nsym
         % Collect the iith symbol
         symbol = output((ii-1)*nfft+1:ii*nfft);
         
         % Interleave the symbol
+        % Interleave는 k번째 자리를 말함 (symbol의 3번째 원소가 output으로 감)
         output((ii-1)*nfft+1:ii*nfft) = symbol(Interleave);
     end
 end
