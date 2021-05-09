@@ -9,8 +9,8 @@ invInterleave = reshape(reshape([1:nfft], [], 4).', 1, []);
 if(level>=5)
     rSignal = awgn(rSignal,0);
     
-
-% 384개의 지멋대로임 ,,,, 복소수로 끝나게
+    
+    % 384개의 지멋대로임 ,,,, 복소수로 끝나게
 end
 %% level #4
 if(level>=4)
@@ -25,8 +25,16 @@ end
 %% level #3
 if(level>=3)
     rSignal(1:nfft) = [];
-    rSymbol = pskdemod(rSignal,2,0,'bin');
-
+        rSignal = pskdemod(rSignal,2);
+%     rSignal = rSignal>0;
+        for ii = 1:(length(rSignal))
+            if(rSignal(ii)>0)
+                rSignal(ii) = 0;
+            else
+               rSignal(ii) = 1;
+            end
+        end
+    
 end
 %% level #2
 if(level>=2)
@@ -48,8 +56,9 @@ if(level>=1)
     
     rOutput = char(bin2dec(num2str(rSignal))).';
     
-    message = rOutput;
-    len = lenMessage;
-    start = 0;
+    
 end
+message = rOutput;
+len = lenMessage;
+start = 0;
 end
