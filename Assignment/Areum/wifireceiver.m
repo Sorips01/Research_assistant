@@ -4,7 +4,10 @@ function [message, Length, start] = wifireceiver(txsignal, level)
     tbdepth = 64;
     Trellis = poly2trellis(7,[133 171]);
     Interleave = reshape(reshape([1:nfft], 4, []).', [], 1);
-
+%% decode Level 5
+if(level >= 5)
+    
+end
 %% decode Level 4
 if(level >= 4)
     % Number of symbols in message

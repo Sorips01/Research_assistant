@@ -127,6 +127,7 @@ if (level >= 5)
     % This adds random numbers to the output.
     
     % Let's add additive white gaussian noise
+    % awgn : Add white Gaussian noise to signal
     output = awgn(output, snr);
 end
 
