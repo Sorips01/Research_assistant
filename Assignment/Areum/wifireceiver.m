@@ -1,11 +1,31 @@
 function [message, Length, start] = wifireceiver(txsignal, level)
-
-    %% Some constatns
+%% Some constatns
     nfft = 64;
     tbdepth = 64;
     Trellis = poly2trellis(7,[133 171]);
     Interleave = reshape(reshape([1:nfft], 4, []).', [], 1);
+
+%% decode Level 4
+if(level >= 4)
+    % Number of symbols in message
+    nsym = length(txsignal)/nfft;
     
+    for ii = 1:nsym
+        % Collect the iith symbol
+        symbol = txsignal((ii-1)*nfft+1:ii*nfft);
+        
+        % Run an FFT on the symbol
+        txsignal((ii-1)*nfft+1:ii*nfft) = fft(symbol);
+    end
+end
+%% decode Level 3
+if(level >= 3)
+    % Remove a preamble
+    txsignal = txsignal(65:end);
+    
+    % Demodulation
+    txsignal = txsignal > 0;
+end
 %% decode Level 2
 if(level >= 2)
     % Number of symbols in message

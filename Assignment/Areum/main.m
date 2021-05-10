@@ -1,4 +1,4 @@
-txsignal = wifitransmitter('hello world',2);
-[message, ~] = wifireceiver(txsignal,2);
+txsignal = wifitransmitter('hello world',4);
+[message, ~] = wifireceiver(txsignal,4);
 
 message

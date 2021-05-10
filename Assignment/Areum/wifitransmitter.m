@@ -96,6 +96,7 @@ if (level >= 3)
     output = 2*output-1;
     
     % Prepend a preamble
+    % output 앞에 preamble 추가 320 + 64 = 384
     output = [preamble, output];
 end
 
@@ -109,6 +110,7 @@ if (level >= 4)
         symbol = output((ii-1)*nfft+1:ii*nfft);
         
         % Run an FFT on the symbol
+        % 고속 푸리에 역변환(Inverse Fast Fourier Transform)
         output((ii-1)*nfft+1:ii*nfft) = ifft(symbol);
     end
 end
