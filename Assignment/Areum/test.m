@@ -9,16 +9,16 @@ function [message] = test(txsignal, level)
     % Number of symbols in message
 %     nsym = floor(length(txsignal)/nfft);
     distance = [];
+    preamble = ifft(preamble);
     
     for ii = 1:(length(txsignal)-64)
         % Collect the iith symbol
         symbol = txsignal(ii:ii-1+nfft);
         
         % Measure distance
-        a = sqrt((real(symbol)-preamble).^2+abs(imag(symbol)));
+        a = sqrt((real(symbol)-real(preamble)).^2+(imag(symbol)-imag(preamble)).^2);
         a = sum(a)/64;
         distance = [distance a];
     end
-%     b=distance;
-%     [i,j]=find(b==min(distance))
+    [~,j]=find(distance==min(distance))
 end

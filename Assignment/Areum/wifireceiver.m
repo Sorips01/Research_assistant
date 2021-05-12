@@ -4,9 +4,25 @@ function [message, Length, start] = wifireceiver(txsignal, level)
     tbdepth = 64;
     Trellis = poly2trellis(7,[133 171]);
     Interleave = reshape(reshape([1:nfft], 4, []).', [], 1);
+    preamble = [1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1, 1, 1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1, 1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1,-1,-1,-1,-1,-1, 1, 1,-1, -1, 1,-1, 1,-1, 1, 1, 1, 1,-1,-1, -1,-1,-1, 1, 1,-1, -1, 1];
 %% decode Level 5
 if(level >= 5)
+    distance = [];
+    preamble = ifft(preamble);
     
+    for ii = 1:(length(txsignal)-64)
+        % Collect the iith symbol
+        symbol = txsignal(ii:ii-1+nfft);
+        
+        % Measure distance
+        a = sqrt((real(symbol)-real(preamble)).^2+(imag(symbol)-imag(preamble)).^2);
+        a = sum(a)/64;
+        distance = [distance a];
+    end
+    
+    % find location of preamble
+    [~,preamble_start]=find(distance==min(distance));
+    txsignal = txsignal(preamble_start:end);
 end
 %% decode Level 4
 if(level >= 4)
@@ -24,7 +40,7 @@ end
 %% decode Level 3
 if(level >= 3)
     % Remove a preamble
-    txsignal = txsignal(65:end);
+    txsignal = txsignal(65:384);
     
     % Demodulation
     txsignal = txsignal > 0;
@@ -62,7 +78,7 @@ if(level >=1)
     % Finally, we convert the message to char
     rxsignal = char(bin2dec(num2str(rxsignal))).';
     
-    start = 0;
+    start = preamble_start - 1;
     Length = len;
     message = rxsignal;
 end

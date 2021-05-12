@@ -1,4 +1,2 @@
 txsignal = wifitransmitter('hello world',5, 30);
-[message] = test(txsignal,5);
-
-message
+[message, length, start] = wifireceiver(txsignal,5)
