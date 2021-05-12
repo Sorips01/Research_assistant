@@ -4,13 +4,32 @@ nfft = 64;
 Trellis = poly2trellis(7,[133 171]);
 tbdepth = 34;
 invInterleave = reshape(reshape([1:nfft], [], 4).', 1, []);
+preamble = [1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1, 1, 1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1, 1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1,-1,-1,-1,-1,-1, 1, 1,-1, -1, 1,-1, 1,-1, 1, 1, 1, 1,-1,-1, -1,-1,-1, 1, 1,-1, -1, 1];
 
 %% level #5
 if(level>=5)
-    rSignal = awgn(rSignal,0);
+    %preamble이랑 거리구하기
+    %     distance = 0;
+    ifftPreamble = ifft(preamble);
     
+    iithDistance = zeros(1,nfft);
     
-    % 384개의 지멋대로임 ,,,, 복소수로 끝나게
+    for jj = 1:(length(rSignal)-64)
+        
+        storeDistance =[];
+        
+        comprSignal = zeros(1,nfft);
+        comprSignal = rSignal(jj:jj+nfft-1);
+        
+        distance = sqrt((real(comprSignal) - real(ifftPreamble)).^2 + (imag(comprSignal)-imag(ifftPreamble)).^2);
+        storeDistance = [storeDistance, distance];
+        
+        iithDistance(jj) = sum(storeDistance)/length(storeDistance);
+        
+    end
+    [~,index] = min(iithDistance);
+    
+    rSignal = rSignal(index:index+383);
 end
 %% level #4
 if(level>=4)
@@ -25,15 +44,15 @@ end
 %% level #3
 if(level>=3)
     rSignal(1:nfft) = [];
-        rSignal = pskdemod(rSignal,2);
-%     rSignal = rSignal>0;
-        for ii = 1:(length(rSignal))
-            if(rSignal(ii)>0)
-                rSignal(ii) = 0;
-            else
-               rSignal(ii) = 1;
-            end
+    rSignal = pskdemod(rSignal,2);
+    %     rSignal = rSignal>0;
+    for ii = 1:(length(rSignal))
+        if(rSignal(ii)>0)
+            rSignal(ii) = 0;
+        else
+            rSignal(ii) = 1;
         end
+    end
     
 end
 %% level #2
