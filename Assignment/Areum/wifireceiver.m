@@ -40,7 +40,7 @@ end
 %% decode Level 3
 if(level >= 3)
     % Remove a preamble
-    txsignal = txsignal(65:384);
+    txsignal = txsignal(65:end);
     
     % Demodulation
     txsignal = txsignal > 0;
@@ -63,8 +63,11 @@ end
 if(level >=1)
     len = bi2de(rxsignal(1:nfft), 'left-msb');
     
+    % Find end of length 
+    length_end = (floor((len*8)/nfft)+1)*64*2+64;
+    
     % Remove pre-pend the length to the message
-    rxsignal = rxsignal(nfft+1:end);
+    rxsignal = rxsignal(nfft+1:length_end);
     
     % Reversal process of turbo coder
     rxsignal = vitdec(rxsignal, Trellis, tbdepth, 'term','hard');
@@ -78,7 +81,12 @@ if(level >=1)
     % Finally, we convert the message to char
     rxsignal = char(bin2dec(num2str(rxsignal))).';
     
-    start = preamble_start - 1;
+    if(level == 5) 
+        start = preamble_start - 1;
+    else
+        start = 0;
+    end
+    
     Length = len;
     message = rxsignal;
 end

@@ -57,20 +57,21 @@ if (level >= 1)
     % 11x8 = 88
     
     % We append as many bits as necessary to make this a multiple of
-    % nfft
+    % nfft 5x8=40
     bits = [bits, zeros(1, mod(-length(bits), nfft))];
     
-    % bits의 길이를 nfft로 나눈 나머지만큼 bits 뒤에 0을 붙임 -> 128
+    % bits의 길이를 nfft로 나눈 나머지만큼 bits 뒤에 0을 붙임 -> 128 / 64
     
     % Next, we apply the turbo coder
     output = convenc(bits, Trellis);
     
-    % convenc : 2진수를 컨볼루션 방식으로 encoding -> 256
+    % convenc : 2진수를 컨볼루션 방식으로 encoding -> 256 / 128
     
     % Finally, let's pre-pend the length to the message
     output = [dec2bin(len, nfft)-'0', output];
     
-    % message길이(11)을 nfft(64) 길이로 지정하여 2진수로 바꿔서 앞에 붙임 -> 64 + 256 = 320
+    % message길이(11)을 nfft(64) 길이로 지정하여 2진수로 바꿔서 앞에 붙임 -> 64 + 256 = 320 /
+    % 192
 end
 
 
