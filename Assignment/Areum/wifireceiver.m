@@ -58,28 +58,30 @@ if(level >= 2)
         symbol(Interleave) = symbol(1:64);
         rxsignal((ii-1)*nfft+1:ii*nfft) = symbol;
     end
+    
+    txsignal = rxsignal;
 end
 %% decode Level 1
 if(level >=1)
-    len = bi2de(rxsignal(1:nfft), 'left-msb');
+    len = bi2de(txsignal(1:nfft), 'left-msb');
     
     % Find end of length 
     length_end = (floor((len*8)/nfft)+1)*64*2+64;
     
     % Remove pre-pend the length to the message
-    rxsignal = rxsignal(nfft+1:length_end);
+    txsignal = txsignal(nfft+1:length_end);
     
     % Reversal process of turbo coder
-    rxsignal = vitdec(rxsignal, Trellis, tbdepth, 'term','hard');
+    txsignal = vitdec(txsignal, Trellis, tbdepth, 'term','hard');
     
     % Remove a multiple of nfft
-    rxsignal = rxsignal(1:end - mod(-(len * 8),nfft));
+    txsignal = txsignal(1:end - mod(-(len * 8),nfft));
     
     % Next, we reshape message
-    rxsignal = reshape(rxsignal',[8, len]).';
+    txsignal = reshape(txsignal',[8, len]).';
     
     % Finally, we convert the message to char
-    rxsignal = char(bin2dec(num2str(rxsignal))).';
+    txsignal = char(bin2dec(num2str(txsignal))).';
     
     if(level == 5) 
         start = preamble_start - 1;
@@ -88,6 +90,6 @@ if(level >=1)
     end
     
     Length = len;
-    message = rxsignal;
+    message = txsignal;
 end
 end
