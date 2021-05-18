@@ -1,11 +1,32 @@
 function [message, len, start] = wifireceiver(txsignal,level)
+    %% Setting
+    if (nargin < 2)
+        level = 5;
+    end
     
+    if(level > 5 || level < 1)
+        fprintf(2, 'Error: Invalid level \n');
+        message=[];
+        len = 0;
+        start = 0;
+        return;
+    end
+
     %% Some Constants
+    
+    % This is the Encoder/decoder trellis used by WiFi's turbo encoder
     Trellis = poly2trellis(7,[133 171]);
+
+    % We will split the data into a cluster of nfft bits
     nfft = 64;
+
+    % Every WiFi packet will start with this exact preamble
     preamble = [1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1, 1, 1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1, 1, 1, 1, 1,-1,-1, 1, 1,-1, 1,-1, 1,-1,-1,-1,-1,-1, 1, 1,-1, -1, 1,-1, 1,-1, 1, 1, 1, 1,-1,-1, -1,-1,-1, 1, 1,-1, -1, 1];
-    tbdepth = 64;
+
+    % Every 64 bits are mixed up like below:
     Interleave = reshape(reshape([1:nfft], 4, []).', [], 1);
+
+    %% decode start
     decodeSignal = txsignal;
 
     %% decode Level 5
@@ -21,7 +42,7 @@ function [message, len, start] = wifireceiver(txsignal,level)
         
         % find location of preamble
         [~, preambleStartIndex] = min(distanceList);
-        txsignal = txsignal(preambleStartIndex:end);
+        decodeSignal = decodeSignal(preambleStartIndex:end);
     end
     
     %% decode Level 4
@@ -37,8 +58,9 @@ function [message, len, start] = wifireceiver(txsignal,level)
     
     %% decode Level 3
     if (level >= 3)
-        preamble = decodeSignal(1:64);
-        decodeSignal = decodeSignal(65:end);    % remove preamble
+        preambleLength = length(preamble);
+        preamble = decodeSignal(1:preambleLength);
+        decodeSignal = decodeSignal(preambleLength + 1:end);    % remove preamble
         decodeSignal = decodeSignal > 0;        % demodulation BPSK
     end
 
@@ -49,7 +71,7 @@ function [message, len, start] = wifireceiver(txsignal,level)
         for ii = 1:nsym
             decodeSymbol = decodeSignal(((ii-1)*nfft)+1:ii*nfft);
             % decodeSignal(((ii-1)*nfft)+1:ii*nfft) = reshape(reshape(decodeSymbol, [], 4).', 1, []);
-            decodeSymbol(Interleave) = decodeSymbol(1:64);
+            decodeSymbol(Interleave) = decodeSymbol;
             decodeSignal(((ii-1)*nfft)+1:ii*nfft) = decodeSymbol;
         end
     end
@@ -64,6 +86,7 @@ function [message, len, start] = wifireceiver(txsignal,level)
         decodeSignal = decodeSignal(nfft + 1:length_end);
         
         % we apply the turbod decoder
+        tbdepth = 64;
         decodeSignal = vitdec(decodeSignal, Trellis, tbdepth, 'trunc','hard');
         
         % we eliminate multifple of nfft
@@ -81,9 +104,17 @@ function [message, len, start] = wifireceiver(txsignal,level)
     len = lenMessage;
 
     if (level >= 5)
-        strat = preambleStart - 1;
+        start = preambleStartIndex - 1;
     else
         start = 0;
+    end
+
+    if (level < 5)
+        fprintf('%s', message);
+    elseif (level == 5)
+        fprintf("message = '%s' \n", message);
+        fprintf('length = %d \n', len);
+        fprintf('start = %d \n', start);
     end
 end
 
