@@ -5,6 +5,12 @@
 
 y=uint8(zeros(size(x)));
 
-y = FIR_LPF_Filtering(x);
-% y = reshape(y,[121,3]);
-imwrite(y,map,'lena.jpg')
+[y,order] = FIR_LPF_Filtering(x,y);
+[z,b] = FIR_HPF_Filtering(x,y);
+
+%% save files 
+fileNameLPF = strcat('lena',string(order),'_LPF.jpg'); 
+imwrite(y,map,fileNameLPF);
+
+fileNameHPF = strcat('lena',string(b),'_HPF.jpg'); 
+imwrite(z,map,fileNameHPF);

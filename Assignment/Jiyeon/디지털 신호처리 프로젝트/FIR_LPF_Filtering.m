@@ -1,26 +1,22 @@
 %% 201715081 kijiyeon [FIR LPF Filtering]
 
-function result = FIR_LPF_Filtering(x)
+function [result, filterOrder] = FIR_LPF_Filtering(x,y)
 
 %% moving average filter
-order = 7;
+order = 9;
 y_n = zeros(size(x));
+[row,col] = size(x);
 
-for r= 1:length(x) % = 256
-    
-    for c = 1:length(x) % = 256
-        sumY = 0;
-        for i = 0:order-1
-            sumY = sumY+x(r+i);
+for i= 1:col 
+    inputX = [zeros(1,order-1),x(i,:)];
+    for j = 1:row 
+        for k = 1:order
+            y(i,j) = y(i,j)+inputX(j+k-1);
         end
-        
-        y_n(r,c) = (1/order)*sumY;
+        y_n(i,j)= (1/order)*y(i,j);
     end
-    
-    
+ 
 end
-%% delay operator
-
-
 result = y_n;
+filterOrder = order;
 end
