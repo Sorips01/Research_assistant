@@ -81,9 +81,9 @@ function [message, len, start] = wifireceiver(txsignal,level)
         % eliminate pre-pend
         lenMessage = bi2de(decodeSignal(1:nfft), 'left-msb');
         
-        length_end = (floor((lenMessage*8)/nfft)+1)*64*2+64;
+        lengthEnd = nfft * (2 * (floor((lenMessage*8)/nfft)+1) + 1);
 
-        decodeSignal = decodeSignal(nfft + 1:length_end);
+        decodeSignal = decodeSignal(nfft + 1:lengthEnd);
         
         % we apply the turbod decoder
         tbdepth = 64;
