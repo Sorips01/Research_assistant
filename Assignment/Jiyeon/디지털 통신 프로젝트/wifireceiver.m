@@ -29,7 +29,7 @@ if(level>=5)
     end
     [~,index] = min(iithDistance);
     
-    rSignal = rSignal(index:index+383);
+    rSignal = rSignal(index:end);
 end
 %% level #4
 if(level>=4)
@@ -67,8 +67,9 @@ end
 %% level #1
 if(level>=1)
     lenMessage = bi2de(rSignal(1:nfft),'left-msb');
+    length_end = (floor((lenMessage*8)/nfft)+1)*64*2+64;
     
-    rSignal = rSignal(nfft + 1:end);
+    rSignal = rSignal(nfft + 1:length_end);
     rSignal = vitdec(rSignal, Trellis, tbdepth, 'trunc','hard');
     rSignal = rSignal(1:end - mod(-(lenMessage * 8), nfft));
     rSignal = reshape(rSignal',[8, lenMessage]).';
@@ -76,7 +77,15 @@ if(level>=1)
     rOutput = char(bin2dec(num2str(rSignal))).';
     
     
+    
 end
+
+if(level>=5)
+    fprintf("message = %s \n",rOutput);
+    fprintf("length= %d \n", length(rOutput));
+    fprintf("start = %d \n",index);
+end
+
 message = rOutput;
 len = lenMessage;
 start = 0;
