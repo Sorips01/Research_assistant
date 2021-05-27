@@ -2,13 +2,18 @@
 y = uint8(zeros(size(x)));
 
 [Rows,Cols] = size(x);
-M = 2;
+M = 4;
 
 for i = 1:Rows
-    z = [x(i,:), zeros(1,M-1)];
     for j = 1:Cols
-        for k = 1:M
-            y(i,j) = y(i,j) + z(1,j+k-1);
+        if (j <= M-1)
+            for k = 1:M-1
+                y(i,j) = y(i,j)+x(i,k);
+            end
+        else
+            for k = 0:M-1
+                y(i,j) = y(i,j)+x(i,j-k);
+            end
         end
         y(i,j) = y(i,j)/M;
     end
