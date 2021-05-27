@@ -3,7 +3,7 @@ y = uint8(zeros(size(x)));
 
 [Rows,Cols] = size(x);
 z = [];
-b = 70;
+b = 2;
 
 for i = 1:Rows
     z(i,:) = [zeros(1,1), x(i,:), zeros(1,1)];
@@ -20,5 +20,5 @@ for i = 2:Rows
     end
 end
 
-fileName = strcat('HPF_',string(b),'.jpg');
+fileName = strcat('HPF_no_',string(b),'.jpg');
 imwrite(k,map,fileName);
