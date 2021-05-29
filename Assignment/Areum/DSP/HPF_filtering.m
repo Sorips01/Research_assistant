@@ -3,7 +3,7 @@ y = uint8(zeros(size(x)));
 
 [Rows,Cols] = size(x);
 z = [];
-b = 2;
+b = 50;
 
 for i = 1:Rows
     z(i,:) = [zeros(1,1), x(i,:), zeros(1,1)];
@@ -16,9 +16,9 @@ for i = 2:Rows
         y(i,j) = 3*z(i,j)-(z(i+1,j) + z(i-1,j) + z(i,j+1) + z(i,j-1)) + ...
         0.25 * (z(i+1,j+1) + z(i+1,j-1) + z(i-1,j+1) + z(i-1, j-1));
         
-        k(i,j) = x(i,j) + b * y(i,j);
+        k(i-1,j-1) = x(i,j) + b * y(i,j);
     end
 end
 
-fileName = strcat('HPF_no_',string(b),'.jpg');
+fileName = strcat('HPF_',string(b),'.jpg');
 imwrite(k,map,fileName);
