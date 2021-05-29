@@ -3,7 +3,7 @@
 function [result, filterOrder] = FIR_LPF_Filtering(x,y)
 
 %% moving average filter
-order = 5;
+order = 0;
 y_n = zeros(size(x));
 [row,col] = size(x);
 
@@ -19,4 +19,6 @@ for i= 1:col
 end
 result = y_n;
 filterOrder = order;
+
+
 end
