@@ -1,25 +1,24 @@
-%% 201715081 kijiyeon [FIR HPF Filtering]
 
-function [result, filterOrder] = FIR_HPF_Filtering(x,y)
+function [result, order] = FIR_HPF_Filtering(x,y)
 
-[row col] = size(x);
-b = 150;
+[row,col] = size(x);
+k = [];
+b = 50;
 
 for i = 1:row
-    padding_x(i,:) = [0 x(i,:) 0];
+    k(i,:) = [zeros(1,1), x(i,:), zeros(1,1)];
 end
 
-x = padding_x;
-x = [zeros(1,258); x ; zeros(1,258)];
+k = [zeros(1,258); k ; zeros(1,258)];
 
-for m = 2:col
-    for n = 2:row
+for m = 2:row
+    for n = 2:col
+        y(m,n) = 3*k(m,n)-(k(m+1,n) + k(m-1,n) + k(m,n+1) + k(m,n-1)) +0.25 * (k(m+1,n+1) + k(m+1,n-1) + k(m-1,n+1) + k(m-1, n-1));
         
-        y(m,n) = 3*(x(m,n))-(x(m+1,n) + x(m-1,n)+x(m,n+1)+x(m,n-1))+0.25*(x(m+1,n+1)+x(m+1,n-1)+x(m-1,n+1)+x(m-1,n-1));
-        z(m,n) = x(m,n)+b*y(m,n);
+        z(m-1,n-1) = x(m,n) + b * y(m,n);
     end
 end
-
 result = z;
-filterOrder = b;
+order = b;
+
 end
