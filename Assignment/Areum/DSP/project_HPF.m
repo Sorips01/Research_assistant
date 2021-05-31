@@ -23,7 +23,3 @@ k = x + b * y;
 
 fileName = strcat('HPF_',string(b),'.jpg');
 imwrite(k,map,fileName);
-
-graph_x = 1:1:256;
-graph_x2 = 1:1:256;
-plot(graph_x,original(30,:),graph_x2,k(30,:))
