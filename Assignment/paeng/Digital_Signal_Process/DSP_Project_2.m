@@ -4,7 +4,7 @@ clear all;
 [x, map] = imread('Lena.png');
 origin = x;
 y = uint8(zeros(size(x)));
-b = 10;
+b = 2;
 [xRow, xCol] = size(x);
 
 n = xRow;
@@ -29,40 +29,39 @@ gz = reshape(z, 1,[]);  % Graph z
 fileName = strcat('HPF/LenaOutuput_',string(b),'_HPF.jpg');
 % imwrite(z, map, fileName);
 
-matFileName_gx = strcat(pwd,'\data\', string(point), '_point_gx.mat');
-matFileName_gz = strcat(pwd,'\data\', string(point), '_point_gz.mat');
-save(matFileName_gx, 'gx');
-save(matFileName_gz, 'gz');
+matFileName_gx = strcat(pwd,'\data\','b_is_' ,string(b), '_gx.mat');
+matFileName_gz = strcat(pwd,'\data\','b_is_' ,string(b), '_gz.mat');
+% save(matFileName_gx, 'gx');
+% save(matFileName_gz, 'gz');
 
-%% Origin & 3-Point Graph
-% load(fullfile(pwd, '\data\3_point_gx.mat'));
-% load(fullfile(pwd, '\data\3_point_gz.mat'));
+%% Origin & b=2 Graph
+% load(fullfile(pwd, '\data\b_is_2_gx.mat'));
+% load(fullfile(pwd, '\data\b_is_2_gz.mat'));
 % subplot(2,1,1);
-% plot(1:length(gx), gx, 1:length(gy), gy);
+% plot(1:length(gx), gx, 1:length(gz), gz);
 % xlim([0 inf]);
-% legend('Origin', '3-Point');
+% legend('Origin', 'b = 2');
 
 % subplot(2,1,2);
 % fx = fftshift(fft(gx));
-% fy = fftshift(fft(gy));
+% fz = fftshift(fft(gz));
 % f = -(length(gx))/2:(length(gx)/2)-1;
-% plot(f,abs(fx), f, abs(fy));
+% plot(f,abs(fx), f, abs(fz));
 % xlim([-inf inf]);
-% legend('Origin', '3-Point');
+% legend('Origin', 'b = 2');
 
-%% Origin & 7-Point Graph
-% load(fullfile(pwd, '\data\7_point_gx.mat'));
-% load(fullfile(pwd, '\data\7_point_gy.mat'));
-% 
+%% Origin & b=7 Graph
+load(fullfile(pwd, '\data\b_is_7_gx.mat'));
+load(fullfile(pwd, '\data\b_is_7_gz.mat'));
 % subplot(2,1,1);
-% plot(1:length(gx), gx, 1:length(gy), gy);
+% plot(1:length(gx), gx, 1:length(gz), gz);
 % xlim([0 inf]);
-% legend('Origin', '7-Point');
-% 
+% legend('Origin', 'b = 7');
+
 % subplot(2,1,2);
-% fx = fftshift(fft(gx));
-% fy = fftshift(fft(gy));
-% f = -(length(gx))/2:(length(gx)/2)-1;
-% plot(f,abs(fx), f, abs(fy));
-% xlim([-inf inf]);
-% legend('Origin', '7-Point');
+fx = fftshift(fft(gx));
+fz = fftshift(fft(gz));
+f = -(length(gx))/2:(length(gx)/2)-1;
+plot(f,abs(fx), f, abs(fz));
+xlim([-inf inf]);
+legend('Origin', 'b = 7');

@@ -8,7 +8,7 @@ y = uint8(zeros(size(x)));
 n = xRow;
 t = 1:n;
 
-point = 7;
+point = 3;
 
 %% Zero Padding
 for ii =1:xRow
@@ -25,7 +25,7 @@ gx = reshape(x, 1,[]);  % Graph X
 gy = reshape(y, 1,[]);  % Graph y
 %% file save
 fileName = strcat('LPF/LenaOutuput_',string(point),'_point_LPF.jpg');
-imwrite(y, map, fileName);
+% imwrite(y, map, fileName);
 
 % matFileName_gx = strcat(pwd,'\data\', string(point), '_point_gx.mat');
 % matFileName_gy = strcat(pwd,'\data\', string(point), '_point_gy.mat');
