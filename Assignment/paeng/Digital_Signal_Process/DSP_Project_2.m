@@ -1,3 +1,4 @@
+% DSP_Project_2
 clear all;
 
 %% init
@@ -27,10 +28,10 @@ gx = reshape(origin, 1,[]);  % Graph X
 gz = reshape(z, 1,[]);  % Graph z
 %% file save
 fileName = strcat('HPF/LenaOutuput_',string(b),'_HPF.jpg');
-% imwrite(z, map, fileName);
+imwrite(z, map, fileName);
 
-matFileName_gx = strcat(pwd,'\data\','b_is_' ,string(b), '_gx.mat');
-matFileName_gz = strcat(pwd,'\data\','b_is_' ,string(b), '_gz.mat');
+% matFileName_gx = strcat(pwd,'\data\','b_is_' ,string(b), '_gx.mat');
+% matFileName_gz = strcat(pwd,'\data\','b_is_' ,string(b), '_gz.mat');
 % save(matFileName_gx, 'gx');
 % save(matFileName_gz, 'gz');
 
@@ -51,17 +52,17 @@ matFileName_gz = strcat(pwd,'\data\','b_is_' ,string(b), '_gz.mat');
 % legend('Origin', 'b = 2');
 
 %% Origin & b=7 Graph
-load(fullfile(pwd, '\data\b_is_7_gx.mat'));
-load(fullfile(pwd, '\data\b_is_7_gz.mat'));
+% load(fullfile(pwd, '\data\b_is_7_gx.mat'));
+% load(fullfile(pwd, '\data\b_is_7_gz.mat'));
 % subplot(2,1,1);
 % plot(1:length(gx), gx, 1:length(gz), gz);
 % xlim([0 inf]);
 % legend('Origin', 'b = 7');
 
 % subplot(2,1,2);
-fx = fftshift(fft(gx));
-fz = fftshift(fft(gz));
-f = -(length(gx))/2:(length(gx)/2)-1;
-plot(f,abs(fx), f, abs(fz));
-xlim([-inf inf]);
-legend('Origin', 'b = 7');
+% fx = fftshift(fft(gx));
+% fz = fftshift(fft(gz));
+% f = -(length(gx))/2:(length(gx)/2)-1;
+% plot(f,abs(fx), f, abs(fz));
+% xlim([-inf inf]);
+% legend('Origin', 'b = 7');

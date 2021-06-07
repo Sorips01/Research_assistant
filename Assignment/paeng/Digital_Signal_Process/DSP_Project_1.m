@@ -1,3 +1,4 @@
+% DSP_Project_1
 clear all;
 
 %% init
@@ -25,7 +26,7 @@ gx = reshape(x, 1,[]);  % Graph X
 gy = reshape(y, 1,[]);  % Graph y
 %% file save
 fileName = strcat('LPF/LenaOutuput_',string(point),'_point_LPF.jpg');
-% imwrite(y, map, fileName);
+imwrite(y, map, fileName);
 
 % matFileName_gx = strcat(pwd,'\data\', string(point), '_point_gx.mat');
 % matFileName_gy = strcat(pwd,'\data\', string(point), '_point_gy.mat');
