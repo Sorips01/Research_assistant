@@ -2,11 +2,11 @@ clear all;
 close all;
 
 Antenna = [
-    4, 4;
-    4, 8;
-%     8, 8;
-%     8, 16;
-%     16, 16;
+    8, 8;
+    8, 16;
+    16, 16;
+    16, 32;
+    32, 32;
     ];
 
 for i=1:1:length(Antenna)
